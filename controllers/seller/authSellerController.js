@@ -67,7 +67,10 @@ export const sellerLoginController = async (req, res) => {
     const { email, password } = req.body;
     //validations
     if (!email || !password) {
-      return res.send({ message: "invalid credentials " });
+      return res.send({
+        success: false,
+        message: "Invalid Credentials",
+      });
     }
     //check seller
     const seller = await sellerModel.findOne({ email });
