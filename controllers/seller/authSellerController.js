@@ -1,5 +1,5 @@
 import sellerModel from "../../models/seller/sellerModel.js";
-import { hashPassword , comparePassword} from "../../helpers/authHelper.js";
+import { hashPassword, comparePassword } from "../../helpers/authHelper.js";
 import jwt from "jsonwebtoken";
 
 // Register Seller
@@ -73,7 +73,10 @@ export const sellerLoginController = async (req, res) => {
     const seller = await sellerModel.findOne({ email });
     //not found
     if (!seller) {
-      return res.send({ message: "Invalid Credentials" });
+      return res.send({
+        success: false,
+        message: "Invalid Credentials",
+      });
     }
     //match password
     const isMatch = await comparePassword(password, seller.password);
