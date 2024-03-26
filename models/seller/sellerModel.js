@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const sellorSchema = mongoose.Schema({
-    type: {
+    category: {
         type: String,
         required: true,
     },
