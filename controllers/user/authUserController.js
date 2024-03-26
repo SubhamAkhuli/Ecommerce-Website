@@ -1,6 +1,7 @@
 import userModel from "../../models/user/userModel.js";
 import { hashPassword, comparePassword } from "../../helpers/authHelper.js";
 import Jwt from "jsonwebtoken";
+import typeModel from "../../models/Type/typeModel.js";
 
 // Register User
 export const userRegisterController = async (req, res) => {
@@ -23,7 +24,7 @@ export const userRegisterController = async (req, res) => {
       return res.send({ message: "Address is Required" });
     }
     //check user
-    const exisitingUser = await userModel.findOne({ email });
+    const exisitingUser = await typeModel.findOne({ email });
     //exisiting user
     if (exisitingUser) {
       return res.status(200).send({
@@ -42,10 +43,23 @@ export const userRegisterController = async (req, res) => {
       password: hashedPassword,
     }).save();
 
+
+    // Save Type
+    const type = await new typeModel({
+      email,
+      type: "user",
+    }).save();
+
     res.status(201).send({
       success: true,
       message: "User Register Successfully",
-      user,
+      user: {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+        type: type.type,
+      }
     });
   } catch (error) {
     console.log(error);
@@ -69,7 +83,7 @@ export const userLoginController = async (req, res) => {
       });
     }
     //check user
-    const user = await userModel.findOne({ email });
+    const user = await typeModel.findOne({ email });
     //check user
     if (!user) {
       return res.send({
