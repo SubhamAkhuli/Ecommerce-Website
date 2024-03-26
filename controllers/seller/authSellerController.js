@@ -73,10 +73,7 @@ export const sellerLoginController = async (req, res) => {
     const seller = await sellerModel.findOne({ email });
     //not found
     if (!seller) {
-      return res.status(200).send({
-        success: false,
-        message: "Seller not found",
-      });
+      return res.send({ message: "Invalid Credentials" });
     }
     //match password
     const isMatch = await comparePassword(password, seller.password);
