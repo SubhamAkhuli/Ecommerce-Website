@@ -111,3 +111,9 @@ export const userLoginController = async (req, res) => {
     });
   }
 };
+
+
+// Test Controller
+export const testcontroller = async (req, res) => {
+  res.send("Test Controller");
+};
