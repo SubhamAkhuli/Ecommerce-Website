@@ -26,11 +26,6 @@ const sellorSchema = mongoose.Schema({
     address:{
         type: String,
         required: true,
-    },
-    role:{
-        type: String,
-        required: true,
-        default: "sellor",
     }
     },
     {timestamps: true},);
