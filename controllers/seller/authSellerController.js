@@ -115,3 +115,14 @@ export const sellerLoginController = async (req, res) => {
     });
   }
 };
+
+
+// testing route
+export const testcontroller = async (req, res) => {
+  try {
+    res.send({ message: "Seller Auth Route" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Error in Test" });
+  }
+};
