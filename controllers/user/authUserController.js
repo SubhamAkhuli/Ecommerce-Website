@@ -115,5 +115,10 @@ export const userLoginController = async (req, res) => {
 
 // Test Controller
 export const testcontroller = async (req, res) => {
-  res.send("Test Controller");
+  try {
+    res.send({ message: "User Auth Route" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Error in Test" });
+  }
 };
