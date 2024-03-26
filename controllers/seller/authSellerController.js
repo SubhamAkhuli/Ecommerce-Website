@@ -1,13 +1,14 @@
 import sellerModel from "../../models/seller/sellerModel.js";
 import { hashPassword, comparePassword } from "../../helpers/authHelper.js";
 import jwt from "jsonwebtoken";
+import typeModel from "../../models/Type/typeModel.js";
 
 // Register Seller
 export const sellerRegisterController = async (req, res) => {
   try {
-    const { type, name, email, password, phone, address } = req.body;
+    const { category, name, email, password, phone, address } = req.body;
     //validations
-    if (!type) {
+    if (!category) {
       return res.send({ error: "Type is Required" });
     }
     if (!name) {
@@ -26,7 +27,7 @@ export const sellerRegisterController = async (req, res) => {
       return res.send({ message: "Address is Required" });
     }
     //check seller
-    const exisitingseller = await sellerModel.findOne({ email });
+    const exisitingseller = await typeModel.findOne({ email });
     //exisiting seller
     if (exisitingseller) {
       return res.status(200).send({
@@ -38,7 +39,7 @@ export const sellerRegisterController = async (req, res) => {
     const hashedPassword = await hashPassword(password);
     //save
     const seller = await new sellerModel({
-      type,
+      category,
       name,
       email,
       phone,
@@ -46,10 +47,25 @@ export const sellerRegisterController = async (req, res) => {
       password: hashedPassword,
     }).save();
 
+    // Save Type
+    const type = await new typeModel({
+      email,
+      type: "seller",
+    }).save();
+
+
     res.status(201).send({
       success: true,
       message: "Seller Register Successfully",
-      seller,
+      seller:
+      {
+        category: seller.category,
+        name: seller.name,
+        email: seller.email,
+        phone: seller.phone,
+        address: seller.address,
+        type: type.type,
+      }
     });
   } catch (error) {
     console.log(error);
@@ -73,7 +89,7 @@ export const sellerLoginController = async (req, res) => {
       });
     }
     //check seller
-    const seller = await sellerModel.findOne({ email });
+    const seller = await typeModel.findOne({ email });
     //not found
     if (!seller) {
       return res.send({
