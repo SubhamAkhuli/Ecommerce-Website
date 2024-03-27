@@ -8,7 +8,7 @@ function Contact() {
     <div>
       <Header />
         <div className="text-center" style={{ minHeight: "67.5vh" }}>
-          <h1 className="my-3">CONTACT US</h1>
+          <h1 className="my-3">Contact Us</h1>
         <p className="my-2">
             <stonge>Any query and info about prodduct feel free to call anytime we 24X7
             vaialible</stonge>
