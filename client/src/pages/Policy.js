@@ -7,7 +7,7 @@ function Policy() {
     <div>
       <Header />
       <div className="container" style={{ minHeight: "67.5vh" }}>
-        <h1 className="text-center my-3">Policy</h1>
+        <h1 className="text-center my-3">Privacy Policy</h1>
         <h2 >Shipping Policy</h2>
         <p>
           We aim to process and ship orders within 1-2 business days of
