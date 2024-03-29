@@ -8,21 +8,6 @@ function Contact() {
     <div>
       <Header />
         <div className="text-center" style={{ minHeight: "67.5vh" }}>
-          {/* <h1 className="my-3">Contact Us</h1>
-        <p className="my-2">
-            <stonge>Any query and info about prodduct feel free to call anytime we 24X7
-            vaialible</stonge>
-          </p>
-          <p className="mt-3">
-            <BiMailSend /> : www.help@ecommerceapp.com
-          </p>
-          <p className="mt-3">
-            <BiPhoneCall /> : 012-3456789
-          </p>
-          <p className="mt-3">
-            <BiSupport /> : 1800-0000-0000 (toll free)
-          </p> */}
-
           <div className="row contactus ">
         <div className="col-md-6 ">
           <img
