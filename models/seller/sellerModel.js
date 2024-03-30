@@ -20,7 +20,7 @@ const sellorSchema = mongoose.Schema({
         required: true,
     },
     phone:{
-        type: Number,
+        type: String,
         required: true,
     },
     address:{
