@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const sellorSchema = mongoose.Schema({
+    shop_name: {
+        type: String,
+        required: true,
+        trim: true,
+    },
     category: {
         type: String,
         required: true,
