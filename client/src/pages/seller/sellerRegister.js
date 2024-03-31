@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Header from "../../components/Layout/Header";
 import Footer from "../../components/Layout/Footer";
-import { NavLink } from "react-router-dom";
+import { NavLink ,useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
+import axios from 'axios';
+
 
 const SellerRegister = () => {
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     shop_name: "",
     category: "",
@@ -16,9 +19,31 @@ const SellerRegister = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form submitted");
-    console.log(credentials);
-    toast.success('Registration Successful');
+    try {
+      const { shop_name, category, name, email, password, cpassword, address, phone } = credentials;
+      if (password !== cpassword) {
+        toast.error("Password do not match");
+      }
+      else {
+        // console.log(credentials);
+      const response = await axios.post(`http://localhost:8080/api/v1/sellerauth/sellerregister`, {
+        shop_name, category, name, email, password, address, phone
+      });
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setTimeout(() => {
+         navigate('/login');
+        }, 100);
+      }
+      else {
+        toast.error(response.data.message);
+      }
+    }
+      
+    } catch (error) {
+      console.log(error);
+      toast.error('Registration Failed');
+    }
   };
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -124,8 +149,8 @@ const SellerRegister = () => {
               type="text"
               placeholder="Enter your Phone Number"
               className="form-control"
-              id="phone_no"
-              name="phone_no"
+              id="phone"
+              name="phone"
               onChange={onChange}
               minLength={4}
               required

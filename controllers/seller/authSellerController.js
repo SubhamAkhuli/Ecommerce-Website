@@ -6,13 +6,16 @@ import typeModel from "../../models/Type/typeModel.js";
 // Register Seller
 export const sellerRegisterController = async (req, res) => {
   try {
-    const { category, name, email, password, phone, address } = req.body;
+    const { shop_name,category, name, email, password, phone, address } = req.body;
     //validations
+    if (!shop_name) {
+      return res.send({ message: "Shop Name is Required" });
+    }
     if (!category) {
-      return res.send({ error: "Type is Required" });
+      return res.send({ message: "Type is Required" });
     }
     if (!name) {
-      return res.send({ error: "Name is Required" });
+      return res.send({ message: "Name is Required" });
     }
     if (!email) {
       return res.send({ message: "Email is Required" });
@@ -32,13 +35,14 @@ export const sellerRegisterController = async (req, res) => {
     if (exisitingseller) {
       return res.status(200).send({
         success: false,
-        message: "Already Register please login",
+        message: "Email is Already Registered",
       });
     }
     //register seller
     const hashedPassword = await hashPassword(password);
     //save
     const seller = await new sellerModel({
+      shop_name,
       category,
       name,
       email,
@@ -59,6 +63,7 @@ export const sellerRegisterController = async (req, res) => {
       message: "Seller Register Successfully",
       seller:
       {
+        shop_name: seller.shop_name,
         category: seller.category,
         name: seller.name,
         email: seller.email,
