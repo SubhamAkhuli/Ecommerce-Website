@@ -7,6 +7,7 @@ import Contact from "./pages/Contact";
 import PageNotFound from "./pages/PageNotFound";
 import UserRegister from "./pages/user/userRegister";
 import SellerRegister from "./pages/seller/sellerRegister";  
+import Login from "./pages/user/login";
 
 function App() {
   // new react router process create a router
@@ -64,7 +65,13 @@ function App() {
       element:(<>
         <SellerRegister/>
         </>)
-    }
+    },
+    {
+      path:"/login",
+      element:(<>
+        <Login/>
+        </>)
+    },
   ]);
   return (
     <>
