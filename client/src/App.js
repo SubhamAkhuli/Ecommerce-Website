@@ -5,6 +5,8 @@ import About from "./pages/About";
 import Policy from "./pages/Policy";
 import Contact from "./pages/Contact";
 import PageNotFound from "./pages/PageNotFound";
+import UserRegister from "./pages/user/userRegister";
+import SellerRegister from "./pages/seller/sellerRegister";  
 
 function App() {
   // new react router process create a router
@@ -51,6 +53,18 @@ function App() {
         </>
       ),
     },
+    {
+      path:"/userregister",
+      element:(<>
+        <UserRegister/>
+        </>)
+    },
+    {
+      path:"/sellerregister",
+      element:(<>
+        <SellerRegister/>
+        </>)
+    }
   ]);
   return (
     <>
