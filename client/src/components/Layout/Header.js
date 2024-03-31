@@ -1,10 +1,12 @@
 import React from "react";
 import logo from "../Layout/logo.jpg";
 import { NavLink } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 function Header() {
   return (
     <>
+      <Toaster />
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <img
@@ -62,12 +64,17 @@ function Header() {
                   </li>
                   <li>
                     <NavLink className="dropdown-item" to="/">
-                      Health & Beauty
+                      Beauty & Health
                     </NavLink>
                   </li>
                   <li>
                     <NavLink className="dropdown-item" to="/">
                       Books & Stationery
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink className="dropdown-item" to="/">
+                      Furniture & Home Decor
                     </NavLink>
                   </li>
                   <li>
