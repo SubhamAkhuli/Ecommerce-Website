@@ -108,7 +108,7 @@ export const sellerLoginController = async (req, res) => {
     if (!isMatch) {
       return res.status(200).send({
         success: false,
-        message: "Invalid Password",
+        message: "Invalid Credentials",
       });
     }
     //token
