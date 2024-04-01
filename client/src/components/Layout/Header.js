@@ -2,8 +2,22 @@ import React from "react";
 import logo from "../Layout/logo.jpg";
 import { NavLink } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { useAuth } from "../../context/auth";
 
 function Header() {
+  const { user, setUser } = useAuth();
+  const HandelLogout = () => {
+    setUser({
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem("user");
+    setTimeout(() => {
+      toast.success("Logout Successfully");
+    }, 100);
+   
+  }
   return (
     <>
       <Toaster />
@@ -117,7 +131,10 @@ function Header() {
               </button>
             </form>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item">
+              {
+                !user.user ? (
+                  <>
+                  <li className="nav-item">
                 <NavLink className="nav-link" to="/userregister">
                   Register
                 </NavLink>
@@ -132,6 +149,15 @@ function Header() {
                   Login
                 </NavLink>
               </li>
+                  </>
+                ) : (
+                  <li className="nav-item">
+                    <NavLink onClick={HandelLogout} className="nav-link" to="/login">
+                      Logout
+                    </NavLink>
+                  </li>
+                )
+              }
               <li className="nav-item">
                 <NavLink className="nav-link" to="/cart">
                   Cart(0)
