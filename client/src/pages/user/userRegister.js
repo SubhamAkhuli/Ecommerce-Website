@@ -61,87 +61,85 @@ const UserRegister = () => {
               </div>
               <div className="card-body">
                 <form onSubmit={handleSubmit}>
-                  <div className="mb-3">
+                <div className="form-floating mb-3">
                     <input
                       type="text"
                       className="form-control"
-                      id="name"
-                      name="name"
+                      id="floatingInput"
                       placeholder="Enter your Name"
                       onChange={onChange}
-                      aria-describedby="emailHelp"
-                      minLength={3}
+                      name="name"
                       required
                     />
-                    <div id="emailHelp" className="form-text">
-                      Please Enter valid name atleast 3 characters.
-                    </div>
+                    <label htmlFor="floatingInput">Name</label>
                   </div>
-
-                  <div className="mb-3">
+                <div className="form-floating mb-3">
                     <input
                       type="email"
                       className="form-control"
-                      id="email"
-                      name="email"
-                      placeholder="Enter your Email"
+                      id="floatingInput"
+                      placeholder="name@example.com"
                       onChange={onChange}
-                      aria-describedby="emailHelp"
+                      name="email"
                       required
                     />
+                    <label htmlFor="floatingInput">Email address</label>
                     <div id="emailHelp" className="form-text">
                       We'll never share your email with anyone else.
                     </div>
                   </div>
-                  <div className="mb-3">
+
+
+                  <div className="form-floating mb-3">
                     <input
                       type="text"
                       className="form-control"
-                      id="address"
+                      id="floatingInput"
+                      placeholder="Enter your Name"
+                      onChange={onChange}
                       name="address"
-                      placeholder="Enter your Address"
-                      onChange={onChange}
                       required
                     />
+                    <label htmlFor="floatingInput">Address</label>
                   </div>
-                  <div className="mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="text"
-                      placeholder="Enter your Phone Number"
                       className="form-control"
-                      id="phone"
-                      name="phone"
+                      id="floatingInput"
+                      placeholder="Enter your Phone Number"
                       onChange={onChange}
-                      minLength={4}
+                      name="phone"
                       required
                     />
+                    <label htmlFor="floatingInput">Phone Number</label>
                   </div>
-                  <div className="mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="password"
-                      onChange={onChange}
                       className="form-control"
-                      id="password"
+                      id="floatingPassword"
+                      placeholder="Password"
+                      onChange={onChange}
                       name="password"
-                      minLength={4}
-                      placeholder="Enter your Password"
                       required
                     />
+                    <label htmlFor="floatingPassword">Password</label>
                     <div id="emailHelp" className="form-text">
                       Password atleast 4 characters.
                     </div>
                   </div>
-                  <div className="mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="password"
                       className="form-control"
-                      id="cpassword"
-                      name="cpassword"
+                      id="floatingPassword"
                       placeholder="Confrim Password"
                       onChange={onChange}
-                      minLength={4}
+                      name="cpassword"
                       required
                     />
+                    <label htmlFor="floatingPassword">Confrim Password</label>
                   </div>
                   <button type="submit" className="btn btn-primary">
                     Submit
