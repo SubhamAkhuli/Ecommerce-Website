@@ -99,7 +99,7 @@ export const sellerLoginController = async (req, res) => {
     if (!seller) {
       return res.send({
         success: false,
-        message: "Invalid Credentials",
+        message: "User not Found, Please Register First",
       });
     }
     //match password
@@ -111,6 +111,10 @@ export const sellerLoginController = async (req, res) => {
         message: "Invalid Credentials",
       });
     }
+    // Type found
+    const type = await typeModel.findOne({ email });
+    const userType = type.type;
+
     //token
     const token = jwt.sign({ id: seller._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
@@ -120,11 +124,13 @@ export const sellerLoginController = async (req, res) => {
       message: "Seller Login Successfully",
       token: token,
       seller: {
-        type: seller.type,
+        type: userType,
         name: seller.name,
         email: seller.email,
         phone: seller.phone,
         address: seller.address,
+        shop_name: seller.shop_name,
+        category: seller.category,
       },
     });
   } catch (error) {
