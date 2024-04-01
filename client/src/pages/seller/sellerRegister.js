@@ -17,6 +17,7 @@ const SellerRegister = () => {
   });
 
   const handleSubmit = async (e) => {
+    console.log(credentials);
     e.preventDefault();
     try {
       const {
@@ -32,7 +33,7 @@ const SellerRegister = () => {
       if (password !== cpassword) {
         toast.error("Password do not match");
       } else {
-        // console.log(credentials);
+       
         const response = await axios.post(
           `http://localhost:8080/api/v1/sellerauth/sellerregister`,
           {
@@ -77,11 +78,11 @@ const SellerRegister = () => {
               </div>
               <div className="card-body">
                 <form onSubmit={handleSubmit}>
-                  <div className="mb-3">
+                <div className="form-floating mb-3">
                     <input
                       type="text"
                       className="form-control"
-                      id="shop_name"
+                      id="floatingInput"
                       name="shop_name"
                       placeholder="Enter your Shop Name"
                       onChange={onChange}
@@ -89,20 +90,22 @@ const SellerRegister = () => {
                       minLength={3}
                       required
                     />
+                    <label htmlFor="floatingInput">Shop Name</label>
                     <div id="emailHelp" className="form-text">
-                      Please Enter valid name atleast 3 characters.
+                      Please Enter valid name atleast 3 characters. 
                     </div>
                   </div>
-                  <div className="mb-3">
+                  <div className=" form-floating mb-3">
                     <select
                       className="form-select"
                       aria-label="Default select example"
+                      id="floatingSelect"
                       name="category" // Added name attribute
                       onChange={onChange} // Added onChange event
                       value={credentials.category} // Added value attribute
                     >
                       <option value="" disabled>
-                        Choose Your Shop Category
+                        Choose One
                       </option>
                       <option value=" Fashion & Apparel">
                         Fashion & Apparel
@@ -128,13 +131,14 @@ const SellerRegister = () => {
                       <option value="Toys & Games">Toys & Games</option>
                       <option value="Watch & Clocks">Watch & Clocks</option>
                     </select>
+                    <label htmlFor="floatingSelect">Select Shop Category</label>
                   </div>
 
-                  <div className="mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="text"
                       className="form-control"
-                      id="name"
+                      id="floatingInput"
                       name="name"
                       placeholder="Enter your Name"
                       onChange={onChange}
@@ -142,72 +146,79 @@ const SellerRegister = () => {
                       minLength={3}
                       required
                     />
+                    <label htmlFor="floatingInput">Name</label>
                     <div id="emailHelp" className="form-text">
                       Please Enter valid name atleast 3 characters.
                     </div>
                   </div>
-
-                  <div className="mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="email"
                       className="form-control"
-                      id="email"
+                      id="floatingInput"
+                      placeholder="name@example.com"
+                      onChange={onChange}
                       name="email"
-                      placeholder="Enter your Email"
-                      onChange={onChange}
-                      aria-describedby="emailHelp"
                       required
                     />
+                    <label htmlFor="floatingInput">Email address</label>
+                    <div id="emailHelp" className="form-text">
+                      We'll never share your email with anyone else.
+                    </div>
                   </div>
-                  <div className="mb-3">
+
+
+                  <div className="form-floating mb-3">
                     <input
                       type="text"
                       className="form-control"
-                      id="address"
+                      id="floatingInput"
+                      placeholder="Enter your Name"
+                      onChange={onChange}
                       name="address"
-                      placeholder="Enter your Address"
-                      onChange={onChange}
                       required
                     />
+                    <label htmlFor="floatingInput">Address</label>
                   </div>
-                  <div className="mb-3">
+
+                  <div className="form-floating mb-3">
                     <input
                       type="text"
-                      placeholder="Enter your Phone Number"
                       className="form-control"
-                      id="phone"
-                      name="phone"
+                      id="floatingInput"
+                      placeholder="Enter your Phone Number"
                       onChange={onChange}
-                      minLength={4}
+                      name="phone"
                       required
                     />
+                    <label htmlFor="floatingInput">Phone Number</label>
                   </div>
-                  <div className="mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="password"
-                      onChange={onChange}
                       className="form-control"
-                      id="password"
+                      id="floatingPassword"
+                      placeholder="Password"
+                      onChange={onChange}
                       name="password"
-                      minLength={4}
-                      placeholder="Enter your Password"
                       required
                     />
+                    <label htmlFor="floatingPassword">Password</label>
                     <div id="emailHelp" className="form-text">
                       Password atleast 4 characters.
                     </div>
                   </div>
-                  <div className="mb-3">
+                  <div className="form-floating mb-3">
                     <input
                       type="password"
                       className="form-control"
-                      id="cpassword"
-                      name="cpassword"
+                      id="floatingPassword"
                       placeholder="Confrim Password"
                       onChange={onChange}
-                      minLength={4}
+                      name="cpassword"
                       required
                     />
+                    <label htmlFor="floatingPassword">Confrim Password</label>
                   </div>
                   <button type="submit" className="btn btn-primary">
                     Submit
@@ -220,7 +231,7 @@ const SellerRegister = () => {
                           textDecoration: "none",
                           color: "white",
                         }}
-                        to="/login"
+                        to="/sellerlogin"
                       >
                         Login
                       </NavLink>
