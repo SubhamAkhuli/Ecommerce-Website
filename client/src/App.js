@@ -7,7 +7,9 @@ import Contact from "./pages/Contact";
 import PageNotFound from "./pages/PageNotFound";
 import UserRegister from "./pages/user/userRegister";
 import SellerRegister from "./pages/seller/sellerRegister";  
-import Login from "./pages/user/login";
+import Login from "./pages/Login";
+import UserLogin from "./pages/user/Userlogin";
+import SellerLogin from "./pages/seller/Sellerlogin.js";
 
 function App() {
   // new react router process create a router
@@ -71,6 +73,20 @@ function App() {
       element:(<>
         <Login/>
         </>)
+    },
+    {
+      path:"/userlogin",
+      element:(<>
+        <UserLogin/>
+        </>)
+
+    },
+    {
+      path:"/sellerlogin",
+      element:(<>
+        <SellerLogin/>
+        </>)
+
     },
   ]);
   return (
