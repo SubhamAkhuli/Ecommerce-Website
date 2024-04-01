@@ -94,7 +94,7 @@ export const sellerLoginController = async (req, res) => {
       });
     }
     //check seller
-    const seller = await typeModel.findOne({ email });
+    const seller = await sellerModel.findOne({ email });
     //not found
     if (!seller) {
       return res.send({
