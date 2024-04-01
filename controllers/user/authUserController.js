@@ -79,16 +79,16 @@ export const userLoginController = async (req, res) => {
     if (!email || !password) {
       return res.send({
         success: false,
-        message: "Invalid Credentials",
+        message: "Invalid Credentials1",
       });
     }
     //check user
-    const user = await typeModel.findOne({ email });
+    const user = await userModel.findOne({ email });
     //check user
     if (!user) {
       return res.send({
         success: false,
-        message: "Invalid Credentials",
+        message: "Invalid Credentials2",
       });
     }
     //check password
@@ -97,7 +97,7 @@ export const userLoginController = async (req, res) => {
     if (!isMatch) {
       return res.send({
         success: false,
-        message: "Invalid Credentials",
+        message: "Invalid Credentials3",
       });
     }
     //token
