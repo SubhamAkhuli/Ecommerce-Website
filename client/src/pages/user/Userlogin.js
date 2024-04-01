@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Headers from "../../components/Layout/Header";
 import Footer from "../../components/Layout/Footer";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ const UserLogin = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(credentials);
+    // console.log(credentials);
     e.preventDefault();
     try {
       const { email, password } = credentials;
