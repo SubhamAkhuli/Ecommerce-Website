@@ -10,7 +10,7 @@ import SellerRegister from "./pages/seller/sellerRegister";
 import Login from "./pages/Login";
 import UserLogin from "./pages/user/Userlogin";
 import SellerLogin from "./pages/seller/Sellerlogin.js";
-
+import { AuthProvider } from "./context/auth";
 function App() {
   // new react router process create a router
   const router = createBrowserRouter([
@@ -91,8 +91,10 @@ function App() {
   ]);
   return (
     <>
+    <AuthProvider>
       {/* to call the pages */}
       <RouterProvider router={router} />
+      </AuthProvider>
     </>
   );
 }
