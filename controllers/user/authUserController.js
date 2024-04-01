@@ -43,7 +43,6 @@ export const userRegisterController = async (req, res) => {
       password: hashedPassword,
     }).save();
 
-
     // Save Type
     const type = await new typeModel({
       email,
@@ -59,7 +58,7 @@ export const userRegisterController = async (req, res) => {
         phone: user.phone,
         address: user.address,
         type: type.type,
-      }
+      },
     });
   } catch (error) {
     console.log(error);
@@ -88,7 +87,7 @@ export const userLoginController = async (req, res) => {
     if (!user) {
       return res.send({
         success: false,
-        message: "Invalid Credentials2",
+        message: "User Not Found, Please Register First",
       });
     }
     //check password
@@ -104,6 +103,12 @@ export const userLoginController = async (req, res) => {
     const token = Jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
+    // user type found
+    const type = await typeModel.findOne
+    ({
+      email: email,
+    });
+    const userType = type.type;
     //response
     res.send({
       success: true,
@@ -114,6 +119,7 @@ export const userLoginController = async (req, res) => {
         email: user.email,
         phone: user.phone,
         address: user.address,
+        type: userType,
       },
     });
   } catch (error) {
@@ -125,7 +131,6 @@ export const userLoginController = async (req, res) => {
     });
   }
 };
-
 
 // Test Controller
 export const testcontroller = async (req, res) => {
