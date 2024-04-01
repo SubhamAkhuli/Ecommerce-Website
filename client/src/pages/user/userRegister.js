@@ -152,7 +152,7 @@ const UserRegister = () => {
                           textDecoration: "none",
                           color: "white",
                         }}
-                        to="/login"
+                        to="/userlogin"
                       >
                         Login
                       </NavLink>
