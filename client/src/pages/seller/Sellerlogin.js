@@ -4,9 +4,11 @@ import Footer from "../../components/Layout/Footer";
 import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useAuth } from "../../context/auth";
 
 const SellerLogin = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useAuth();
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -34,6 +36,12 @@ const SellerLogin = () => {
         );
         if (response.data.success) {
           toast.success(response.data.message);
+          setUser({
+            ...user,
+            user: response.data.seller,
+            token: response.data.token,
+          });
+          localStorage.setItem("user", JSON.stringify(response.data));
           setTimeout(() => {
             navigate("/");
           }, 100);
