@@ -7,9 +7,9 @@ const Login = () => {
   return (
     <>
       <Header />
-      <div className="container " style={{ minHeight: "69.8vh" }}>
-      <div className="pnf ">
-        <button type="button" className="btn btn-info mb-3 ">
+      <div className="container pnf " style={{minHeight:"69.8vh"}}>
+      <p className="text-center " style={{fontSize:"30px"}}>To Login as a user please press User Login Button </p>
+        <button type="button" className="btn btn-info m-2">
           <NavLink
             style={{
               textDecoration: "none",
@@ -20,7 +20,8 @@ const Login = () => {
             User Login
           </NavLink>
         </button>
-        <button type="button" className="btn btn-info">
+        <p className="text-center mt-5" style={{fontSize:"30px"}}>To Login as a seller please press Seller Login Button </p>  
+        <button type="button" className="btn btn-info m-2">
           <NavLink
             style={{
               textDecoration: "none",
@@ -32,7 +33,6 @@ const Login = () => {
           </NavLink>
         </button>
         </div>
-      </div>
 
       <Footer />
     </>
