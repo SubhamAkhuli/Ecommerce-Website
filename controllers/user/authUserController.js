@@ -78,7 +78,7 @@ export const userLoginController = async (req, res) => {
     if (!email || !password) {
       return res.send({
         success: false,
-        message: "Invalid Credentials1",
+        message: "Invalid Credentials",
       });
     }
     //check user
@@ -96,7 +96,7 @@ export const userLoginController = async (req, res) => {
     if (!isMatch) {
       return res.send({
         success: false,
-        message: "Invalid Credentials3",
+        message: "Invalid Credentials",
       });
     }
     //token
