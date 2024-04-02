@@ -16,4 +16,10 @@ router.post("/sellerlogin", sellerLoginController);
 // testing route
 router.get("/test",authSellerMiddleware, testcontroller);
 
+//  Protected route
+router.get("/seller-auth",authSellerMiddleware, (req, res) => {
+  res.status(200).send({ok: true});
+});
+
+
 export default router;
