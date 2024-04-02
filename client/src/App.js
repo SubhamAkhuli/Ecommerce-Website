@@ -1,99 +1,49 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import About from "./pages/About";
 import Policy from "./pages/Policy";
 import Contact from "./pages/Contact";
 import PageNotFound from "./pages/PageNotFound";
 import UserRegister from "./pages/user/userRegister";
-import SellerRegister from "./pages/seller/sellerRegister";  
+import SellerRegister from "./pages/seller/sellerRegister";
 import Login from "./pages/Login";
 import UserLogin from "./pages/user/Userlogin";
 import SellerLogin from "./pages/seller/Sellerlogin.js";
+import UserDashboard from "./pages/user/UserDashboard";
+import UserPrivateRoute from "./components/Routes/user/UserPrivate.js";
+import SellerDashboard from "./pages/seller/SellerDashboard.js";
+import SellerPrivateRoute from "./components/Routes/seller/SellerPrivate.js";
 import { AuthProvider } from "./context/auth";
 function App() {
-  // new react router process create a router
-  const router = createBrowserRouter([
-    {
-      // path is the url path
-      path: "/",
-      // element is the component to be rendered
-      element: (
-        <>
-          <Homepage />
-        </>
-      ),
-    },
-    {
-      path: "/about",
-      element: (
-        <>
-          <About />
-        </>
-      ),
-    },
-    {
-      path: "/policy",
-      element: (
-        <>
-          <Policy />
-        </>
-      ),
-    },
-    {
-      path: "/contact",
-      element: (
-        <>
-          <Contact />
-        </>
-      ),
-    },
-    {
-      path: "*",
-      element: (
-        <>
-          <PageNotFound />
-        </>
-      ),
-    },
-    {
-      path:"/userregister",
-      element:(<>
-        <UserRegister/>
-        </>)
-    },
-    {
-      path:"/sellerregister",
-      element:(<>
-        <SellerRegister/>
-        </>)
-    },
-    {
-      path:"/login",
-      element:(<>
-        <Login/>
-        </>)
-    },
-    {
-      path:"/userlogin",
-      element:(<>
-        <UserLogin/>
-        </>)
-
-    },
-    {
-      path:"/sellerlogin",
-      element:(<>
-        <SellerLogin/>
-        </>)
-
-    },
-  ]);
   return (
     <>
-    <AuthProvider>
-      {/* to call the pages */}
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <Router>
+          <Routes>
+            {/* Top-level routes */}
+            <Route path="/" element={<Homepage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/policy" element={<Policy />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/userregister" element={<UserRegister />} />
+            <Route path="/sellerregister" element={<SellerRegister />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/userlogin" element={<UserLogin />} />
+            <Route path="/sellerlogin" element={<SellerLogin />} />
+            {/* Nested routes */}
+            <Route path="/userdashboard" element={<UserPrivateRoute />}>
+              <Route path="" element={<UserDashboard />} />
+            </Route>
+            <Route path="/sellerdashboard" element={<SellerPrivateRoute />}>
+              <Route path="" element={<SellerDashboard />} />
+            </Route>
+
+            {/* 404 Page Not Found */}
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Router>
       </AuthProvider>
     </>
   );
