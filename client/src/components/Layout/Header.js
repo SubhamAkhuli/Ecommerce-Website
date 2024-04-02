@@ -150,12 +150,18 @@ function Header() {
                 </NavLink>
               </li>
                   </>
-                ) : (
+                ) : (<>
                   <li className="nav-item">
                     <NavLink onClick={HandelLogout} className="nav-link" to="/login">
                       Logout
                     </NavLink>
                   </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/userdashboard">
+                      Dashboard
+                    </NavLink>
+                  </li>
+                  </>
                 )
               }
               <li className="nav-item">
