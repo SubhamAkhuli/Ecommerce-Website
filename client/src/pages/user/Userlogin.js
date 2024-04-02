@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Headers from "../../components/Layout/Header";
 import Footer from "../../components/Layout/Footer";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate,useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "../../context/auth";
@@ -9,6 +9,7 @@ import { useAuth } from "../../context/auth";
 const UserLogin = () => {
   const navigate = useNavigate();
   const { user,setUser } = useAuth();
+  const location = useLocation();
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -43,7 +44,7 @@ const UserLogin = () => {
           });
           localStorage.setItem("user", JSON.stringify(response.data));
           setTimeout(() => {
-            navigate("/");
+            navigate(location.state ||"/");
           }, 100);
         } else {
           toast.error(response.data.message);
