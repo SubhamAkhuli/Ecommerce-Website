@@ -21,7 +21,6 @@ const UserLogin = () => {
   };
 
   const handleSubmit = async (e) => {
-    // console.log(credentials);
     e.preventDefault();
     try {
       const { email, password } = credentials;
@@ -95,6 +94,17 @@ const UserLogin = () => {
                   <button type="submit" className="btn btn-primary">
                     Login
                   </button>
+                  <button className="btn btn-primary mx-2">
+                      <NavLink
+                        style={{
+                          textDecoration: "none",
+                          color: "white",
+                        }}
+                        to="/userforgotpassword"
+                      >
+                        Forget Password
+                      </NavLink>
+                    </button>
                   <p className="mt-3">
                     Don't have an account?
                     <button className="btn btn-primary mx-2">
