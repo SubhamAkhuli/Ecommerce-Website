@@ -1,5 +1,5 @@
 import express from "express";
-import {sellerRegisterController,sellerLoginController,testcontroller} from "../../controllers/seller/authSellerController.js";
+import {sellerRegisterController,sellerLoginController,testcontroller,sellerForgotPasswordController} from "../../controllers/seller/authSellerController.js";
 import {authSellerMiddleware} from "../../middlewares/Seller/authSellerMiddleware.js";
 
 // router object
@@ -15,6 +15,9 @@ router.post("/sellerlogin", sellerLoginController);
 
 // testing route
 router.get("/test",authSellerMiddleware, testcontroller);
+
+// forgot password
+router.post("/sellerforgotpassword", sellerForgotPasswordController);
 
 //  Protected route
 router.get("/seller-auth",authSellerMiddleware, (req, res) => {
