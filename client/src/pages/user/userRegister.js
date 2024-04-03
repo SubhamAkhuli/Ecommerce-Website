@@ -12,12 +12,16 @@ const UserRegister = () => {
     email: "",
     password: "",
     cpassword: "",
+    address: "",
+    phone: "",
+    answer: "",
   });
 
   const handleSubmit = async (e) => {
+    console.log(credentials);
     e.preventDefault();
     try {
-      const { name, email, password, cpassword, address, phone } = credentials;
+      const { name, email, password, cpassword, address, phone,answer } = credentials;
       if (password !== cpassword) {
         toast.error("Password do not match");
       } else {
@@ -29,6 +33,7 @@ const UserRegister = () => {
             password,
             address,
             phone,
+            answer,
           }
         );
         if (response.data.success) {
@@ -114,6 +119,19 @@ const UserRegister = () => {
                     />
                     <label htmlFor="floatingInput">Phone Number</label>
                   </div>
+                  <div className="form-floating mb-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="floatingInput"
+                      placeholder="Enter your Answer"
+                      onChange={onChange}
+                      name="answer"
+                      required
+                    />
+                    <label htmlFor="floatingInput">What is Your Favorite sport?</label>
+                  </div>
+
                   <div className="form-floating mb-3">
                     <input
                       type="password"
