@@ -92,6 +92,17 @@ const SellerLogin = () => {
                     />
                     <label htmlFor="floatingPassword">Password</label>
                   </div>
+                  <div id="emailHelp" className="form-text mb-3">
+                    <NavLink
+                      style={{
+                        textDecoration: "none",
+                      }}
+                      to="/sellerforgotpassword"
+                    >
+                      Forget Password?
+                    </NavLink>
+                  </div>
+
                   <button type="submit" className="btn btn-primary">
                     Login
                   </button>
