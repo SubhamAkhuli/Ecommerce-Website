@@ -6,7 +6,7 @@ import typeModel from "../../models/Type/typeModel.js";
 // Register User
 export const userRegisterController = async (req, res) => {
   try {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone, address,answer } = req.body;
     //validations
     if (!name) {
       return res.send({ message: "Name is Required" });
@@ -23,6 +23,10 @@ export const userRegisterController = async (req, res) => {
     if (!address) {
       return res.send({ message: "Address is Required" });
     }
+    if (!answer) {
+      return res.send({ message: "Answer is Required" });
+    }
+
     //check user
     const exisitingUser = await typeModel.findOne({ email });
     //exisiting user
@@ -41,6 +45,7 @@ export const userRegisterController = async (req, res) => {
       phone,
       address,
       password: hashedPassword,
+      answer
     }).save();
 
     // Save Type
@@ -57,6 +62,7 @@ export const userRegisterController = async (req, res) => {
         email: user.email,
         phone: user.phone,
         address: user.address,
+        answer: user.answer,
         type: type.type,
       },
     });
@@ -104,8 +110,7 @@ export const userLoginController = async (req, res) => {
       expiresIn: "7d",
     });
     // user type found
-    const type = await typeModel.findOne
-    ({
+    const type = await typeModel.findOne({
       email: email,
     });
     const userType = type.type;
@@ -119,6 +124,7 @@ export const userLoginController = async (req, res) => {
         email: user.email,
         phone: user.phone,
         address: user.address,
+        answer: user.answer,
         type: userType,
       },
     });
@@ -139,5 +145,68 @@ export const testcontroller = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: "Error in Test" });
+  }
+};
+
+// Forgot Password
+export const userForgotPasswordController = async (req, res) => {
+  try {
+    const { email, answer, newPassword } = req.body;
+      //validations
+      if (!email || !answer ) {
+        return res.send({
+          success: false,
+          message: "Email and answer is Required",
+        });
+      }
+      if (!newPassword) {
+        return res.send({
+          success: false,
+          message: "New Password is Required",
+        });
+      }
+      //check user
+      const user = await userModel.findOne({ email });
+      //check user
+      if (!user) {
+        return res.send({
+          success: false,
+          message: "User Not Found",
+        });
+      }
+      //check answer
+      if (answer !== user.answer) {
+        return res.send({
+          success: false,
+          message: "Invalid answer",
+        });
+      }
+      //response
+      const hashedPassword = await hashPassword(newPassword);
+      if (!hashedPassword) {
+        return res.send({
+          success: false,
+          message: "Error in Password Reset",
+        });
+      }
+      //update
+      await userModel.findOneAndUpdate
+      (
+        { email: email },
+        {
+          password: hashedPassword,
+        }
+      );
+      res.send({
+        success: true,
+        message: "Password Reset Successfully",
+      });
+    } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Forgot Password",
+      error,
+    });
   }
 };
