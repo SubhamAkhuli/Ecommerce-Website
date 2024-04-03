@@ -153,3 +153,66 @@ export const testcontroller = async (req, res) => {
     res.status(500).send({ message: "Error in Test" });
   }
 };
+
+//  Forgot Password
+export const sellerForgotPasswordController = async (req, res) => {
+  try {
+    const { email, answer, newPassword } = req.body;
+      //validations
+      if (!email || !answer ) {
+        return res.send({
+          success: false,
+          message: "Email and answer is Required",
+        });
+      }
+      if (!newPassword) {
+        return res.send({
+          success: false,
+          message: "New Password is Required",
+        });
+      }
+      //check user
+      const user = await sellerModel.findOne({ email });
+      //check user
+      if (!user) {
+        return res.send({
+          success: false,
+          message: "User Not Found",
+        });
+      }
+      //check answer
+      if (answer !== user.answer) {
+        return res.send({
+          success: false,
+          message: "Invalid answer",
+        });
+      }
+      //response
+      const hashedPassword = await hashPassword(newPassword);
+      if (!hashedPassword) {
+        return res.send({
+          success: false,
+          message: "Error in Password Reset",
+        });
+      }
+      //update
+      await sellerModel.findOneAndUpdate
+      (
+        { email: email },
+        {
+          password: hashedPassword,
+        }
+      );
+      res.send({
+        success: true,
+        message: "Password Reset Successfully",
+      });
+    } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Forgot Password",
+      error,
+    });
+  }
+};
