@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Headers from "../../components/Layout/Header";
 import Footer from "../../components/Layout/Footer";
-import { NavLink, useNavigate,useLocation } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "../../context/auth";
 
 const UserLogin = () => {
   const navigate = useNavigate();
-  const { user,setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const location = useLocation();
 
   const [credentials, setCredentials] = useState({
@@ -43,7 +43,7 @@ const UserLogin = () => {
           });
           localStorage.setItem("user", JSON.stringify(response.data));
           setTimeout(() => {
-            navigate(location.state ||"/");
+            navigate(location.state || "/");
           }, 100);
         } else {
           toast.error(response.data.message);
@@ -79,32 +79,31 @@ const UserLogin = () => {
                     />
                     <label htmlFor="floatingInput">Email address</label>
                   </div>
-                    <div className="form-floating mb-3">
+                  <div className="form-floating mb-3">
                     <input
-                        type="password"
-                        className="form-control"
-                        id="floatingPassword"
-                        placeholder="Password"
-                        onChange={onChange}
-                        name="password"
-                        required
+                      type="password"
+                      className="form-control"
+                      id="floatingPassword"
+                      placeholder="Password"
+                      onChange={onChange}
+                      name="password"
+                      required
                     />
                     <label htmlFor="floatingPassword">Password</label>
-                    </div>
-                  <button type="submit" className="btn btn-primary">
+                  </div>
+                  <div id="emailHelp" className="form-text">
+                    <NavLink
+                      style={{
+                        textDecoration: "none",
+                      }}
+                      to="/userforgotpassword"
+                    >
+                      Forget Password?
+                    </NavLink>
+                  </div>
+                  <button type="submit" className="btn btn-primary mt-3">
                     Login
                   </button>
-                  <button className="btn btn-primary mx-2">
-                      <NavLink
-                        style={{
-                          textDecoration: "none",
-                          color: "white",
-                        }}
-                        to="/userforgotpassword"
-                      >
-                        Forget Password
-                      </NavLink>
-                    </button>
                   <p className="mt-3">
                     Don't have an account?
                     <button className="btn btn-primary mx-2">
