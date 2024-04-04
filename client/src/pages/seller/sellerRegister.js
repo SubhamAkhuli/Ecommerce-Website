@@ -231,7 +231,7 @@ const SellerRegister = () => {
                           textDecoration: "none",
                           color: "white",
                         }}
-                        to="/sellerlogin"
+                        to="/login"
                       >
                         Login
                       </NavLink>
