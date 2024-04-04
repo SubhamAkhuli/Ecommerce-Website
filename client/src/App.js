@@ -13,8 +13,7 @@ import UserDashboard from "./pages/user/UserDashboard";
 import UserPrivateRoute from "./components/Routes/user/UserPrivate.js";
 import SellerDashboard from "./pages/seller/SellerDashboard.js";
 import SellerPrivateRoute from "./components/Routes/seller/SellerPrivate.js";
-import UserForgot from "./pages/user/UserForgot.js";
-import SellerForgetPassword from "./pages/seller/SellerForgetPassword.js";
+import ForgotPassword from "./pages/Auth/ForgotPassword.js";
 import { AuthProvider } from "./context/auth";
 function App() {
   return (
@@ -30,11 +29,7 @@ function App() {
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="/sellerregister" element={<SellerRegister />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/userforgotpassword" element={<UserForgot />} />
-            <Route
-              path="/sellerforgotpassword"
-              element={<SellerForgetPassword />}
-            />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
             {/* Nested routes */}
             <Route path="/userdashboard" element={<UserPrivateRoute />}>
               <Route path="" element={<UserDashboard />} />
