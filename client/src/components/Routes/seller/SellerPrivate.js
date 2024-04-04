@@ -25,5 +25,5 @@ export default function UserPrivateRoute() {
     };
     if (user?.token) authcheck();
   }, [user?.token]);
-  return ok ? <Outlet /> : <Spinner />;
+  return ok ? <Outlet /> : <Spinner  path=""/>;
 }
