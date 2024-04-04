@@ -178,7 +178,7 @@ const Login = () => {
                       style={{
                         textDecoration: "none",
                       }}
-                      to="/userforgotpassword"
+                      to="/forgotpassword"
                     >
                       Forget Password?
                     </NavLink>
@@ -197,6 +197,18 @@ const Login = () => {
                         to="/userregister"
                       >
                         Register
+                      </NavLink>
+                    </button>
+                    <b>/</b>
+                    <button className="btn btn-primary mx-2">
+                      <NavLink
+                        style={{
+                          textDecoration: "none",
+                          color: "white",
+                        }}
+                        to="/sellerregister"
+                      >
+                        Seller Register
                       </NavLink>
                     </button>
                   </p>
