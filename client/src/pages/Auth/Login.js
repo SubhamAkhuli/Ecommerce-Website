@@ -47,7 +47,7 @@ const Login = () => {
                 user: response.data.user,
                 token: response.data.token,
               });
-              console.log(user);
+              
               localStorage.setItem("user", JSON.stringify(response.data));
               setTimeout(() => {
                 navigate(location.state || "/");
@@ -74,7 +74,7 @@ const Login = () => {
                 user: response.data.seller,
                 token: response.data.token,
               });
-              console.log(user);
+              
               localStorage.setItem("user", JSON.stringify(response.data));
               setTimeout(() => {
                 navigate(location.state || "/");
@@ -101,7 +101,7 @@ const Login = () => {
                 user: response.data.user,
                 token: response.data.token,
               });
-              console.log(user);
+              
               localStorage.setItem("user", JSON.stringify(response.data));
               setTimeout(() => {
                 navigate(location.state || "/");
@@ -139,7 +139,7 @@ const Login = () => {
                       onChange={onChange} // Added onChange event
                       value={credentials.type} // Added value attribute
                     >
-                      <option value="" selected disabled>
+                      <option value="" disabled>
                         Choose One
                       </option>
                       <option value="user">User(For Normal User)</option>

@@ -93,7 +93,7 @@ const ForgotPassword = () => {
                       onChange={onChange} // Added onChange event
                       value={credentials.type} // Added value attribute
                     >
-                      <option value="" selected disabled>
+                      <option value="" disabled>
                         Choose One
                       </option>
                       <option value="user">User(For Normal User)</option>
