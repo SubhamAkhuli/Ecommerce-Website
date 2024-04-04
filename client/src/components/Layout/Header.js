@@ -16,8 +16,7 @@ function Header() {
     setTimeout(() => {
       toast.success("Logout Successfully");
     }, 100);
-   
-  }
+  };
   return (
     <>
       <Toaster />
@@ -60,7 +59,7 @@ function Header() {
                 >
                   Category
                 </NavLink>
-                <ul className="dropdown-menu">
+                <ul className="dropdown-menu dropdown-menu-dark">
                   <li>
                     <NavLink className="dropdown-item" to="/">
                       Fashion & Apparel
@@ -131,39 +130,55 @@ function Header() {
               </button>
             </form>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              {
-                !user.user ? (
-                  <>
+              {!user.user ? (
+                <>
                   <li className="nav-item">
-                <NavLink className="nav-link" to="/userregister">
-                  Register
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/sellerregister">
-                  Become a Seller
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/login">
-                  Login
-                </NavLink>
-              </li>
-                  </>
-                ) : (<>
-                  <li className="nav-item">
-                    <NavLink onClick={HandelLogout} className="nav-link" to="/login">
-                      Logout
+                    <NavLink className="nav-link" to="/userregister">
+                      Register
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/userdashboard">
-                      Dashboard
+                    <NavLink className="nav-link" to="/sellerregister">
+                      Become a Seller
                     </NavLink>
                   </li>
-                  </>
-                )
-              }
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/login">
+                      Login
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item dropdown">
+                    <NavLink
+                      className="nav-link dropdown-toggle"
+                      to=""
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {user.user.name}
+                    </NavLink>
+                    <ul className="dropdown-menu dropdown-menu-dark">
+                      <li>
+                        <NavLink className="dropdown-item" to="/userdashboard">
+                          Dashboard
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          onClick={HandelLogout}
+                          className="dropdown-item"
+                          to="/login"
+                        >
+                          Logout
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </li>
+                </>
+              )}
               <li className="nav-item">
                 <NavLink className="nav-link" to="/cart">
                   Cart(0)
