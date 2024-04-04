@@ -8,9 +8,7 @@ import Contact from "./pages/Contact";
 import PageNotFound from "./pages/PageNotFound";
 import UserRegister from "./pages/user/userRegister";
 import SellerRegister from "./pages/seller/sellerRegister";
-import Login from "./pages/Login";
-import UserLogin from "./pages/user/Userlogin";
-import SellerLogin from "./pages/seller/Sellerlogin.js";
+import Login from "./pages/Auth/Login.js";
 import UserDashboard from "./pages/user/UserDashboard";
 import UserPrivateRoute from "./components/Routes/user/UserPrivate.js";
 import SellerDashboard from "./pages/seller/SellerDashboard.js";
@@ -32,10 +30,11 @@ function App() {
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="/sellerregister" element={<SellerRegister />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/userlogin" element={<UserLogin />} />
-            <Route path="/sellerlogin" element={<SellerLogin />} />
             <Route path="/userforgotpassword" element={<UserForgot />} />
-            <Route path="/sellerforgotpassword" element={<SellerForgetPassword />} />
+            <Route
+              path="/sellerforgotpassword"
+              element={<SellerForgetPassword />}
+            />
             {/* Nested routes */}
             <Route path="/userdashboard" element={<UserPrivateRoute />}>
               <Route path="" element={<UserDashboard />} />
