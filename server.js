@@ -4,6 +4,7 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 import authUserRoute from "./routes/user/authUserRoute.js";
 import authSellerRoute from "./routes/seller/authSellerRoute.js";
+import authAdminRoute from "./routes/admin/authAdminRoute.js";
 import cors from "cors";
 
 // load env variables
@@ -25,6 +26,9 @@ app.use("/api/v1/userauth", authUserRoute);
 
 // routes for seller
 app.use("/api/v1/sellerauth", authSellerRoute);
+
+// routes for admin
+app.use("/api/v1/adminauth", authAdminRoute);
 
 // rest api
 app.get("/", (req, res) => {
