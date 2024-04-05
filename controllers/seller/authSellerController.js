@@ -123,7 +123,7 @@ export const sellerLoginController = async (req, res) => {
       success: true,
       message: "Seller Login Successfully",
       token: token,
-      seller: {
+      user: {
         type: userType,
         name: seller.name,
         email: seller.email,
