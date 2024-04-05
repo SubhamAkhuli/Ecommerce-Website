@@ -13,6 +13,8 @@ import UserDashboard from "./pages/user/UserDashboard";
 import UserPrivateRoute from "./components/Routes/user/UserPrivate.js";
 import SellerDashboard from "./pages/seller/SellerDashboard.js";
 import SellerPrivateRoute from "./components/Routes/seller/SellerPrivate.js";
+import AdminDashboard from "./pages/admin/AdminDashboard.js";
+import AdminPrivateRoute from "./components/Routes/admin/AdminPrivate.js";
 import ForgotPassword from "./pages/Auth/ForgotPassword.js";
 import { AuthProvider } from "./context/auth";
 function App() {
@@ -31,12 +33,17 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
             {/* Nested routes */}
-            <Route path="/userdashboard" element={<UserPrivateRoute />}>
-              <Route path="" element={<UserDashboard />} />
+            <Route path="/dashboard" element={<UserPrivateRoute />}>
+              <Route path="user" element={<UserDashboard />} />
             </Route>
-            <Route path="/sellerdashboard" element={<SellerPrivateRoute />}>
-              <Route path="" element={<SellerDashboard />} />
+            <Route path="/dashboard" element={<SellerPrivateRoute />}>
+              <Route path="seller" element={<SellerDashboard />} />
             </Route>
+            <Route path="/dashboard" element={<AdminPrivateRoute />} >
+              <Route path="admin" element={<AdminDashboard/>} />
+            </Route>
+
+
 
             {/* 404 Page Not Found */}
             <Route path="*" element={<PageNotFound />} />
