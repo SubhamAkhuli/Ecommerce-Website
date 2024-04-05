@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "../../context/auth";
 
 function Header() {
-  const { user, setUser } = useAuth();
+  const [ user, setUser ] = useAuth();
   const HandelLogout = () => {
     setUser({
       user: null,
@@ -150,7 +150,7 @@ function Header() {
                 </>
               ) : (
                 <>
-                  <li className="nav-item dropdown">
+                  <li className="nav-item dropdown  mx-3">
                     <NavLink
                       className="nav-link dropdown-toggle"
                       to=""
@@ -160,9 +160,9 @@ function Header() {
                     >
                       {user.user.name}
                     </NavLink>
-                    <ul className="dropdown-menu dropdown-menu-dark">
+                    <ul className="dropdown-menu dropdown-menu-dark  ">
                       <li>
-                        <NavLink className="dropdown-item" to="/userdashboard">
+                        <NavLink className="dropdown-item" to={`/dashboard/${user?.user?.type}`}>
                           Dashboard
                         </NavLink>
                       </li>
