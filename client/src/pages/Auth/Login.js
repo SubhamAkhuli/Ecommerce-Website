@@ -8,7 +8,7 @@ import { useAuth } from "../../context/auth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useAuth();
+  const [ user, setUser ] = useAuth();
   const location = useLocation();
 
   const [credentials, setCredentials] = useState({
@@ -71,7 +71,7 @@ const Login = () => {
               toast.success(response.data.message);
               setUser({
                 ...user,
-                user: response.data.seller,
+                user: response.data.user,
                 token: response.data.token,
               });
               
