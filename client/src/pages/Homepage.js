@@ -3,7 +3,7 @@ import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import { useAuth } from "../context/auth";
 function Homepage() {
-  const { user,setUser } = useAuth();
+  const [ user ] = useAuth();
   return (
     <div>
       <Header />
