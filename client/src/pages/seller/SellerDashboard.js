@@ -4,7 +4,7 @@ import Footer from '../../components/Layout/Footer'
 import { useAuth } from "../../context/auth";
 
 const  SellerDashboard = () => {
-  const {user }= useAuth();
+  const [user]= useAuth();
   const userName = user?.user?.name || "N/A";
   const userEmail = user?.user?.email || "N/A";
   const userAddress = user?.user?.address || "N/A";
