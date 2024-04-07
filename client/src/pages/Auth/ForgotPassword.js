@@ -80,7 +80,7 @@ const ForgotPassword = () => {
           <div className="col-md-6 offset-md-3">
             <div className="card m-4">
               <div className="card-header">
-                <h3 className="text-center">Password Change</h3>
+                <h3 className="text-center">Change Password</h3>
               </div>
               <div className="card-body">
                 <form onSubmit={handelSubmit}>
