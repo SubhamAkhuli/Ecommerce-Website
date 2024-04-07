@@ -1,5 +1,5 @@
 import express from "express";
-import {userRegisterController,userLoginController,testcontroller,userForgotPasswordController} from "../../controllers/user/authUserController.js";
+import {userRegisterController,userLoginController,testcontroller,userForgotPasswordController,userUpdateController,userDeleteController} from "../../controllers/user/authUserController.js";
 import { authMiddleware } from "../../middlewares/authMiddleware.js";
 // router object
 const router = express.Router();
@@ -18,6 +18,12 @@ router.get("/test",authMiddleware, testcontroller);
 
 // forgot password
 router.post("/userforgotpassword", userForgotPasswordController);
+
+// update details
+router.patch("/userupdatedetails/:id",userUpdateController);
+
+// delete user
+router.delete("/userdelete/:id",userDeleteController);
 
 // Protected route
 router.get("/user-auth",authMiddleware, (req, res) => {
