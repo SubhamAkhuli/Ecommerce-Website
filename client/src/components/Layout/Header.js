@@ -163,7 +163,7 @@ function Header() {
                     <ul className="dropdown-menu dropdown-menu-dark  ">
                       <li>
                         <NavLink className="dropdown-item" to={`/dashboard/${user?.user?.type}`}>
-                          Dashboard
+                        <i className="bi bi-person-circle m-1"></i> My Profile
                         </NavLink>
                       </li>
                       <li>
@@ -172,7 +172,7 @@ function Header() {
                           className="dropdown-item"
                           to="/login"
                         >
-                          Logout
+                          <i className="fa-solid fa-power-off m-1"></i> Logout
                         </NavLink>
                       </li>
                     </ul>
