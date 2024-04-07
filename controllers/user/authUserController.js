@@ -6,7 +6,7 @@ import typeModel from "../../models/Type/typeModel.js";
 // Register User
 export const userRegisterController = async (req, res) => {
   try {
-    const { name, email, password, phone, address,answer } = req.body;
+    const { name, email, password, phone, address, answer } = req.body;
     //validations
     if (!name) {
       return res.send({ message: "Name is Required" });
@@ -45,7 +45,7 @@ export const userRegisterController = async (req, res) => {
       phone,
       address,
       password: hashedPassword,
-      answer
+      answer,
     }).save();
 
     // Save Type
@@ -58,6 +58,7 @@ export const userRegisterController = async (req, res) => {
       success: true,
       message: "User Register Successfully",
       user: {
+        id: user._id,
         name: user.name,
         email: user.email,
         phone: user.phone,
@@ -120,6 +121,7 @@ export const userLoginController = async (req, res) => {
       message: "Login Successfully",
       token: token,
       user: {
+        id: user._id,
         name: user.name,
         email: user.email,
         phone: user.phone,
@@ -148,61 +150,59 @@ export const testcontroller = async (req, res) => {
   }
 };
 
-
 // Forgot Password
 export const userForgotPasswordController = async (req, res) => {
   try {
     const { email, answer, newPassword } = req.body;
-      //validations
-      if (!email || !answer ) {
-        return res.send({
-          success: false,
-          message: "Email and answer is Required",
-        });
-      }
-      if (!newPassword) {
-        return res.send({
-          success: false,
-          message: "New Password is Required",
-        });
-      }
-      //check user
-      const user = await userModel.findOne({ email });
-      //check user
-      if (!user) {
-        return res.send({
-          success: false,
-          message: "User Not Found",
-        });
-      }
-      //check answer
-      if (answer !== user.answer) {
-        return res.send({
-          success: false,
-          message: "Invalid answer",
-        });
-      }
-      //response
-      const hashedPassword = await hashPassword(newPassword);
-      if (!hashedPassword) {
-        return res.send({
-          success: false,
-          message: "Error in Password Reset",
-        });
-      }
-      //update
-      await userModel.findOneAndUpdate
-      (
-        { email: email },
-        {
-          password: hashedPassword,
-        }
-      );
-      res.send({
-        success: true,
-        message: "Password Reset Successfully",
+    //validations
+    if (!email || !answer) {
+      return res.send({
+        success: false,
+        message: "Email and answer is Required",
       });
-    } catch (error) {
+    }
+    if (!newPassword) {
+      return res.send({
+        success: false,
+        message: "New Password is Required",
+      });
+    }
+    //check user
+    const user = await userModel.findOne({ email });
+    //check user
+    if (!user) {
+      return res.send({
+        success: false,
+        message: "User Not Found",
+      });
+    }
+    //check answer
+    if (answer !== user.answer) {
+      return res.send({
+        success: false,
+        message: "Invalid answer",
+      });
+    }
+    //response
+    const hashedPassword = await hashPassword(newPassword);
+    if (!hashedPassword) {
+      return res.send({
+        success: false,
+        message: "Error in Password Reset",
+      });
+    }
+    //update
+    await userModel.findOneAndUpdate(
+      { email: email },
+      {
+        password: hashedPassword,
+      }
+    );
+    res.send({
+      success: true,
+      message: "Password Reset Successfully",
+    });
+  } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
@@ -211,3 +211,93 @@ export const userForgotPasswordController = async (req, res) => {
     });
   }
 };
+
+// Update User
+export const userUpdateController = async (req, res) => {
+  try {
+    const { name, email, phone, address, answer } = req.body;
+    //validations
+    if (!req.params.id) {
+      return res.send({ message: "Id is Required" });
+    }
+
+    //update
+    let user = await userModel.findOne({ _id: req.params.id });
+    const echeck = user.email;
+
+    if (!user) {
+      return res.send({ message: "User Not Found" });
+    }
+    //update
+    else {
+      user = await userModel.findByIdAndUpdate(req.params.id, {
+        name: name,
+        email: email,
+        phone: phone,
+        address: address,
+        answer: answer,
+      });
+      // type model update
+      const type = await typeModel.findOne({
+        email: echeck,
+      });
+      const reqtkn = req.header("Authorization");
+      const userType = type.type;
+      await typeModel.findOneAndUpdate(
+        { _id: type._id },
+        {
+          email: email,
+        }
+      );
+      res.send({
+        success: true,
+        message: "User Updated Successfully",
+        token: reqtkn,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          address: user.address,
+          answer: user.answer,
+          type: userType,
+        },
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Update",
+      error,
+    });
+  }
+};
+
+
+// Delete User
+export const userDeleteController = async (req, res) => {
+  try {
+    const user = await userModel
+      .findOneAndDelete({ _id: req.params.id })
+    // type model delete
+    const type = await typeModel.findOne({
+      email: user.email,
+    });
+    await typeModel.findOneAndDelete({ _id: type._id });
+    res.send({
+      success: true,
+      message: "User Deleted Successfully",
+    });
+  }
+  catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Delete",
+      error,
+    });
+  
+  }
+}
+
