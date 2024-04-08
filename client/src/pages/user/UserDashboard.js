@@ -28,7 +28,7 @@ const UserDashboard = () => {
   const Clicked = () => {
     setEdit(1);
     toast.success("You can now edit your details");
-    console.log(edit);
+    // console.log(edit);
   };
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
