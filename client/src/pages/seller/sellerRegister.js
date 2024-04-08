@@ -12,6 +12,9 @@ const SellerRegister = () => {
     category: "",
     name: "",
     email: "",
+    address: "",
+    phone: "",
+    answer: "",
     password: "",
     cpassword: "",
   });
@@ -29,6 +32,7 @@ const SellerRegister = () => {
         cpassword,
         address,
         phone,
+        answer,
       } = credentials;
       if (password !== cpassword) {
         toast.error("Password do not match");
@@ -44,6 +48,7 @@ const SellerRegister = () => {
             password,
             address,
             phone,
+            answer,
           }
         );
         if (response.data.success) {
@@ -69,7 +74,7 @@ const SellerRegister = () => {
     <>
       <Header />
 
-      <div className="container">
+      <div className="container m-3">
         <div className="row mb-1">
           <div className="col-md-6 offset-md-3">
             <div className="card mt-1">
@@ -192,6 +197,18 @@ const SellerRegister = () => {
                       required
                     />
                     <label htmlFor="floatingInput">Phone Number</label>
+                  </div>
+                  <div className="form-floating mb-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="floatingInput"
+                      placeholder="Enter your Answer"
+                      onChange={onChange}
+                      name="answer"
+                      required
+                    />
+                    <label htmlFor="floatingInput">What is Your Favorite sport?</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
