@@ -22,6 +22,7 @@ import SellerPrivateRoute from "./components/Routes/seller/SellerPrivate.js";
 import SellerCreateProduct from "./pages/seller/SellerCreateProduct.js";
 import SellerProducts from "./pages/seller/SellerProducts.js";
 import SellerOrders from "./pages/seller/SellerOrders.js";
+import SellerChangePassword from "./pages/seller/SellerChangePassword.js";
 
 // admin links
 import AdminDashboard from "./pages/admin/AdminDashboard.js";
@@ -63,6 +64,7 @@ function App() {
               <Route path="seller/create-product" element={<SellerCreateProduct />} />
               <Route path="seller/products" element={<SellerProducts />} />
               <Route path="seller/orders" element={<SellerOrders />} />
+              <Route path="seller/changepassword" element={<SellerChangePassword />} />
             </Route>
 
             {/* Admin routes */}
