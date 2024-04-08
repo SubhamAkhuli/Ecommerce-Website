@@ -2,7 +2,6 @@ import sellerModel from "../../models/seller/sellerModel.js";
 import { hashPassword, comparePassword } from "../../helpers/authHelper.js";
 import jwt from "jsonwebtoken";
 import typeModel from "../../models/Type/typeModel.js";
-import { token } from "morgan";
 
 // Register Seller
 export const sellerRegisterController = async (req, res) => {
