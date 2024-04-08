@@ -2,11 +2,13 @@ import sellerModel from "../../models/seller/sellerModel.js";
 import { hashPassword, comparePassword } from "../../helpers/authHelper.js";
 import jwt from "jsonwebtoken";
 import typeModel from "../../models/Type/typeModel.js";
+import { token } from "morgan";
 
 // Register Seller
 export const sellerRegisterController = async (req, res) => {
   try {
-    const { shop_name,category, name, email, password, phone, address } = req.body;
+    const { shop_name, category, name, email, password, phone, address,answer } =
+      req.body;
     //validations
     if (!shop_name) {
       return res.send({ message: "Shop Name is Required" });
@@ -29,6 +31,9 @@ export const sellerRegisterController = async (req, res) => {
     if (!address) {
       return res.send({ message: "Address is Required" });
     }
+    if (!answer) {
+      return res.send({ message: "Answer is Required" });
+    }
     //check seller
     const exisitingseller = await typeModel.findOne({ email });
     //exisiting seller
@@ -47,6 +52,7 @@ export const sellerRegisterController = async (req, res) => {
       name,
       email,
       phone,
+      answer,
       address,
       password: hashedPassword,
     }).save();
@@ -57,12 +63,11 @@ export const sellerRegisterController = async (req, res) => {
       type: "seller",
     }).save();
 
-
     res.status(201).send({
       success: true,
       message: "Seller Register Successfully",
-      seller:
-      {
+      user: {
+        id: seller._id,
         shop_name: seller.shop_name,
         category: seller.category,
         name: seller.name,
@@ -70,7 +75,8 @@ export const sellerRegisterController = async (req, res) => {
         phone: seller.phone,
         address: seller.address,
         type: type.type,
-      }
+        answer: seller.answer,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -99,7 +105,7 @@ export const sellerLoginController = async (req, res) => {
     if (!seller) {
       return res.send({
         success: false,
-        message: "User not Found, Please Register First",
+        message: "Account does not exist, Please Register First",
       });
     }
     //match password
@@ -124,6 +130,7 @@ export const sellerLoginController = async (req, res) => {
       message: "Seller Login Successfully",
       token: token,
       user: {
+        id: seller._id,
         type: userType,
         name: seller.name,
         email: seller.email,
@@ -131,6 +138,7 @@ export const sellerLoginController = async (req, res) => {
         address: seller.address,
         shop_name: seller.shop_name,
         category: seller.category,
+        answer: seller.answer,
       },
     });
   } catch (error) {
@@ -142,7 +150,6 @@ export const sellerLoginController = async (req, res) => {
     });
   }
 };
-
 
 // testing route
 export const testcontroller = async (req, res) => {
@@ -158,60 +165,160 @@ export const testcontroller = async (req, res) => {
 export const sellerForgotPasswordController = async (req, res) => {
   try {
     const { email, answer, newPassword } = req.body;
-      //validations
-      if (!email || !answer ) {
-        return res.send({
-          success: false,
-          message: "Email and answer is Required",
-        });
-      }
-      if (!newPassword) {
-        return res.send({
-          success: false,
-          message: "New Password is Required",
-        });
-      }
-      //check user
-      const user = await sellerModel.findOne({ email });
-      //check user
-      if (!user) {
-        return res.send({
-          success: false,
-          message: "User Not Found",
-        });
-      }
-      //check answer
-      if (answer !== user.answer) {
-        return res.send({
-          success: false,
-          message: "Invalid answer",
-        });
-      }
-      //response
-      const hashedPassword = await hashPassword(newPassword);
-      if (!hashedPassword) {
-        return res.send({
-          success: false,
-          message: "Error in Password Reset",
-        });
-      }
-      //update
-      await sellerModel.findOneAndUpdate
-      (
-        { email: email },
-        {
-          password: hashedPassword,
-        }
-      );
-      res.send({
-        success: true,
-        message: "Password Reset Successfully",
+    //validations
+    if (!email || !answer) {
+      return res.send({
+        success: false,
+        message: "Email and answer is Required",
       });
-    } catch (error) {
+    }
+    if (!newPassword) {
+      return res.send({
+        success: false,
+        message: "New Password is Required",
+      });
+    }
+    //check user
+    const user = await sellerModel.findOne({ email });
+    //check user
+    if (!user) {
+      return res.send({
+        success: false,
+        message: "User Not Found",
+      });
+    }
+    //check answer
+    if (answer !== user.answer) {
+      return res.send({
+        success: false,
+        message: "Invalid answer",
+      });
+    }
+    //response
+    const hashedPassword = await hashPassword(newPassword);
+    if (!hashedPassword) {
+      return res.send({
+        success: false,
+        message: "Error in Password Reset",
+      });
+    }
+    //update
+    await sellerModel.findOneAndUpdate(
+      { email: email },
+      {
+        password: hashedPassword,
+      }
+    );
+    res.send({
+      success: true,
+      message: "Password Reset Successfully",
+    });
+  } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
       message: "Error in Forgot Password",
+      error,
+    });
+  }
+};
+
+//  Update Seller
+export const sellerUpdateController = async (req, res) => {
+  try {
+    const { name, email, phone, address, shop_name, category, answer } =
+      req.body;
+    //validations
+    if (!req.params.id) {
+      return res.send({ message: "Id is Required" });
+    }
+    const checkEmail = await typeModel.findOne({
+      email: email,
+    });
+    const checkuser = await sellerModel.findOne({ email: email });
+    if (checkEmail) {
+      if (checkuser._id.toString() !== req.params.id.toString()){
+        return res.send({
+          success: false,
+          message: "Email Already Registered",
+        });
+      } else {
+        //update
+        let user = await sellerModel.findOne({ _id: req.params.id });
+        const echeck = user.email;
+
+        if (!user) {
+          return res.send({ message: "Seller Not Found" });
+        } else {
+          const seller = await sellerModel.findByIdAndUpdate(req.params.id, {
+            name: name,
+            email: email,
+            phone: phone,
+            address: address,
+            shop_name: shop_name,
+            answer: answer,
+            category: category,
+          });
+
+          // type model update
+          if (echeck !== email) {
+          const type = await typeModel.findOneAndUpdate(
+            { email: echeck },
+            {
+              email: email,
+            }
+          );
+        }
+
+          const reqtkn = req.header("Authorization");
+          const userType = "seller";
+          res.send({
+            success: true,
+            message: "Seller Updated Successfully",
+            token: reqtkn,
+            user: {
+              id: seller._id,
+              name: seller.name,
+              email: seller.email,
+              phone: seller.phone,
+              address: seller.address,
+              answer: seller.answer,
+              type: userType,
+              shop_name: seller.shop_name,
+              category: seller.category,
+            },
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Update",
+      error,
+    });
+  }
+};
+
+
+// Delete Seller
+export const sellerDeleteController = async (req, res) => {
+  try {
+    const user = await sellerModel.findByIdAndDelete(req.params.id);
+    if (!user) {
+      return res.send({ message: "Seller Not Found" });
+    }
+    const type = await typeModel.findOneAndDelete({ email: user.email });
+    res.send({
+      success: true,
+      message: "Seller Deleted Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Delete",
       error,
     });
   }
