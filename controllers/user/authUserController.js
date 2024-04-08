@@ -94,7 +94,7 @@ export const userLoginController = async (req, res) => {
     if (!user) {
       return res.send({
         success: false,
-        message: "User Not Found, Please Register First",
+        message: "Account does not exist, Please Register First",
       });
     }
     //check password
@@ -220,49 +220,62 @@ export const userUpdateController = async (req, res) => {
     if (!req.params.id) {
       return res.send({ message: "Id is Required" });
     }
+    const checkEmail = await typeModel.findOne({
+      email: email,
+    });
+    const checkUser = await userModel.findOne({
+      email: email,
+    });
+    if (checkEmail) {
+      if (checkUser._id.toString() !== req.params.id.toString()) {
+        return res.send({
+          success: false,
+          message: "Email Already Registered",
+        });
+      } else {
+        //update
+        let user = await userModel.findOne({ _id: req.params.id });
+        const echeck = user.email;
 
-    //update
-    let user = await userModel.findOne({ _id: req.params.id });
-    const echeck = user.email;
-
-    if (!user) {
-      return res.send({ message: "User Not Found" });
-    }
-    //update
-    else {
-      user = await userModel.findByIdAndUpdate(req.params.id, {
-        name: name,
-        email: email,
-        phone: phone,
-        address: address,
-        answer: answer,
-      });
-      // type model update
-      const type = await typeModel.findOne({
-        email: echeck,
-      });
-      const reqtkn = req.header("Authorization");
-      const userType = type.type;
-      await typeModel.findOneAndUpdate(
-        { _id: type._id },
-        {
-          email: email,
+        if (!user) {
+          return res.send({ message: "User Not Found" });
         }
-      );
-      res.send({
-        success: true,
-        message: "User Updated Successfully",
-        token: reqtkn,
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          phone: user.phone,
-          address: user.address,
-          answer: user.answer,
-          type: userType,
-        },
-      });
+        //update
+        else {
+          user = await userModel.findByIdAndUpdate(req.params.id, {
+            name: name,
+            email: email,
+            phone: phone,
+            address: address,
+            answer: answer,
+          });
+          // type model update
+          if (echeck === email) {
+          const type = await typeModel.findOneAndUpdate(
+            { email: echeck },
+            {
+              email: email,
+            }
+          );
+        }
+          const reqtkn = req.header("Authorization");
+          const userType = "user";
+          res.send({
+            success: true,
+            message: "User Updated Successfully",
+            token: reqtkn,
+            user: {
+              id: user._id,
+              name: user.name,
+              email: user.email,
+              phone: user.phone,
+              address: user.address,
+              answer: user.answer,
+              type: userType,
+            },
+          });
+        }
+      }
     }
   } catch (error) {
     console.log(error);
@@ -274,12 +287,10 @@ export const userUpdateController = async (req, res) => {
   }
 };
 
-
 // Delete User
 export const userDeleteController = async (req, res) => {
   try {
-    const user = await userModel
-      .findOneAndDelete({ _id: req.params.id })
+    const user = await userModel.findOneAndDelete({ _id: req.params.id });
     // type model delete
     const type = await typeModel.findOne({
       email: user.email,
@@ -289,15 +300,12 @@ export const userDeleteController = async (req, res) => {
       success: true,
       message: "User Deleted Successfully",
     });
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
       message: "Error in Delete",
       error,
     });
-  
   }
-}
-
+};
