@@ -1,5 +1,5 @@
 import express from "express";
-import {sellerRegisterController,sellerLoginController,testcontroller,sellerForgotPasswordController} from "../../controllers/seller/authSellerController.js";
+import {sellerRegisterController,sellerLoginController,testcontroller,sellerForgotPasswordController,sellerUpdateController,sellerDeleteController} from "../../controllers/seller/authSellerController.js";
 import { authMiddleware } from "../../middlewares/authMiddleware.js";
 
 // router object
@@ -18,6 +18,13 @@ router.get("/test",authMiddleware, testcontroller);
 
 // forgot password
 router.post("/sellerforgotpassword", sellerForgotPasswordController);
+
+
+// update seller
+router.put("/sellerupdatedetails/:id",sellerUpdateController);
+
+// delete seller
+router.delete("/sellerdelete/:id",sellerDeleteController);
 
 //  Protected route
 router.get("/seller-auth",authMiddleware, (req, res) => {
