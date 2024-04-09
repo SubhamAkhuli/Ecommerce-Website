@@ -234,62 +234,72 @@ export const sellerUpdateController = async (req, res) => {
     const checkEmail = await typeModel.findOne({
       email: email,
     });
-    const checkuser = await sellerModel.findOne({ email: email });
-    if (checkEmail) {
-      if (checkuser._id.toString() !== req.params.id.toString()){
-        return res.send({
-          success: false,
-          message: "Email Already Registered",
-        });
-      } else {
-        //update
-        let user = await sellerModel.findOne({ _id: req.params.id });
-        const echeck = user.email;
-
-        if (!user) {
-          return res.send({ message: "Seller Not Found" });
+    if (checkEmail.type === "seller")
+    {
+      const checkuser = await sellerModel.findOne({ email: email });
+      if (checkEmail) {
+        if (checkuser._id.toString() !== req.params.id.toString()){
+          return res.send({
+            success: false,
+            message: "Email Already Registered",
+          });
         } else {
-          const seller = await sellerModel.findByIdAndUpdate(req.params.id, {
-            name: name,
-            email: email,
-            phone: phone,
-            address: address,
-            shop_name: shop_name,
-            answer: answer,
-            category: category,
-          });
-
-          // type model update
-          if (echeck !== email) {
-          const type = await typeModel.findOneAndUpdate(
-            { email: echeck },
-            {
+          //update
+          let user = await sellerModel.findOne({ _id: req.params.id });
+          const echeck = user.email;
+  
+          if (!user) {
+            return res.send({ message: "Seller Not Found" });
+          } else {
+            const seller = await sellerModel.findByIdAndUpdate(req.params.id, {
+              name: name,
               email: email,
-            }
-          );
-        }
-
-          const reqtkn = req.header("Authorization");
-          const userType = "seller";
-          res.send({
-            success: true,
-            message: "Seller Updated Successfully",
-            token: reqtkn,
-            user: {
-              id: seller._id,
-              name: seller.name,
-              email: seller.email,
-              phone: seller.phone,
-              address: seller.address,
-              answer: seller.answer,
-              type: userType,
-              shop_name: seller.shop_name,
-              category: seller.category,
-            },
-          });
+              phone: phone,
+              address: address,
+              shop_name: shop_name,
+              answer: answer,
+              category: category,
+            });
+  
+            // type model update
+            if (echeck !== email) {
+            const type = await typeModel.findOneAndUpdate(
+              { email: echeck },
+              {
+                email: email,
+              }
+            );
+          }
+  
+            const reqtkn = req.header("Authorization");
+            const userType = "seller";
+            res.send({
+              success: true,
+              message: "Seller Updated Successfully",
+              token: reqtkn,
+              user: {
+                id: seller._id,
+                name: seller.name,
+                email: seller.email,
+                phone: seller.phone,
+                address: seller.address,
+                answer: seller.answer,
+                type: userType,
+                shop_name: seller.shop_name,
+                category: seller.category,
+              },
+            });
+          }
         }
       }
     }
+    else{
+      return res.send({
+        success: false,
+        message: "Email Already Registered",
+      });
+    }
+   
   } catch (error) {
     console.log(error);
     res.status(500).send({
