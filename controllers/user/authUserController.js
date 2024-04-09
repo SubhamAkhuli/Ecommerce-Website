@@ -2,6 +2,7 @@ import userModel from "../../models/user/userModel.js";
 import { hashPassword, comparePassword } from "../../helpers/authHelper.js";
 import Jwt from "jsonwebtoken";
 import typeModel from "../../models/Type/typeModel.js";
+import e from "cors";
 
 // Register User
 export const userRegisterController = async (req, res) => {
@@ -223,60 +224,71 @@ export const userUpdateController = async (req, res) => {
     const checkEmail = await typeModel.findOne({
       email: email,
     });
-    const checkUser = await userModel.findOne({
-      email: email,
-    });
-    if (checkEmail) {
-      if (checkUser._id.toString() !== req.params.id.toString()) {
-        return res.send({
-          success: false,
-          message: "Email Already Registered",
-        });
-      } else {
-        //update
-        let user = await userModel.findOne({ _id: req.params.id });
-        const echeck = user.email;
-
-        if (!user) {
-          return res.send({ message: "User Not Found" });
-        }
-        //update
-        else {
-          user = await userModel.findByIdAndUpdate(req.params.id, {
-            name: name,
-            email: email,
-            phone: phone,
-            address: address,
-            answer: answer,
+    if(checkEmail.type === "user" )
+    {
+      const checkUser = await userModel.findOne({
+        email: email,
+      }); 
+      if (checkEmail) {
+        if (checkUser._id.toString() !== req.params.id.toString()) {
+          return res.send({
+            success: false,
+            message: "Email Already Registered",
           });
-          // type model update
-          if (echeck === email) {
-          const type = await typeModel.findOneAndUpdate(
-            { email: echeck },
-            {
+        } else {
+          //update
+          let user = await userModel.findOne({ _id: req.params.id });
+          const echeck = user.email;
+  
+          if (!user) {
+            return res.send({ message: "User Not Found" });
+          }
+          //update
+          else {
+            user = await userModel.findByIdAndUpdate(req.params.id, {
+              name: name,
               email: email,
-            }
-          );
-        }
-          const reqtkn = req.header("Authorization");
-          const userType = "user";
-          res.send({
-            success: true,
-            message: "User Updated Successfully",
-            token: reqtkn,
-            user: {
-              id: user._id,
-              name: user.name,
-              email: user.email,
-              phone: user.phone,
-              address: user.address,
-              answer: user.answer,
-              type: userType,
-            },
-          });
+              phone: phone,
+              address: address,
+              answer: answer,
+            });
+            // type model update
+            if (echeck === email) {
+            const type = await typeModel.findOneAndUpdate(
+              { email: echeck },
+              {
+                email: email,
+              }
+            );
+          }
+            const reqtkn = req.header("Authorization");
+            const userType = "user";
+            res.send({
+              success: true,
+              message: "User Updated Successfully",
+              token: reqtkn,
+              user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                address: user.address,
+                answer: user.answer,
+                type: userType,
+              },
+            });
+          }
         }
       }
     }
+    else{
+      return res.send({
+        success: false,
+        message: "Email Already Registered",
+      });
+    }
+
+
   } catch (error) {
     console.log(error);
     res.status(500).send({
