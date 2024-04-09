@@ -8,7 +8,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const UserDashboard = () => {
-
   const [user] = useAuth();
   const userName = user?.user?.name || "N/A";
   const userEmail = user?.user?.email || "N/A";
@@ -75,6 +74,11 @@ const UserDashboard = () => {
           setEdit(0);
         } else {
           toast.error(response.data.message);
+          if (response.data.message === "Email Already Registered") {
+            credentials.email = userEmail;
+            setEdit(0);
+          }
+          
         }
       }
     } catch (error) {
@@ -98,7 +102,12 @@ const UserDashboard = () => {
                 <h3>Welcome {userName}</h3>
               </div>
               <div className="card-body">
-                <form >
+                <form>
+                  {edit === 1 ? (
+                    <div className="alert alert-warning text-center" role="alert">
+                      You are in Edit Mode
+                    </div>
+                  ) : null}
                   <div className="form-floating mb-3">
                     <input
                       disabled={edit === 0 ? true : false}
@@ -175,18 +184,29 @@ const UserDashboard = () => {
                   <button
                     disabled={edit === 1 ? true : false}
                     type="button"
-                    className="btn btn-primary"
+                    className={`btn btn-primary ${edit === 1 ? "d-none" : ""}`}
                     onClick={Clicked}
                   >
                     Edit
                   </button>
+
                   <button
                     disabled={edit === 0 ? true : false}
                     type="submit"
                     onClick={handleSubmit}
-                    className="btn btn-primary m-3"
+                    className={`btn btn-success m-1 ${edit === 0 ? "d-none" : ""}`}
                   >
                     Save
+                  </button>
+                  <button
+                    disabled={edit === 0 ? true : false}
+                    type="button"
+                    className={`btn btn-danger ms-3 ${edit === 0 ? "d-none" : ""}`}
+                    onClick={() => {
+                      setEdit(0);
+                    }}
+                  >
+                    Cancel
                   </button>
                 </form>
               </div>
