@@ -30,19 +30,20 @@ const SellerDashboard = () => {
   const Clicked = () => {
     setEdit(1);
     toast.success("You can now edit your details");
-    // console.log(edit);
   };
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
-    // console.log(credentials);
     e.preventDefault();
     try {
-      const { name, email, address, shop_name, category ,answer,phone} = credentials;
+      const { name, email, address, shop_name, category, answer, phone } =
+        credentials;
       if (!name) {
         toast.error("Name is Required");
+      } else if (!phone) {
+        toast.error("Phone is Required");
       } else if (!email) {
         toast.error("Email is Required");
       } else if (!shop_name) {
@@ -51,10 +52,9 @@ const SellerDashboard = () => {
         toast.error("Category is Required");
       } else if (!address) {
         toast.error("Address is Required");
-      }else if (!answer) {
+      } else if (!answer) {
         toast.error("Answer is Required");
-      }
-       else if (
+      } else if (
         name === userName &&
         email === userEmail &&
         phone === userPhone &&
@@ -82,9 +82,12 @@ const SellerDashboard = () => {
           localStorage.setItem("user", JSON.stringify(response.data));
           toast.success(response.data.message);
           setEdit(0);
-        }
-        else {
+        } else {
           toast.error(response.data.message);
+          if (response.data.message === "Email Already Registered") {
+            credentials.email = userEmail;
+            setEdit(0);
+          }
         }
       }
     } catch (error) {
@@ -108,6 +111,16 @@ const SellerDashboard = () => {
               </div>
               <div className="card-body">
                 <form>
+                  {edit === 1 ? (
+                    <div
+                      className="alert alert-warning text-center"
+                      role="alert"
+                    >
+                      You are in Edit Mode
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <div className="form-floating mb-3">
                     <input
                       disabled={edit === 0 ? true : false}
@@ -125,7 +138,7 @@ const SellerDashboard = () => {
 
                   <div className="form-floating mb-3">
                     <input
-                      disabled={edit === 0 ? true : false}
+                      disabled
                       type="text"
                       className="form-control"
                       id="floatingInput"
@@ -135,9 +148,10 @@ const SellerDashboard = () => {
                       name="category"
                       required
                     />
-                    <label htmlFor="floatingInput">Shop Type</label>
+                    <label htmlFor="floatingInput">
+                      Shop Type {edit===1?"(Shop Type can not be Changed)":""}
+                    </label>
                   </div>
-
 
                   <div className="form-floating mb-3">
                     <input
@@ -180,7 +194,7 @@ const SellerDashboard = () => {
                       name="address"
                       required
                     />
-                    <label htmlFor="floatingInput">Address</label>
+                    <label htmlFor="floatingInput">Shop Address</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
@@ -212,21 +226,33 @@ const SellerDashboard = () => {
                       What is Your Favorite sport?
                     </label>
                   </div>
+
                   <button
                     disabled={edit === 1 ? true : false}
                     type="button"
-                    className="btn btn-primary"
+                    className={`btn btn-primary ${edit === 1 ? "d-none" : ""}`}
                     onClick={Clicked}
                   >
                     Edit
                   </button>
+
                   <button
                     disabled={edit === 0 ? true : false}
                     type="submit"
                     onClick={handleSubmit}
-                    className="btn btn-primary m-3"
+                    className={`btn btn-success m-1 ${edit === 0 ? "d-none" : ""}`}
                   >
                     Save
+                  </button>
+                  <button
+                    disabled={edit === 0 ? true : false}
+                    type="button"
+                    className={`btn btn-danger ms-3 ${edit === 0 ? "d-none" : ""}`}
+                    onClick={() => {
+                      setEdit(0);
+                    }}
+                  >
+                    Cancel
                   </button>
                 </form>
               </div>
