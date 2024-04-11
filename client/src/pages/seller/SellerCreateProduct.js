@@ -14,8 +14,10 @@ const SellerCreateProduct = () => {
   const [user] = useAuth();
   const SellerId = user?.user?.id || "N/A";
   const category = user?.user?.category || "N/A";
+  const Sellername = user?.user?.name || "N/A";
   const [product, setProduct] = useState({
     seller: SellerId,
+    seller_name: Sellername,
     name: "",
     description: "",
     price: "",
@@ -71,6 +73,7 @@ const SellerCreateProduct = () => {
         // console.log(product);
         const productData = new FormData();
         productData.append("seller", SellerId);
+        productData.append("seller_name", Sellername);
         productData.append("name", name);
         productData.append("brand", brand);
         productData.append("description", description);
