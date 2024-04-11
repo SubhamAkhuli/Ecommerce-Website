@@ -2,6 +2,7 @@ import sellerModel from "../../models/seller/sellerModel.js";
 import { hashPassword, comparePassword } from "../../helpers/authHelper.js";
 import jwt from "jsonwebtoken";
 import typeModel from "../../models/Type/typeModel.js";
+import productModel from "../../models/product/productModel.js";
 
 // Register Seller
 export const sellerRegisterController = async (req, res) => {
@@ -247,7 +248,6 @@ export const sellerUpdateController = async (req, res) => {
           //update
           let user = await sellerModel.findOne({ _id: req.params.id });
           const echeck = user.email;
-  
           if (!user) {
             return res.send({ message: "Seller Not Found" });
           } else {
@@ -260,6 +260,14 @@ export const sellerUpdateController = async (req, res) => {
               answer: answer,
               category: category,
             });
+
+            // product model update
+            const changename = await productModel.updateMany(
+              { seller: req.params.id },
+              {
+                seller_name: name,
+              }
+            );
   
             // type model update
             if (echeck !== email) {
