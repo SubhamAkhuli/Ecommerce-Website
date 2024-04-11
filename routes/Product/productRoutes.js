@@ -1,14 +1,17 @@
 import express from 'express';
-import { createProductController,getProductController,getSingleProductController,productPhotoController,updateProductController,deleteProductController } from '../../controllers/Product/productController.js';
+import { createProductController, getProductController, getSingleProductController, productPhotoController, updateProductController, deleteProductController, getAllProductController } from '../../controllers/product/productController.js';
 import { authMiddleware } from '../../middlewares/authMiddleware.js';
 import ExpressFormidable from 'express-formidable';
 
 const router = express.Router();
 
 // Create a product
-router.post('/create-product',authMiddleware,ExpressFormidable(), createProductController);
+router.post('/create-product', authMiddleware, ExpressFormidable(), createProductController);
 
-// get all products
+// Get all products
+router.get('/get-all-product', getAllProductController);
+
+// get by seller id products
 router.get('/get-product/:id', getProductController);
 
 // get single product
