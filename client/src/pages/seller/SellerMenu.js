@@ -127,7 +127,7 @@ const SellerMenu = () => {
             to="/dashboard/seller/create-product"
             className="list-group-item list-group-item-action"
           >
-            <i className="fa-solid fa-boxes-packing m-2 text-primary"></i>Create Product
+            <i className="fa-solid fa-boxes-packing m-2 text-primary"></i>Add Product
           </Link>
           <Link
             to="/dashboard/seller/products"
