@@ -7,6 +7,10 @@ const productSchema = new mongoose.Schema({
         ref: 'sellers',
         required: true
     },
+    seller_name: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
