@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import authUserRoute from "./routes/user/authUserRoute.js";
 import authSellerRoute from "./routes/seller/authSellerRoute.js";
 import authAdminRoute from "./routes/admin/authAdminRoute.js";
+import authProductRoute from "./routes/Product/productRoutes.js";
 import cors from "cors";
 
 // load env variables
@@ -29,6 +30,9 @@ app.use("/api/v1/sellerauth", authSellerRoute);
 
 // routes for admin
 app.use("/api/v1/adminauth", authAdminRoute);
+
+// routes for product
+app.use("/api/v1/product", authProductRoute);
 
 // rest api
 app.get("/", (req, res) => {
