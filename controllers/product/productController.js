@@ -6,12 +6,14 @@ import fs from "fs";
 // create product
 export const createProductController = async (req, res) => {
     try {
-        const { seller,name, price, description,brand, category, quantity, shipping } = req.fields;
+        const { seller,seller_name,name, price, description,brand, category, quantity, shipping } = req.fields;
         const {image} = req.files;
         // validations
         switch (true) {
             case !seller:
                 return res.send({ message: "Seller is Required" });
+            case !seller_name:
+                return res.send({ message: "Seller Name is Required" });
             case !name:
                 return res.send({ message: "Name is Required" });
             case !price:
@@ -55,6 +57,28 @@ export const createProductController = async (req, res) => {
 }
 
 // Get all products
+export const getAllProductController = async (req, res) => {
+    try {
+        const products = await productModel.find().populate("category").select("-image").limit(12).sort({ "seller_name": 1});
+        return res.status(200).send({
+            success: true, 
+            countTotal: products.length,
+            message: "All Products",
+            products,
+        });
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Error in Get",
+            error,
+        });
+
+    }
+}
+
+// Get by seller id  products
 export const getProductController = async (req, res) => {
     try {
         if (req.params.id) {
