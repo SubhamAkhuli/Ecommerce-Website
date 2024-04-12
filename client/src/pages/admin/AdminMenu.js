@@ -4,6 +4,7 @@ import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
 
 const AdminMenu = () => {
+  // eslint-disable-next-line
   const [user, setUser] = useAuth();
 
 
