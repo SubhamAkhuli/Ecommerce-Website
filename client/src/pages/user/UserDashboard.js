@@ -6,38 +6,53 @@ import UserMenu from "./UserMenu.js";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const UserDashboard = () => {
   const [user] = useAuth();
-  const userName = user?.user?.name || "N/A";
-  const userEmail = user?.user?.email || "N/A";
-  const userAddress = user?.user?.address || "N/A";
-  const userPhone = user?.user?.phone || "N/A";
-  const userAns = user?.user?.answer || "N/A";
+  const userId = user?.user?.id || "N/A";
 
-  const [credentials, setCredentials] = useState({
-    name: userName,
-    email: userEmail,
-    address: userAddress,
-    phone: userPhone,
-    answer: userAns,
-  });
+
+  const [userDetails, setUserDetails] = useState([]);
+  const [credentials, setCredentials] = useState([]);
+
+  // get user details
+  const getUserDetails = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/v1/userauth/userdetail/${userId}`
+      );
+      setUserDetails(response.data.user);
+      setCredentials(response.data.user);
+    } catch (error) {
+      console.log(error); // Log the error for debugging purposes
+      toast.error("Something went wrong while fetching user details.");
+    }
+  };
+
+  useEffect(() => {
+    getUserDetails();
+    // eslint-disable-next-line
+  }, [userId]); // Include userId in the dependency array
+
+const {userName, userEmail, userAddress, userPhone, userAns} = credentials
+  
 
   const [edit, setEdit] = useState(0);
   const Clicked = () => {
     setEdit(1);
     toast.success("You can now edit your details");
-    // console.log(edit);
+
   };
   const onChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = async (e) => {
-    // console.log(credentials);
     e.preventDefault();
     try {
-      const { name, email, address, phone, answer } = credentials;
+      const { name, email, address, phone, answer } = userDetails;
       if (!name) {
         toast.error("Name is Required");
       } else if (!email) {
@@ -75,7 +90,6 @@ const UserDashboard = () => {
         } else {
           toast.error(response.data.message);
           if (response.data.message === "Email Already Registered") {
-            credentials.email = userEmail;
             setEdit(0);
           }
           
@@ -116,7 +130,7 @@ const UserDashboard = () => {
                       id="floatingInput"
                       placeholder="Enter your Name"
                       onChange={onChange}
-                      value={credentials.name}
+                      value={userDetails.name}
                       name="name"
                       required
                     />
@@ -130,7 +144,7 @@ const UserDashboard = () => {
                       id="floatingInput"
                       placeholder="name@example.com"
                       onChange={onChange}
-                      value={credentials.email}
+                      value={userDetails.email}
                       name="email"
                       required
                     />
@@ -145,7 +159,7 @@ const UserDashboard = () => {
                       id="floatingInput"
                       placeholder="Enter your Name"
                       onChange={onChange}
-                      value={credentials.address}
+                      value={userDetails.address}
                       name="address"
                       required
                     />
@@ -159,7 +173,7 @@ const UserDashboard = () => {
                       id="floatingInput"
                       placeholder="Enter your Phone Number"
                       onChange={onChange}
-                      value={credentials.phone}
+                      value={userDetails.phone}
                       name="phone"
                       required
                     />
@@ -173,7 +187,7 @@ const UserDashboard = () => {
                       id="floatingInput"
                       placeholder="Enter your Answer"
                       onChange={onChange}
-                      value={credentials.answer}
+                      value={userDetails.answer}
                       name="answer"
                       required
                     />
