@@ -5,9 +5,11 @@ import AdminMenu from "./AdminMenu";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import {useNavigate} from "react-router-dom";
 
 const AdminAllProducts = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   // Get all products
   const getAllProducts = async () => {
@@ -63,7 +65,17 @@ const AdminAllProducts = () => {
                       {products.map((product) => (
                         <tr key={product._id}>
                           <td>{products.indexOf(product) + 1}</td>
-                          <td>{product.seller_name || "N/A"}</td>
+                          <td
+                            onClick={() => {
+                              navigate(
+                                `/dashboard/admin/seller-specific-product/${product.seller}`
+                              );
+                            }}
+                            style={{ cursor: "pointer" }}
+                          >
+                            {product.seller_name}
+                          </td>
+                          {/* <td>{product_.sellername || "N/A"}</td> */}
                           <td>{product.name || "N/A"}</td>
                           <td>₹{product.price}</td>
                           <td>{product.quantity}</td>
