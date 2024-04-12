@@ -1,5 +1,5 @@
 import userModel from "../../models/user/userModel.js";
-import { hashPassword, comparePassword } from "../../helpers/authHelper.js";
+import { comparePassword } from "../../helpers/authHelper.js";
 import Jwt from "jsonwebtoken";
 import typeModel from "../../models/Type/typeModel.js";
 
@@ -22,7 +22,7 @@ export const adminLoginController = async (req, res) => {
     if (!user) {
       return res.status(200).send({
         success: false,
-        message: "Email Id Not Registered",
+        message: "Account does not exist, Please Register First",
       });
     }
 
@@ -40,9 +40,10 @@ export const adminLoginController = async (req, res) => {
     //send response
     res.status(200).send({
       success: true,
-      message: "Login Successfully",
+      message: "Admin Login Successfully",
       token: token,
       user: {
+        id: user._id,
         type: type.type,
         name: user.name,
         email: user.email,
