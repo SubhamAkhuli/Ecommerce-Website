@@ -299,6 +299,24 @@ export const userUpdateController = async (req, res) => {
   }
 };
 
+// Get All Users
+export const userGetAllController = async (req, res) => {
+  try {
+    const users = await userModel.find();
+    res.send({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Get Users",
+      error,
+    });
+  }
+};
+
 // Delete User
 export const userDeleteController = async (req, res) => {
   try {
