@@ -219,28 +219,8 @@ const SellerProducts = () => {
                           marginLeft: "260px",
                           marginTop: "10px",
                         }}
-                        // onClick={async () => {
-                        //   try {
-                        //     let answer = window.prompt(
-                        //       "Are You Sure want to delete this product ? "
-                        //     );
-                        //     console.log(answer);
-                        //     if (!answer) return;
-                        //     const { data } = await axios.delete(
-                        //       `http://localhost:8080/api/v1/product/delete-product/${product._id}`
-                        //     );
-                        //     toast.success("Product Deleted Succfully");
-                        //     getAllProducts();
-                        //   } catch (error) {
-                        //     console.error(error); // Log the error for debugging purposes
-                        //     toast.error(
-                        //       "Something went wrong while deleting the product."
-                        //     );
-                        //   }
-                        // }}
                         onClick={() => {
                           setProductId(product._id);
-                          // handelDelete();
                           ref.current.click();
                         }}
                       ></i>
