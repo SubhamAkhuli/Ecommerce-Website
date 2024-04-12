@@ -229,16 +229,72 @@ export const sellerUpdateController = async (req, res) => {
     const { name, email, phone, address, shop_name, category, answer } =
       req.body;
     //validations
+    // console.log(req.body);
     if (!req.params.id) {
       return res.send({ message: "Id is Required" });
     }
     const checkEmail = await typeModel.findOne({
       email: email,
     });
+    if (!checkEmail) {
+       //update
+       let user = await sellerModel.findOne({ _id: req.params.id });
+       const echeck = user.email;
+       if (!user) {
+         return res.send({ message: "Seller Not Found" });
+       } else {
+         const seller = await sellerModel.findByIdAndUpdate(req.params.id, {
+           name: name,
+           email: email,
+           phone: phone,
+           address: address,
+           shop_name: shop_name,
+           answer: answer,
+           category: category,
+         });
+
+         // product model update
+         const changename = await productModel.updateMany(
+           { seller: req.params.id },
+           {
+             seller_name: name,
+           }
+         );
+
+         // type model update
+         if (echeck !== email) {
+         const type = await typeModel.findOneAndUpdate(
+           { email: echeck },
+           {
+             email: email,
+           }
+         );
+       }
+
+         const reqtkn = req.header("Authorization");
+         const userType = "seller";
+         res.send({
+           success: true,
+           message: "Seller Updated Successfully",
+           token: reqtkn,
+           user: {
+             id: seller._id,
+             name: seller.name,
+             email: seller.email,
+             phone: seller.phone,
+             address: seller.address,
+             answer: seller.answer,
+             type: userType,
+             shop_name: seller.shop_name,
+             category: seller.category,
+           },
+         });
+       }
+     }
+    else{
     if (checkEmail.type === "seller")
     {
       const checkuser = await sellerModel.findOne({ email: email });
-      if (checkEmail) {
         if (checkuser._id.toString() !== req.params.id.toString()){
           return res.send({
             success: false,
@@ -300,15 +356,14 @@ export const sellerUpdateController = async (req, res) => {
           }
         }
       }
-    }
     else{
       return res.send({
         success: false,
         message: "Email Already Registered",
       });
     }
-   
-  } catch (error) {
+  }
+}catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
@@ -318,6 +373,38 @@ export const sellerUpdateController = async (req, res) => {
   }
 };
 
+// get all sellers
+export const getAllSellersController = async (req, res) => {
+  try {
+    const sellers = await sellerModel.find();
+    res.send({ success: true, sellers });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Fetching",
+      error,
+    });
+  }
+};
+
+// get seller by id
+export const getSellerByIdController = async (req, res) => {
+  try {
+    const seller = await sellerModel.findById(req.params.id);
+    if (!seller) {
+      return res.send({ message: "Seller Not Found" });
+    }
+    res.send({ success: true, seller });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Fetching",
+      error,
+    });
+  }
+};
 
 // Delete Seller
 export const sellerDeleteController = async (req, res) => {
@@ -327,6 +414,10 @@ export const sellerDeleteController = async (req, res) => {
       return res.send({ message: "Seller Not Found" });
     }
     const type = await typeModel.findOneAndDelete({ email: user.email });
+
+    // product model delete
+    const product = await productModel.deleteMany({ seller: req.params.id });
+
     res.send({
       success: true,
       message: "Seller Deleted Successfully",
