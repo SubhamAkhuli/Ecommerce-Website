@@ -1,6 +1,7 @@
 import express from "express";
-import {userRegisterController,userLoginController,testcontroller,userForgotPasswordController,userUpdateController,userDeleteController} from "../../controllers/user/authUserController.js";
+import {userRegisterController,userLoginController,testcontroller,userForgotPasswordController,userUpdateController,userDeleteController,userGetAllController} from "../../controllers/user/authUserController.js";
 import { authMiddleware } from "../../middlewares/authMiddleware.js";
+import { get } from "mongoose";
 // router object
 const router = express.Router();
 
@@ -21,6 +22,9 @@ router.post("/userforgotpassword", userForgotPasswordController);
 
 // update details
 router.patch("/userupdatedetails/:id",userUpdateController);
+
+// get user details
+router.get("/alluserdetails",userGetAllController);
 
 // delete user
 router.delete("/userdelete/:id",userDeleteController);
