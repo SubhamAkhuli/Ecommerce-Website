@@ -1,5 +1,5 @@
 import express from "express";
-import {sellerRegisterController,sellerLoginController,testcontroller,sellerForgotPasswordController,sellerUpdateController,sellerDeleteController} from "../../controllers/seller/authSellerController.js";
+import {sellerRegisterController,sellerLoginController,testcontroller,sellerForgotPasswordController,sellerUpdateController,sellerDeleteController,getAllSellersController,getSellerByIdController} from "../../controllers/seller/authSellerController.js";
 import { authMiddleware } from "../../middlewares/authMiddleware.js";
 
 // router object
@@ -22,6 +22,12 @@ router.post("/sellerforgotpassword", sellerForgotPasswordController);
 
 // update seller
 router.put("/sellerupdatedetails/:id",sellerUpdateController);
+
+// get seller details
+router.get("/allsellers",getAllSellersController);
+
+// get seller details by id
+router.get("/seller/:id",getSellerByIdController);
 
 // delete seller
 router.delete("/sellerdelete/:id",sellerDeleteController);
