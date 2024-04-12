@@ -6,40 +6,49 @@ import SellerMenu from "../../pages/seller/SellerMenu";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const SellerDashboard = () => {
   const [user] = useAuth();
-  const userName = user?.user?.name || "N/A";
-  const userEmail = user?.user?.email || "N/A";
-  const userPhone = user?.user?.phone || "N/A";
-  const userAddress = user?.user?.address || "N/A";
-  const userShopName = user?.user?.shop_name || "N/A";
-  const userShopType = user?.user?.category || "N/A";
-  const userAns = user?.user?.answer || "N/A";
-  const [credentials, setCredentials] = useState({
-    name: userName,
-    email: userEmail,
-    phone: userPhone,
-    address: userAddress,
-    shop_name: userShopName,
-    category: userShopType,
-    answer: userAns,
-  });
+  const userId = user?.user?.id || "N/A";
 
+  const [credentials, setCredentials] = useState([]);
+  const [userDetails, setUserDetails] = useState([]);
+
+  const getUserDetails = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8080/api/v1/sellerauth/seller/${userId}`
+      );
+      setUserDetails(data.seller);
+      setCredentials(data.seller);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong while fetching user details.");
+    }
+  };
+
+  useEffect(() => {
+    getUserDetails();
+    // eslint-disable-next-line
+  }, []);
+
+ const{userName, userEmail, userAddress, userPhone, userAns, userShopName, userShopType} = credentials;
   const [edit, setEdit] = useState(0);
   const Clicked = () => {
     setEdit(1);
     toast.success("You can now edit your details");
   };
   const onChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
+    console.log(userDetails);
     e.preventDefault();
     try {
       const { name, email, address, shop_name, category, answer, phone } =
-        credentials;
+        userDetails;
       if (!name) {
         toast.error("Name is Required");
       } else if (!phone) {
@@ -67,7 +76,7 @@ const SellerDashboard = () => {
         setEdit(0);
       } else {
         const response = await axios.put(
-          `http://localhost:8080/api/v1/sellerauth/sellerupdatedetails/${user?.user?.id}`,
+          `http://localhost:8080/api/v1/sellerauth/sellerupdatedetails/${userId}`,
           {
             name,
             email,
@@ -85,7 +94,6 @@ const SellerDashboard = () => {
         } else {
           toast.error(response.data.message);
           if (response.data.message === "Email Already Registered") {
-            credentials.email = userEmail;
             setEdit(0);
           }
         }
@@ -129,7 +137,7 @@ const SellerDashboard = () => {
                       id="floatingInput"
                       placeholder="Enter your Shop Name"
                       onChange={onChange}
-                      value={credentials.shop_name}
+                      value={userDetails.shop_name}
                       name="shop_name"
                       required
                     />
@@ -144,12 +152,13 @@ const SellerDashboard = () => {
                       id="floatingInput"
                       placeholder="Enter your Shop Type"
                       onChange={onChange}
-                      value={credentials.category}
+                      value={userDetails.category}
                       name="category"
                       required
                     />
                     <label htmlFor="floatingInput">
-                      Shop Type {edit===1?"(Shop Type can not be Changed)":""}
+                      Shop Type{" "}
+                      {edit === 1 ? "(Shop Type can not be Changed)" : ""}
                     </label>
                   </div>
 
@@ -161,7 +170,7 @@ const SellerDashboard = () => {
                       id="floatingInput"
                       placeholder="Enter your Name"
                       onChange={onChange}
-                      value={credentials.name}
+                      value={userDetails.name}
                       name="name"
                       required
                     />
@@ -175,7 +184,7 @@ const SellerDashboard = () => {
                       id="floatingInput"
                       placeholder="name@example.com"
                       onChange={onChange}
-                      value={credentials.email}
+                      value={userDetails.email}
                       name="email"
                       required
                     />
@@ -190,7 +199,7 @@ const SellerDashboard = () => {
                       id="floatingInput"
                       placeholder="Enter your Name"
                       onChange={onChange}
-                      value={credentials.address}
+                      value={userDetails.address}
                       name="address"
                       required
                     />
@@ -204,7 +213,7 @@ const SellerDashboard = () => {
                       id="floatingInput"
                       placeholder="Enter your Phone Number"
                       onChange={onChange}
-                      value={credentials.phone}
+                      value={userDetails.phone}
                       name="phone"
                       required
                     />
@@ -218,7 +227,7 @@ const SellerDashboard = () => {
                       id="floatingInput"
                       placeholder="Enter your Answer"
                       onChange={onChange}
-                      value={credentials.answer}
+                      value={userDetails.answer}
                       name="answer"
                       required
                     />
@@ -240,14 +249,18 @@ const SellerDashboard = () => {
                     disabled={edit === 0 ? true : false}
                     type="submit"
                     onClick={handleSubmit}
-                    className={`btn btn-success m-1 ${edit === 0 ? "d-none" : ""}`}
+                    className={`btn btn-success m-1 ${
+                      edit === 0 ? "d-none" : ""
+                    }`}
                   >
                     Save
                   </button>
                   <button
                     disabled={edit === 0 ? true : false}
                     type="button"
-                    className={`btn btn-danger ms-3 ${edit === 0 ? "d-none" : ""}`}
+                    className={`btn btn-danger ms-3 ${
+                      edit === 0 ? "d-none" : ""
+                    }`}
                     onClick={() => {
                       setEdit(0);
                     }}
