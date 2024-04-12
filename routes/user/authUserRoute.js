@@ -1,5 +1,5 @@
 import express from "express";
-import {userRegisterController,userLoginController,testcontroller,userForgotPasswordController,userUpdateController,userDeleteController,userGetAllController} from "../../controllers/user/authUserController.js";
+import {userRegisterController,userLoginController,testcontroller,userForgotPasswordController,userUpdateController,userDeleteController,userGetAllController,userGetByIdController} from "../../controllers/user/authUserController.js";
 import { authMiddleware } from "../../middlewares/authMiddleware.js";
 import { get } from "mongoose";
 // router object
@@ -13,6 +13,9 @@ router.post("/userregister", userRegisterController);
 
 // login user
 router.post("/userlogin", userLoginController);
+
+// user get by id
+router.get("/userdetail/:id",userGetByIdController);
 
 // testing route
 router.get("/test",authMiddleware, testcontroller);
