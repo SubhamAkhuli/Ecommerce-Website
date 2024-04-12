@@ -31,6 +31,7 @@ import AdminPrivateRoute from "./components/Routes/admin/AdminPrivate.js";
 import AdminAllProducts from "./pages/admin/AdminAllProducts.js";
 import AdminUserLists from "./pages/admin/AdminUserLists.js";
 import AdminSellerLists from "./pages/admin/AdminSellerlist.js";
+import SellerSpceficProduct from "./pages/admin/SellerSpceficProduct.js";
 
 // forgot password
 import ForgotPassword from "./pages/Auth/ForgotPassword.js";
@@ -75,6 +76,7 @@ function App() {
               <Route path="admin/all-product" element={<AdminAllProducts />} />
               <Route path="admin/users-list" element={<AdminUserLists />} />
               <Route path="admin/sellers-list" element={<AdminSellerLists />} />
+              <Route path="admin/seller-specific-product/:pid" element={<SellerSpceficProduct />} />
             </Route>
 
 
