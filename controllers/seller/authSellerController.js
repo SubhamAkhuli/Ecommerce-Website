@@ -395,7 +395,18 @@ export const getSellerByIdController = async (req, res) => {
     if (!seller) {
       return res.send({ message: "Seller Not Found" });
     }
-    res.send({ success: true, seller });
+    res.send({ success: true, seller:
+      {
+        id: seller._id,
+        name: seller.name,
+        email: seller.email,
+        phone: seller.phone,
+        address: seller.address,
+        shop_name: seller.shop_name,
+        category: seller.category,
+        answer: seller.answer,
+      }
+  });
   } catch (error) {
     console.log(error);
     res.status(500).send({
