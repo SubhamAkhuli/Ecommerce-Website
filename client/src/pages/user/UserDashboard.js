@@ -15,6 +15,7 @@ const UserDashboard = () => {
 
   const [userDetails, setUserDetails] = useState([]);
   const [credentials, setCredentials] = useState([]);
+  
 
   // get user details
   const getUserDetails = async () => {
@@ -36,7 +37,7 @@ const UserDashboard = () => {
   }, [userId]); // Include userId in the dependency array
 
 const {userName, userEmail, userAddress, userPhone, userAns} = credentials
-  
+const[name,setname]=useState(userName);
 
   const [edit, setEdit] = useState(0);
   const Clicked = () => {
@@ -86,7 +87,9 @@ const {userName, userEmail, userAddress, userPhone, userAns} = credentials
         if (response.data.success) {
           localStorage.setItem("user", JSON.stringify(response.data));
           toast.success(response.data.message);
+          setname(name);
           setEdit(0);
+
         } else {
           toast.error(response.data.message);
           if (response.data.message === "Email Already Registered") {
@@ -103,7 +106,7 @@ const {userName, userEmail, userAddress, userPhone, userAns} = credentials
 
   return (
     <>
-      <Header />
+      <Header username={name} />
       <div className="container m-3">
         <div className="row">
           <div className="col-md-3">
