@@ -70,25 +70,25 @@ const UserRegister = () => {
                     <input
                       type="text"
                       className="form-control"
-                      id="floatingInput"
+                      id="floatingName"
                       placeholder="Enter your Name"
                       onChange={onChange}
                       name="name"
                       required
                     />
-                    <label htmlFor="floatingInput">Name</label>
+                    <label htmlFor="floatingName">Name</label>
                   </div>
                 <div className="form-floating mb-3">
                     <input
                       type="email"
                       className="form-control"
-                      id="floatingInput"
+                      id="floatingEmail"
                       placeholder="name@example.com"
                       onChange={onChange}
                       name="email"
                       required
                     />
-                    <label htmlFor="floatingInput">Email address</label>
+                    <label htmlFor="floatingEmail">Email address</label>
                     <div id="emailHelp" className="form-text">
                       We'll never share your email with anyone else.
                     </div>
@@ -99,37 +99,37 @@ const UserRegister = () => {
                     <input
                       type="text"
                       className="form-control"
-                      id="floatingInput"
+                      id="floatingAddress"
                       placeholder="Enter your Name"
                       onChange={onChange}
                       name="address"
                       required
                     />
-                    <label htmlFor="floatingInput">Address</label>
+                    <label htmlFor="floatingAddress">Address</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
                       type="text"
                       className="form-control"
-                      id="floatingInput"
+                      id="floatingPhone"
                       placeholder="Enter your Phone Number"
                       onChange={onChange}
                       name="phone"
                       required
                     />
-                    <label htmlFor="floatingInput">Phone Number</label>
+                    <label htmlFor="floatingPhone">Phone Number</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
                       type="text"
                       className="form-control"
-                      id="floatingInput"
+                      id="floatingAnswer"
                       placeholder="Enter your Answer"
                       onChange={onChange}
                       name="answer"
                       required
                     />
-                    <label htmlFor="floatingInput">What is Your Favorite sport?</label>
+                    <label htmlFor="floatingAnswer">What is Your Favorite sport?</label>
                   </div>
 
                   <div className="form-floating mb-3">
@@ -151,13 +151,13 @@ const UserRegister = () => {
                     <input
                       type="password"
                       className="form-control"
-                      id="floatingPassword"
+                      id="floatingcPassword"
                       placeholder="Confrim Password"
                       onChange={onChange}
                       name="cpassword"
                       required
                     />
-                    <label htmlFor="floatingPassword">Confrim Password</label>
+                    <label htmlFor="floatingcPassword">Confrim Password</label>
                   </div>
                   <button type="submit" className="btn btn-primary">
                     Submit
