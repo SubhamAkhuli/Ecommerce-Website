@@ -158,35 +158,14 @@ const SellerProducts = () => {
                         }}
                         alt={product.name}
                       />
-                      <div className="card-body">
-                        <h5 className="card-title">
-                          <b>{product.name}</b>
-                        </h5>
-                        <p
-                          className="card-text"
-                          style={{ marginBottom: "2px" }}
-                        >
-                          {product.description}
-                        </p>
-                        <p
-                          className="card-text"
-                          style={{ marginBottom: "2px" }}
-                        >
-                          <b>Price: ₹</b>
-                          {product.price}
-                        </p>
-                        <p
-                          className="card-text"
-                          style={{ marginBottom: "2px" }}
-                        >
-                          <b>Brand:</b> {product.brand}
-                        </p>
-                        <p
-                          className="card-text"
-                          style={{ marginBottom: "2px" }}
-                        >
-                          <b>Quantity:</b> {product.quantity}
-                        </p>
+                        <div className="card-body">
+                          <h5 className="card-title">{product.name}</h5>
+                          <p className="card-text"><b>Seller Name: </b>{product.seller_name}</p>
+                          <p className="card-text"><b>Brand: </b>{product.brand}</p> 
+                          <p className="card-text"><b>Price: </b>₹{product.price}</p>
+                          <p className="card-text"><b>Quantity: </b>{product.quantity}</p>
+                          <p className="card-text"><b>Category: </b>{product.category}</p>
+                          <p className="card-text"><b>Description: </b>{product.description}</p>
                       </div>
                       <i
                         className="fas fa-edit "
