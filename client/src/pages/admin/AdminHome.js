@@ -13,7 +13,7 @@ function AdminHome() {
       const response = await axios.get(
         "http://localhost:8080/api/v1/sellerauth/unverifiedsellers"
       );
-      console.log(response.data.sellers);
+      // console.log(response.data.sellers);
       setSeller(response.data.sellers);
     } catch (error) {
       console.error(error);
