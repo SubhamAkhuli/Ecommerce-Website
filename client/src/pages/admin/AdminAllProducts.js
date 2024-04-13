@@ -5,11 +5,9 @@ import AdminMenu from "./AdminMenu";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import {useNavigate} from "react-router-dom";
 
 const AdminAllProducts = () => {
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
 
   // Get all products
   const getAllProducts = async () => {
@@ -47,42 +45,55 @@ const AdminAllProducts = () => {
                 <h5 className="card-title mb-3">
                   Total Products: {products.length}
                 </h5>
-                <div className="row">
+                <div className="d-flex flex-wrap">
                   {products.map((product) => (
-                    <div className="col-md-4" key={product._id}>
-                      <div className="card mb-3" style={{borderRadius: "5px", border: "2px solid #ccc"}}>
-                        <img
-                          src={`http://localhost:8080/api/v1/product/product-photo/${product._id}`}
-                          alt={product.name}
-                          className="card-img-top"
-                          style={{ height: "200px", objectFit: "contain" , marginTop: "5px" }} 
-                        />
-                        <div className="card-body">
-                          <h5 className="card-title">{product.name}</h5>
-                          <p className="card-text">Price: ₹{product.price}</p>
-                          <p className="card-text">Quantity: {product.quantity}</p>
-                          <p className="card-text">Category: {product.category}</p>
-                          <p className="card-text">
-                            Description: {product.description}
-                          </p>
-                          <button
-                            className="btn btn-primary"
-                            onClick={() => {
-                              navigate(
-                                `/dashboard/admin/seller-specific-product/${product.seller}`
-                              );
-                            }}
-                          >
-                            View Seller
-                          </button>
-                        </div>
+                    <div
+                      className="card m-2"
+                      key={product._id}
+                      style={{ width: "18rem" }}
+                    >
+                      <img
+                        src={`http://localhost:8080/api/v1/product/product-photo/${product._id}`}
+                        className="card-img-top"
+                        style={{
+                          height: "200px",
+                          objectFit: "contain",
+                          marginTop: "10px",
+                        }}
+                        alt={product.name}
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title">{product.name}</h5>
+                        <p className="card-text">
+                          <b>Seller Name: </b>
+                          {product.seller_name}
+                        </p>
+                        <p className="card-text">
+                          <b>Brand: </b>
+                          {product.brand}
+                        </p>
+                        <p className="card-text">
+                          <b>Price: </b>₹{product.price}
+                        </p>
+                        <p className="card-text">
+                          <b>Quantity: </b>
+                          {product.quantity}
+                        </p>
+                        <p className="card-text">
+                          <b>Category: </b>
+                          {product.category}
+                        </p>
+                        <p className="card-text">
+                          <b>Description: </b>
+                          {product.description}
+                        </p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
         </div>
       </div>
       <Footer />
