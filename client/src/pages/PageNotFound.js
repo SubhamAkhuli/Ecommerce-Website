@@ -23,7 +23,7 @@ function PageNotFound() {
             }}
           >
             <i
-              class="bi bi-backspace me-2"
+              className="bi bi-backspace me-2"
               style={{ cursor: "pointer", marginBottom: "2px" }}
             ></i>
             Back
