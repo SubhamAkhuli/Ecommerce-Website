@@ -121,6 +121,13 @@ export const sellerLoginController = async (req, res) => {
     const type = await typeModel.findOne({ email });
     const userType = type.type;
 
+    if (seller.verified === false) {
+      return res.send({
+        success: false,
+        message: "Please wait ,Your Account is not verified yet",
+      });
+    }
+    else{
     //token
     const token = jwt.sign({ id: seller._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
@@ -139,13 +146,50 @@ export const sellerLoginController = async (req, res) => {
         shop_name: seller.shop_name,
         category: seller.category,
         answer: seller.answer,
+        verified: seller.verified,
       },
+    });
+  }} catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Login",
+      error,
+    });
+  }
+};
+
+// get the seller who is not verified
+export const getUnverifiedSellerController = async (req, res) => {
+  try {
+    const sellers = await sellerModel.find({ verified: false });
+    res.send({ success: true, sellers });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Fetching",
+      error,
+    });
+  }
+};
+
+
+// verify the seller
+export const verifySellerController = async (req, res) => {
+  try {
+    const seller = await sellerModel.findByIdAndUpdate(req.params.id, {
+      verified: true,
+    });
+    res.send({
+      success: true,
+      message: "Seller Verified Successfully",
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error in Login",
+      message: "Error in Verification",
       error,
     });
   }
