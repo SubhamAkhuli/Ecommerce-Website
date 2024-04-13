@@ -105,13 +105,13 @@ const ForgotPassword = () => {
                     <input
                       type="email"
                       className="form-control"
-                      id="floatingInput"
+                      id="floatingEmail"
                       placeholder="name@example.com"
                       onChange={onChange}
                       name="email"
                       required
                     />
-                    <label htmlFor="floatingInput">Email address</label>
+                    <label htmlFor="floatingEmail">Email address</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input
@@ -144,17 +144,25 @@ const ForgotPassword = () => {
                     <input
                       type="password"
                       className="form-control"
-                      id="floatingPassword"
+                      id="floatingcPassword"
                       placeholder="Confrim Password"
                       onChange={onChange}
                       name="cpassword"
                       required
                     />
-                    <label htmlFor="floatingPassword">Confrim Password</label>
+                    <label htmlFor="floatingcPassword">Confrim Password</label>
                   </div>
                   <button type="submit" className="btn btn-primary">
                     Submit
                   </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger mx-3"
+                    onClick={() => navigate(-1)}
+                  >
+                    Cancel
+                  </button>
+
                 </form>
               </div>
             </div>
