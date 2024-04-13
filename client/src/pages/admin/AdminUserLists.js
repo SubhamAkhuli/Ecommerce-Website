@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 const AdminUserLists = () => {
 
   const[users, setUsers] = useState([])
+  
   // Get all users
   const getAllUsers = async () => {
     try {
@@ -27,11 +28,11 @@ const AdminUserLists = () => {
   useEffect(() => {
     getAllUsers();
     // eslint-disable-next-line
-  } , []); // Include userId in the dependency array
+  }, []); // Include userId in the dependency array
   
   return (
     <>
-    <Header />
+      <Header />
       <div className="container m-3" style={{ minHeight: "65.2vh" }}>
         <div className="row">
           <div className="col-md-3">
@@ -48,10 +49,15 @@ const AdminUserLists = () => {
                 </h5>
                 <div className="list-group">
                   {users.map((user) => (
-                    <p
+                    <div
                       className="list-group-item list-group-item-action"
-                      style={{ cursor: "pointer" , border: "2px solid #ccc" , borderRadius: "5px" , margin: "5px", padding: "5px"}}
-                      aria-current="true"
+                      style={{
+                        cursor: "pointer",
+                        border: "2px solid #ccc",
+                        borderRadius: "5px",
+                        margin: "5px",
+                        padding: "5px"
+                      }}
                       key={user._id}
                     >
                       <div className="d-flex w-100 justify-content-between">
@@ -60,7 +66,7 @@ const AdminUserLists = () => {
                       <p className="mb-1"><b>Phone No: </b>{user.phone}</p>
                       <small><b>Email id: </b>{user.email}</small><br/>
                       <small><b>Address: </b>{user.address}</small>
-                    </p>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -69,7 +75,6 @@ const AdminUserLists = () => {
         </div>
       </div>
       <Footer />
-      
     </>
   )
 }
