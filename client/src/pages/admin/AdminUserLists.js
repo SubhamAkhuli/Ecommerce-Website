@@ -46,29 +46,22 @@ const AdminUserLists = () => {
                 <h5 className="card-title mb-3">
                   Total Users: {users.length}
                 </h5>
-                <div className="table-responsive">
-                  <table className="table table-bordered table-hover table-striped">
-                    <thead>
-                      <tr>
-                        <th>Sr No.</th>
-                        <th>User Name</th>
-                        <th>User Email</th>
-                        <th>User Phone</th>
-                        <th>User Address</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {users.map((user, index) => (
-                        <tr key={user._id}>
-                          <td>{index + 1}</td>
-                          <td>{user.name}</td>
-                          <td>{user.email}</td>
-                          <td>{user.phone}</td>
-                          <td>{user.address}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="list-group">
+                  {users.map((user) => (
+                    <p
+                      className="list-group-item list-group-item-action"
+                      style={{ cursor: "pointer" , border: "2px solid #ccc" , borderRadius: "5px" , margin: "5px", padding: "5px"}}
+                      aria-current="true"
+                      key={user._id}
+                    >
+                      <div className="d-flex w-100 justify-content-between">
+                        <h5 className="mb-1"><b>Name: </b>{user.name}</h5>
+                      </div>
+                      <p className="mb-1"><b>Phone No: </b>{user.phone}</p>
+                      <small><b>Email id: </b>{user.email}</small><br/>
+                      <small><b>Address: </b>{user.address}</small>
+                    </p>
+                  ))}
                 </div>
               </div>
             </div>
