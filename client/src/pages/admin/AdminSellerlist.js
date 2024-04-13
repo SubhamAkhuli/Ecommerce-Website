@@ -82,15 +82,15 @@ const AdminSellerlist = () => {
                           {seller.phone}
                         </p>
                         <p
-                          className="card-text"
+                          className="card-text text-primary"
                           onClick={() => {
                             navigate(
                               `/dashboard/admin/seller-specific-product/${seller._id}`
                             );
                           }}
-                          style={{ cursor: "pointer" }}
+                          style={{ cursor: "pointer"}}
                         >
-                          <b>Products: </b> more...
+                          <b>Seller Products...</b>
                         </p>
                       </div>
                     </div>
