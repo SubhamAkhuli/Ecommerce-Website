@@ -13,7 +13,15 @@ const SellerDashboard = () => {
   const userId = user?.user?.id || "N/A";
 
   const [credentials, setCredentials] = useState([]);
-  const [userDetails, setUserDetails] = useState([]);
+  const [userDetails, setUserDetails] = useState({
+    shop_name: '',
+    category: '',
+    name: '',
+    email: '',
+    address: '',
+    phone: '',
+    answer: '',
+  });
   
 
   const getUserDetails = async () => {
@@ -34,8 +42,7 @@ const SellerDashboard = () => {
     // eslint-disable-next-line
   }, []);
 
- const{userName, userEmail, userAddress, userPhone, userAns, userShopName, userShopType} = credentials;
- const [name, setName] = useState(userName);
+  const [name, setName] = useState(credentials.name);
   const [edit, setEdit] = useState(0);
   const Clicked = () => {
     setEdit(1);
@@ -46,58 +53,59 @@ const SellerDashboard = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(userDetails);
     e.preventDefault();
     try {
       const { name, email, address, shop_name, category, answer, phone } =
         userDetails;
-      if (!name) {
-        toast.error("Name is Required");
-      } else if (!phone) {
-        toast.error("Phone is Required");
-      } else if (!email) {
-        toast.error("Email is Required");
-      } else if (!shop_name) {
-        toast.error("Shop Name is Required");
-      } else if (!category) {
-        toast.error("Category is Required");
-      } else if (!address) {
-        toast.error("Address is Required");
-      } else if (!answer) {
-        toast.error("Answer is Required");
-      } else if (
-        name === userName &&
-        email === userEmail &&
-        phone === userPhone &&
-        address === userAddress &&
-        shop_name === userShopName &&
-        category === userShopType &&
-        answer === userAns
+      if (
+        credentials.name === name &&
+        credentials.email === email &&
+        credentials.address === address &&
+        credentials.shop_name === shop_name &&
+        credentials.category === category &&
+        credentials.answer === answer &&
+        credentials.phone === phone
       ) {
         toast.error("No Changes Made");
         setEdit(0);
       } else {
-        const response = await axios.put(
-          `http://localhost:8080/api/v1/sellerauth/sellerupdatedetails/${userId}`,
-          {
-            name,
-            email,
-            phone,
-            address,
-            shop_name,
-            category,
-            answer,
-          }
-        );
-        if (response.data.success) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-          toast.success(response.data.message);
-          setName(name);
-          setEdit(0);
+        if (!name) {
+          toast.error("Name is Required");
+        } else if (!phone) {
+          toast.error("Phone is Required");
+        } else if (!email) {
+          toast.error("Email is Required");
+        } else if (!shop_name) {
+          toast.error("Shop Name is Required");
+        } else if (!category) {
+          toast.error("Category is Required");
+        } else if (!address) {
+          toast.error("Address is Required");
+        } else if (!answer) {
+          toast.error("Answer is Required");
         } else {
-          toast.error(response.data.message);
-          if (response.data.message === "Email Already Registered") {
+          const response = await axios.put(
+            `http://localhost:8080/api/v1/sellerauth/sellerupdatedetails/${userId}`,
+            {
+              name,
+              email,
+              phone,
+              address,
+              shop_name,
+              category,
+              answer,
+            }
+          );
+          if (response.data.success) {
+            localStorage.setItem("user", JSON.stringify(response.data));
+            toast.success(response.data.message);
+            setName(name);
             setEdit(0);
+          } else {
+            toast.error(response.data.message);
+            if (response.data.message === "Email Already Registered") {
+              setEdit(0);
+            }
           }
         }
       }
@@ -108,7 +116,7 @@ const SellerDashboard = () => {
 
   return (
     <>
-      <Header username={name}/>
+      <Header username={name} />
       <div className="container m-3">
         <div className="row">
           <div className="col-md-3">
@@ -118,7 +126,7 @@ const SellerDashboard = () => {
             <div className="card">
               <div className="card-header text-center">
                 {" "}
-                <h3>Welcome {userName}</h3>
+                <h3>Welcome {name}</h3>
               </div>
               <div className="card-body">
                 <form>
