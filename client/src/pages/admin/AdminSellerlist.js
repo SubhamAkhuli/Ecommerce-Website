@@ -17,9 +17,7 @@ const AdminSellerlist = () => {
       const { data } = await axios.get(
         `http://localhost:8080/api/v1/sellerauth/allsellers`
       );
-      // setUsers(data.sellers);
       setSeller(data.sellers);
-      // console.log(data);
     } catch (error) {
       console.error(error); // Log the error for debugging purposes
       toast.error("Something went wrong while fetching sellers.");
@@ -53,7 +51,12 @@ const AdminSellerlist = () => {
                     <div
                       className="card m-2"
                       key={seller._id}
-                      style={{ width: "18rem" }}
+                      style={{ width: "18rem", cursor: "pointer", border: "1px solid #ccc", borderRadius: "5px", boxShadow: "0 10px 10px #ccc"}}
+                      onClick={() => {
+                            navigate(
+                              `/dashboard/admin/seller-specific-product/${seller._id}`
+                            );
+                          }}
                     >
                       <div className="card-body">
                         <h5 className="card-title">
@@ -80,17 +83,6 @@ const AdminSellerlist = () => {
                         <p className="card-text">
                           <b>Phone No: </b>
                           {seller.phone}
-                        </p>
-                        <p
-                          className="card-text text-primary"
-                          onClick={() => {
-                            navigate(
-                              `/dashboard/admin/seller-specific-product/${seller._id}`
-                            );
-                          }}
-                          style={{ cursor: "pointer"}}
-                        >
-                          <b>Seller Products...</b>
                         </p>
                       </div>
                     </div>

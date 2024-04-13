@@ -76,7 +76,7 @@ const SellerSpceficProduct = () => {
                     <div
                       className="card m-2"
                       key={product._id}
-                      style={{ width: "18rem" }}
+                      style={{ width: "18rem" ,borderRadius:"5px", boxShadow:"0 0 10px #ccc", cursor:"pointer"}}
                     >
                       <img
                         src={`http://localhost:8080/api/v1/product/product-photo/${product._id}`}

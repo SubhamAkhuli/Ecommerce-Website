@@ -23,7 +23,7 @@ const AdminMenu = () => {
   return (
     <>
       <div >
-        <div className="list-group card">
+        <div className="list-group card" style={{borderRadius:"5px",boxShadow:"0 5px 10px #ccc"}}>
           <div className="card-header">
             <h4 className="text-center">Control Panel</h4>
           </div>

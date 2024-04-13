@@ -56,7 +56,8 @@ const AdminUserLists = () => {
                         border: "2px solid #ccc",
                         borderRadius: "5px",
                         margin: "5px",
-                        padding: "5px"
+                        padding: "5px",
+                        boxShadow: "0 0 10px #ccc",
                       }}
                       key={user._id}
                     >

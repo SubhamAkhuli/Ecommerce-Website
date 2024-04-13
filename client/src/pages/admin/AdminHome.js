@@ -90,7 +90,7 @@ function AdminHome() {
                         <div
                           className="card m-2"
                           key={seller._id}
-                          style={{ width: "18rem" }}
+                          style={{ width: "18rem" ,borderRadius:"5px", boxShadow:"0 5px 10px #ccc", cursor:"pointer"}}
                         >
                           <div className="card-body">
                             <p className="card-title"><b>Shop Name: </b>{seller.shop_name}</p>
