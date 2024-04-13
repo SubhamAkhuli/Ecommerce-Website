@@ -1,5 +1,5 @@
 import express from "express";
-import {sellerRegisterController,sellerLoginController,testcontroller,sellerForgotPasswordController,sellerUpdateController,sellerDeleteController,getAllSellersController,getSellerByIdController} from "../../controllers/seller/authSellerController.js";
+import {sellerRegisterController,sellerLoginController,testcontroller,sellerForgotPasswordController,sellerUpdateController,sellerDeleteController,getAllSellersController,getSellerByIdController,getUnverifiedSellerController,verifySellerController} from "../../controllers/seller/authSellerController.js";
 import { authMiddleware } from "../../middlewares/authMiddleware.js";
 
 // router object
@@ -12,6 +12,12 @@ router.post("/sellerregister", sellerRegisterController);
 
 // login seller
 router.post("/sellerlogin", sellerLoginController);
+
+// unverified seller
+router.get("/unverifiedsellers",getUnverifiedSellerController);
+
+// verify seller
+router.put("/verifyseller/:id",verifySellerController);
 
 // testing route
 router.get("/test",authMiddleware, testcontroller);
