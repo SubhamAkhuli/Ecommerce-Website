@@ -17,7 +17,7 @@ const AdminUserLists = () => {
         `http://localhost:8080/api/v1/userauth/alluserdetails`
       );
       setUsers(data.users);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error(error); // Log the error for debugging purposes
       toast.error("Something went wrong while fetching users.");
