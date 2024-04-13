@@ -113,7 +113,7 @@ const SellerMenu = () => {
 
 
 
-        <div className="list-group card">
+        <div className="list-group card" style={{borderRadius:"5px", boxShadow:"0 5px 10px #ccc"}}>
           <div className="card-header text-center">
             <h4>Seller Menu</h4>
           </div>

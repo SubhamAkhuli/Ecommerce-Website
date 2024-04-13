@@ -78,7 +78,7 @@ const SellerRegister = () => {
       <div className="container m-3">
         <div className="row mb-1">
           <div className="col-md-6 offset-md-3">
-            <div className="card mt-1">
+            <div className="card mt-1" style={{borderRadius:"5px", boxShadow:"0 0 10px #ccc"}}>
               <div className="card-header">
                 <h3 className="text-center">Seller Registration From</h3>
               </div>

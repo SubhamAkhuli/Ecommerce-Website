@@ -59,8 +59,8 @@ const SellerChangePassword = () => {
           <div className="col-md-3">
             <SellerMenu />
           </div>
-          <div className="col-md-9">
-            <div className="card">
+          <div className="col-md-9" >
+            <div className="card" style={{borderRadius:"5px", boxShadow:"0 5px 10px #ccc"}}>
               <div className="card-header text-center ">
                 <h3>Change Password</h3>
               </div>
