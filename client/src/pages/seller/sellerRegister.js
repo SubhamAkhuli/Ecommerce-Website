@@ -53,8 +53,9 @@ const SellerRegister = () => {
         );
         if (response.data.success) {
           toast.success(response.data.message);
+          
           setTimeout(() => {
-            navigate("/login");
+            navigate("/sellerverification");
           }, 100);
         } else {
           toast.error(response.data.message);
