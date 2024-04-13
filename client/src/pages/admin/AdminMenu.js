@@ -28,6 +28,12 @@ const AdminMenu = () => {
             <h4 className="text-center">Control Panel</h4>
           </div>
           <Link
+            to="/dashboard/adminhome"
+            className="list-group-item list-group-item-action"
+          ><i className="bi bi-house m-2 text-primary"></i> 
+            Home
+          </Link>
+          <Link
             to="/dashboard/admin"
             className="list-group-item list-group-item-action"
           ><i className="bi bi-person m-2 text-primary"></i>
