@@ -12,10 +12,15 @@ const UserDashboard = () => {
   const [user] = useAuth();
   const userId = user?.user?.id || "N/A";
 
+  const [userDetails, setUserDetails] = useState({
+    name: "",
+    email: "",
+    address: "",
+    phone: "",
+    answer: "",
+  });
 
-  const [userDetails, setUserDetails] = useState([]);
   const [credentials, setCredentials] = useState([]);
-  
 
   // get user details
   const getUserDetails = async () => {
@@ -36,66 +41,63 @@ const UserDashboard = () => {
     // eslint-disable-next-line
   }, [userId]); // Include userId in the dependency array
 
-const {userName, userEmail, userAddress, userPhone, userAns} = credentials
-const[name,setname]=useState(userName);
+  const [name, setname] = useState(credentials.name);
 
   const [edit, setEdit] = useState(0);
   const Clicked = () => {
     setEdit(1);
     toast.success("You can now edit your details");
-
   };
   const onChange = (e) => {
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const { name, email, address, phone, answer } = userDetails;
-      if (!name) {
-        toast.error("Name is Required");
-      } else if (!email) {
-        toast.error("Email is Required");
-      } else if (!phone) {
-        toast.error("Phone is Required");
-      } else if (!address) {
-        toast.error("Address is Required");
-      } else if (!answer) {
-        toast.error("Answer is Required");
-      } else if (
-        name === userName &&
-        email === userEmail &&
-        address === userAddress &&
-        phone === userPhone &&
-        answer === userAns
+      if (
+        credentials.name === name &&
+        credentials.email === email &&
+        credentials.address === address &&
+        credentials.phone === phone &&
+        credentials.answer === answer
       ) {
         toast.error("No Changes Made");
         setEdit(0);
       } else {
-        const response = await axios.patch(
-          `http://localhost:8080/api/v1/userauth/userupdatedetails/${user.user.id}`,
-          {
-            name,
-            email,
-            address,
-            phone,
-            answer,
-          }
-        );
-        if (response.data.success) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-          toast.success(response.data.message);
-          setname(name);
-          setEdit(0);
-
+        if (!name) {
+          toast.error("Name is Required");
+        } else if (!email) {
+          toast.error("Email is Required");
+        } else if (!phone) {
+          toast.error("Phone is Required");
+        } else if (!address) {
+          toast.error("Address is Required");
+        } else if (!answer) {
+          toast.error("Answer is Required");
         } else {
-          toast.error(response.data.message);
-          if (response.data.message === "Email Already Registered") {
+          const response = await axios.patch(
+            `http://localhost:8080/api/v1/userauth/userupdatedetails/${user.user.id}`,
+            {
+              name,
+              email,
+              address,
+              phone,
+              answer,
+            }
+          );
+          if (response.data.success) {
+            localStorage.setItem("user", JSON.stringify(response.data));
+            toast.success(response.data.message);
+            setname(name);
             setEdit(0);
+          } else {
+            toast.error(response.data.message);
+            if (response.data.message === "Email Already Registered") {
+              setEdit(0);
+            }
           }
-          
         }
       }
     } catch (error) {
@@ -116,12 +118,15 @@ const[name,setname]=useState(userName);
             <div className="card">
               <div className="card-header text-center ">
                 {" "}
-                <h3>Welcome {userName}</h3>
+                <h3>Welcome {name}</h3>
               </div>
               <div className="card-body">
                 <form>
                   {edit === 1 ? (
-                    <div className="alert alert-warning text-center" role="alert">
+                    <div
+                      className="alert alert-warning text-center"
+                      role="alert"
+                    >
                       You are in Edit Mode
                     </div>
                   ) : null}
@@ -211,14 +216,18 @@ const[name,setname]=useState(userName);
                     disabled={edit === 0 ? true : false}
                     type="submit"
                     onClick={handleSubmit}
-                    className={`btn btn-success m-1 ${edit === 0 ? "d-none" : ""}`}
+                    className={`btn btn-success m-1 ${
+                      edit === 0 ? "d-none" : ""
+                    }`}
                   >
                     Save
                   </button>
                   <button
                     disabled={edit === 0 ? true : false}
                     type="button"
-                    className={`btn btn-danger ms-3 ${edit === 0 ? "d-none" : ""}`}
+                    className={`btn btn-danger ms-3 ${
+                      edit === 0 ? "d-none" : ""
+                    }`}
                     onClick={() => {
                       setEdit(0);
                     }}
