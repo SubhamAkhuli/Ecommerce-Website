@@ -14,6 +14,7 @@ const SellerDashboard = () => {
 
   const [credentials, setCredentials] = useState([]);
   const [userDetails, setUserDetails] = useState([]);
+  
 
   const getUserDetails = async () => {
     try {
@@ -34,6 +35,7 @@ const SellerDashboard = () => {
   }, []);
 
  const{userName, userEmail, userAddress, userPhone, userAns, userShopName, userShopType} = credentials;
+ const [name, setName] = useState(userName);
   const [edit, setEdit] = useState(0);
   const Clicked = () => {
     setEdit(1);
@@ -90,6 +92,7 @@ const SellerDashboard = () => {
         if (response.data.success) {
           localStorage.setItem("user", JSON.stringify(response.data));
           toast.success(response.data.message);
+          setName(name);
           setEdit(0);
         } else {
           toast.error(response.data.message);
@@ -105,7 +108,7 @@ const SellerDashboard = () => {
 
   return (
     <>
-      <Header />
+      <Header username={name}/>
       <div className="container m-3">
         <div className="row">
           <div className="col-md-3">
