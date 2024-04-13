@@ -18,7 +18,7 @@ const AdminAllProducts = () => {
         `http://localhost:8080/api/v1/product/get-all-product`
       );
       setProducts(data.products);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error(error); // Log the error for debugging purposes
       toast.error("Something went wrong while fetching products.");
@@ -47,62 +47,42 @@ const AdminAllProducts = () => {
                 <h5 className="card-title mb-3">
                   Total Products: {products.length}
                 </h5>
-                <div className="table-responsive">
-                  <table className="table table-bordered table-hover table-striped">
-                    <thead>
-                      <tr>
-                        <th>Sr No.</th>
-                        <th>Seller Name</th>
-                        <th>Product Name</th>
-                        <th>Product Price</th>
-                        <th>Product Quantity</th>
-                        <th>Product Category</th>
-                        <th>Product Description</th>
-                        <th>Product Image</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {products.map((product) => (
-                        <tr key={product._id}>
-                          <td>{products.indexOf(product) + 1}</td>
-                          <td
+                <div className="row">
+                  {products.map((product) => (
+                    <div className="col-md-4" key={product._id}>
+                      <div className="card mb-3" style={{borderRadius: "5px", border: "2px solid #ccc"}}>
+                        <img
+                          src={`http://localhost:8080/api/v1/product/product-photo/${product._id}`}
+                          alt={product.name}
+                          className="card-img-top"
+                          style={{ height: "200px", objectFit: "contain" , marginTop: "5px" }} 
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title">{product.name}</h5>
+                          <p className="card-text">Price: ₹{product.price}</p>
+                          <p className="card-text">Quantity: {product.quantity}</p>
+                          <p className="card-text">Category: {product.category}</p>
+                          <p className="card-text">
+                            Description: {product.description}
+                          </p>
+                          <button
+                            className="btn btn-primary"
                             onClick={() => {
                               navigate(
                                 `/dashboard/admin/seller-specific-product/${product.seller}`
                               );
                             }}
-                            style={{ cursor: "pointer" }}
                           >
-                            {product.seller_name}
-                          </td>
-                          {/* <td>{product_.sellername || "N/A"}</td> */}
-                          <td>{product.name || "N/A"}</td>
-                          <td>₹{product.price}</td>
-                          <td>{product.quantity}</td>
-                          <td>{product.category}</td>
-                          <td>{product.description}</td>
-                          <td>
-                            <img
-                              src={`http://localhost:8080/api/v1/product/product-photo/${product._id}`}
-                              alt={product.name}
-                              // style={{ width: "100px", height: "50px" }}
-                              style={{
-                                height: "200px",
-                                width: "150px",
-                                margin: "auto",
-                                objectFit: "contain",
-                                marginTop: "5px",
-                              }}
-                            />
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                            View Seller
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-          </div>
+          </div> 
         </div>
       </div>
       <Footer />
