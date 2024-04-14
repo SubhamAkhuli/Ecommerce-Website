@@ -125,6 +125,7 @@ export const sellerLoginController = async (req, res) => {
       return res.send({
         success: false,
         message: "Please wait ,Your Account is not verified yet",
+        seller_id: seller._id,
       });
     }
     else{
@@ -449,8 +450,44 @@ export const getSellerByIdController = async (req, res) => {
         shop_name: seller.shop_name,
         category: seller.category,
         answer: seller.answer,
+        verified: seller.verified,
       }
   });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Fetching",
+      error,
+    });
+  }
+};
+
+// check seller verification status
+export const sellerVerificationController = async (req, res) => {
+  try {
+    const seller = await sellerModel.findById(req.params.id);
+    if (!seller) {
+      return res.send({ message: "Seller Not Found" });
+    }
+    else{
+      //token
+    const token = jwt.sign({ id: seller._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+    res.send({ success: true,token:token,message:"Seller details load" ,seller:{
+      id: seller._id,
+      name: seller.name,
+      email: seller.email,
+      phone: seller.phone,
+      address: seller.address,
+      shop_name: seller.shop_name,
+      category: seller.category,
+      answer: seller.answer,
+      verified: seller.verified,
+      type: "seller",
+    }});
+    }
   } catch (error) {
     console.log(error);
     res.status(500).send({
