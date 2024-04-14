@@ -44,17 +44,18 @@ const SellerSpceficProduct = () => {
             <AdminMenu />
           </div>
           <div className="col-md-9">
-            <div className="card">
+            <div className="card" style={{borderRadius:"5px", boxShadow:"0 0 10px #ccc"}}>
               <div className="card-header d-flex flex-wrap" >
                 <button
                   className="btn btn-primary"
+                  style={{borderRadius:"5px", boxShadow:"0 0 10px #ccc"}}
                   onClick={() => {
                     // navigate("/dashboard/admin/sellers-list");
                     navigate(-1);
                   }}
                 >
                   <i
-                    class="bi bi-backspace me-2"
+                    className="bi bi-backspace me-2"
                     style={{ cursor: "pointer",marginBottom: "2px"}}
                   ></i>
                   Back

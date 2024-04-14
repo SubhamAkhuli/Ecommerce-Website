@@ -39,7 +39,7 @@ const AdminUserLists = () => {
             <AdminMenu />
           </div>
           <div className="col-md-9">
-            <div className="card">
+            <div className="card" style={{borderRadius:"5px", boxShadow:"0 0 10px #ccc"}}>
               <div className="card-header text-center">
                 <h3>Users List</h3>
               </div>
