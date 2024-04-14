@@ -58,9 +58,9 @@ const UserRegister = () => {
     <>
       <Header />
         <div className="container" >
-        <div className="row mb-2">
+        <div className="row mb-2" >
           <div className="col-md-6 offset-md-3">
-            <div className="card mt-3">
+            <div className="card mt-3" style={{borderRadius:"5px", boxShadow:"0 0 10px #ccc"}}>
               <div className="card-header">
                 <h3 className="text-center">Registration From</h3>
               </div>

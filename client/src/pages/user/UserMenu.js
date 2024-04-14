@@ -107,7 +107,7 @@ const UserMenu = () => {
         </div>
       </div>
 
-      <div className="list-group card">
+      <div className="list-group card" style={{borderRadius:"5px", boxShadow:"0 0 10px #ccc"}}>
         <div className="card-header text-center">
           <h4>User Menu</h4>
         </div>
