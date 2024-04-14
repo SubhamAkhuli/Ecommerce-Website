@@ -20,7 +20,7 @@ const SellerRegister = () => {
   });
 
   const handleSubmit = async (e) => {
-    console.log(credentials);
+    // console.log(credentials);
     e.preventDefault();
     try {
       const {
@@ -55,7 +55,7 @@ const SellerRegister = () => {
           toast.success(response.data.message);
           
           setTimeout(() => {
-            navigate("/sellerverification");
+            navigate("/login");
           }, 100);
         } else {
           toast.error(response.data.message);
