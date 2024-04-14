@@ -15,8 +15,6 @@ const Sellerverification = () => {
       const seller = await axios.get(
         `http://localhost:8080/api/v1/sellerauth/sellercheck/${params.pid}`
       );
-      // console.log(seller.data.seller.verified);
-      console.log(seller.data.message);
       if (seller.data.message === "Seller Not Found") {
         toast.error(
           "Admin has rejected your request, please try again with valid details."
