@@ -78,7 +78,7 @@ const ForgotPassword = () => {
       <div className="container" style={{ minHeight: "69.8vh" }}>
         <div className="row">
           <div className="col-md-6 offset-md-3">
-            <div className="card m-4">
+            <div className="card m-4" style={{borderRadius:"5px", boxShadow:"0 0 10px #ccc"}}>
               <div className="card-header">
                 <h3 className="text-center">Change Password</h3>
               </div>

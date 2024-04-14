@@ -138,7 +138,7 @@ const Login = () => {
       <div className="container" >
         <div className="row">
           <div className="col-md-6 offset-md-3">
-            <div className="card m-3 ">
+            <div className="card m-3 " style={{borderRadius:"5px", boxShadow:"0 0 10px #ccc"}}>
               <div className="card-header">
                 <h3 className="text-center">Login</h3>
               </div>
