@@ -52,40 +52,26 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
             {/* Nested routes */}
+
             {/* User routes */}
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="/dashboard" element={<UserPrivateRoute />}>
               <Route path="user" element={<UserDashboard />} />
               <Route path="user/orders" element={<UserOrders />} />
               <Route path="user/wishlist" element={<UserWishlist />} />
-              <Route
-                path="user/changepassword"
-                element={<UserChangePassword />}
-              />
+              <Route path="user/changepassword" element={<UserChangePassword />} />
             </Route>
 
             {/* Seller routes */}
-            <Route
-              path="/sellerverification"
-              element={<Sellerverification />}
-            />
+            <Route path="/sellerverification/:pid" element={<Sellerverification />}/>
             <Route path="/sellerregister" element={<SellerRegister />} />
             <Route path="/dashboard" element={<SellerPrivateRoute />}>
               <Route path="seller" element={<SellerDashboard />} />
-              <Route
-                path="seller/create-product"
-                element={<SellerCreateProduct />}
-              />
+              <Route path="seller/create-product" element={<SellerCreateProduct />}/>
               <Route path="seller/products" element={<SellerProducts />} />
-              <Route
-                path="seller/update-product/:pid"
-                element={<SellerUpdateProduct />}
-              />
+              <Route path="seller/update-product/:pid" element={<SellerUpdateProduct />} />
               <Route path="seller/orders" element={<SellerOrders />} />
-              <Route
-                path="seller/changepassword"
-                element={<SellerChangePassword />}
-              />
+              <Route  path="seller/changepassword" element={<SellerChangePassword />}/>
             </Route>
 
             {/* Admin routes */}
@@ -95,10 +81,7 @@ function App() {
               <Route path="admin/all-product" element={<AdminAllProducts />} />
               <Route path="admin/users-list" element={<AdminUserLists />} />
               <Route path="admin/sellers-list" element={<AdminSellerLists />} />
-              <Route
-                path="admin/seller-specific-product/:pid"
-                element={<SellerSpceficProduct />}
-              />
+              <Route path="admin/seller-specific-product/:pid" element={<SellerSpceficProduct />} />
             </Route>
 
             {/* 404 Page Not Found */}
