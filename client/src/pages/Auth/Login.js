@@ -72,7 +72,8 @@ const Login = () => {
                 ...user,
                 user: response.data.user,
                 token: response.data.token,
-              });             
+              }); 
+
               if (response.data.user.verified) {
                 toast.success(response.data.message);
                 localStorage.setItem("user", JSON.stringify(response.data));
@@ -81,16 +82,16 @@ const Login = () => {
                 }, 100);
               }
               else{
-                toast.success("Please verify your account")
+                // toast.success("Please verify your account")
                 setTimeout(() => {
-                  navigate(location.state || "/sellerverification");
+                  navigate(location.state || `/sellerverification/${response.data.seller_id}`);
                 }, 100);
               }
             } else {
               if (response.data.message === "Please wait ,Your Account is not verified yet") {
                 toast.error(response.data.message)
                 setTimeout(() => {
-                  navigate(location.state || "/sellerverification");
+                  navigate(location.state || `/sellerverification/${response.data.seller_id}`);
                 }, 100);
               } else {
               toast.error(response.data.message);
