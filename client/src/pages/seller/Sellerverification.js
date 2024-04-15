@@ -34,7 +34,9 @@ const Sellerverification = () => {
           navigate("/dashboard/seller");
         } else {
           setTimeout(() => {
-          checkVerification();
+          // checkVerification();
+          console.log("hi")
+          window.location.reload();
           },30000);
         }
       }
