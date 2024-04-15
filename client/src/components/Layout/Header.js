@@ -5,8 +5,9 @@ import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/auth";
 
-function Header() {
-  const [ user, setUser ] = useAuth();
+function Header(props) {
+  const { username } = props;
+  const [user, setUser] = useAuth();
   const HandelLogout = () => {
     setUser({
       user: null,
@@ -27,111 +28,49 @@ function Header() {
             src={logo}
             alt="logo"
           ></img>
-          <NavLink className="navbar-brand mx-2" to="/">
-            Ecommerce App
-          </NavLink>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink className="nav-link active" aria-current="page" to="/">
-                  Home
-                </NavLink>
-              </li>
-
-              <li className="nav-item dropdown">
-                <NavLink
-                  className="nav-link dropdown-toggle"
-                  to="/"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Category
-                </NavLink>
-                <ul className="dropdown-menu dropdown-menu-dark">
-                  <li>
-                    <NavLink className="dropdown-item" to="/">
-                      Fashion & Apparel
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/">
-                      Electronics & Gadgets
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/">
-                      Home & Lifestyle
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/">
-                      Beauty & Health
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/">
-                      Books & Stationery
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/">
-                      Furniture & Home Decor
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/">
-                      Toys & Games
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/">
-                      Sports & Outdoors
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/">
-                      Automotive & Motorbike
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/">
-                      Grocery & Pets
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink className="dropdown-item" to="/">
-                      Watch & Clocks
+          {!user.user ? (
+            <>
+              <NavLink className="navbar-brand mx-2" to="/">
+                Ecommerce App
+              </NavLink>
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div
+                className="collapse navbar-collapse"
+                id="navbarSupportedContent"
+              >
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link active"
+                      aria-current="page"
+                      to="/"
+                    >
+                      Home
                     </NavLink>
                   </li>
                 </ul>
-              </li>
-            </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              {!user.user ? (
-                <>
+                <form className="d-flex" role="search">
+                  <input
+                    className="form-control me-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <button className="btn btn-outline-success" type="submit">
+                    Search
+                  </button>
+                </form>
+                <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/userregister">
                       Register
@@ -147,9 +86,60 @@ function Header() {
                       Login
                     </NavLink>
                   </li>
-                </>
-              ) : (
-                <>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/cart">
+                      Cart(0)
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+            </>
+          ) : (
+            <>
+              <NavLink
+                className="navbar-brand mx-2"
+                to={`/dashboard/${user?.user?.type}`}
+              >
+                Ecommerce App
+              </NavLink>
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div
+                className="collapse navbar-collapse"
+                id="navbarSupportedContent"
+              >
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link active"
+                      aria-current="page"
+                      to={`/dashboard/${user?.user?.type}`}
+                    >
+                      Home
+                    </NavLink>
+                  </li>
+                </ul>
+                <form className="d-flex" role="search">
+                  <input
+                    className="form-control me-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <button className="btn btn-outline-success" type="submit">
+                    Search
+                  </button>
+                </form>
+                <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li className="nav-item dropdown  mx-3">
                     <NavLink
                       className="nav-link dropdown-toggle"
@@ -158,12 +148,16 @@ function Header() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      {user.user.name}
+                      {/* {user.user.name} */}
+                      {username ? username : user.user.name}
                     </NavLink>
                     <ul className="dropdown-menu dropdown-menu-dark  ">
                       <li>
-                        <NavLink className="dropdown-item" to={`/dashboard/${user?.user?.type}`}>
-                        <i className="bi bi-person-circle m-1"></i> My Profile
+                        <NavLink
+                          className="dropdown-item"
+                          to={`/dashboard/${user?.user?.type}/profile`}
+                        >
+                          <i className="bi bi-person-circle m-1"></i> My Profile
                         </NavLink>
                       </li>
                       <li>
@@ -177,15 +171,15 @@ function Header() {
                       </li>
                     </ul>
                   </li>
-                </>
-              )}
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/cart">
-                  Cart(0)
-                </NavLink>
-              </li>
-            </ul>
-          </div>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/cart">
+                      Cart(0)
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </nav>
     </>
