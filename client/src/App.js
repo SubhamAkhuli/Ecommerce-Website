@@ -7,6 +7,7 @@ import Policy from "./pages/Policy";
 import Contact from "./pages/Contact";
 import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Auth/Login.js";
+import Product from "./pages/Product.js";
 // user links
 import UserRegister from "./pages/user/userRegister";
 import UserDashboard from "./pages/user/UserDashboard";
@@ -16,6 +17,7 @@ import UserWishlist from "./pages/user/UserWishlist.js";
 import UserChangePassword from "./pages/user/UserChangePassword.js";
 
 // seller links
+import SellerHome from "./pages/seller/SellerHome";
 import SellerRegister from "./pages/seller/sellerRegister";
 import Sellerverification from "./pages/seller/Sellerverification.js";
 import SellerDashboard from "./pages/seller/SellerDashboard.js";
@@ -51,6 +53,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/product/:pid" element={<Product />} />
             {/* Nested routes */}
 
             {/* User routes */}
@@ -66,7 +69,8 @@ function App() {
             <Route path="/sellerverification/:pid" element={<Sellerverification />}/>
             <Route path="/sellerregister" element={<SellerRegister />} />
             <Route path="/dashboard" element={<SellerPrivateRoute />}>
-              <Route path="seller" element={<SellerDashboard />} />
+              <Route path="seller" element={<SellerHome />} />
+              <Route path="seller/profile" element={<SellerDashboard />} />
               <Route path="seller/create-product" element={<SellerCreateProduct />}/>
               <Route path="seller/products" element={<SellerProducts />} />
               <Route path="seller/update-product/:pid" element={<SellerUpdateProduct />} />
@@ -76,8 +80,8 @@ function App() {
 
             {/* Admin routes */}
             <Route path="/dashboard" element={<AdminPrivateRoute />}>
-              <Route path="admin" element={<AdminDashboard />} />
-              <Route path="adminhome" element={<AdminHome />} />
+              <Route path="admin" element={<AdminHome />} />
+              <Route path="admin/profile" element={<AdminDashboard />} />
               <Route path="admin/all-product" element={<AdminAllProducts />} />
               <Route path="admin/users-list" element={<AdminUserLists />} />
               <Route path="admin/sellers-list" element={<AdminSellerLists />} />
