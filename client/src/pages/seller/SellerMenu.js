@@ -1,5 +1,5 @@
 import React from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -11,7 +11,6 @@ const SellerMenu = () => {
   const userId = user?.user?.id;
   const navigate = useNavigate();
 
-
   // logout
   const HandelLogout = () => {
     setUser({
@@ -22,10 +21,9 @@ const SellerMenu = () => {
     setTimeout(() => {
       toast.success("Logout Successfully");
     }, 100);
-  }
+  };
 
-
-   // delete modal on set
+  // delete modal on set
   const ref = useRef(null);
 
   const handelDelete = () => {
@@ -49,15 +47,14 @@ const SellerMenu = () => {
       setTimeout(() => {
         navigate("/");
       }, 100);
-    }
-    else{
+    } else {
       toast.error(response.data.message);
     }
   };
   return (
     <>
-    {/* Delete conformation Modal */}
-    <div>
+      {/* Delete conformation Modal */}
+      <div>
         <button
           type="button"
           className="btn btn-primary d-none"
@@ -111,37 +108,47 @@ const SellerMenu = () => {
         </div>
       </div>
 
-
-
-        <div className="list-group card" style={{borderRadius:"5px", boxShadow:"0 5px 10px #ccc"}}>
-          <div className="card-header text-center">
-            <h4>Seller Menu</h4>
-          </div>
-          <Link
-            to="/dashboard/seller"
-            className="list-group-item list-group-item-action"
-          >
-           <i className="fa-regular fa-user m-2 text-primary"></i> Profile
-          </Link>
-          <Link
-            to="/dashboard/seller/create-product"
-            className="list-group-item list-group-item-action"
-          >
-            <i className="fa-solid fa-boxes-packing m-2 text-primary"></i>Add Product
-          </Link>
-          <Link
-            to="/dashboard/seller/products"
-            className="list-group-item list-group-item-action"
-          ><i className="bi bi-box-seam m-2 text-primary"></i>
-            Your Products
-          </Link>
-          <Link
-            to="/dashboard/seller/orders"
-            className="list-group-item list-group-item-action"
-          ><i className="fa-solid fa-dolly m-2 text-primary"></i>
-            Your Orders
-          </Link>
-          <Link
+      <div
+        className="list-group card"
+        style={{ borderRadius: "5px", boxShadow: "0 5px 10px #ccc" }}
+      >
+        <div className="card-header text-center">
+          <h4>Seller Menu</h4>
+        </div>
+        <Link
+          to="/dashboard/seller"
+          className="list-group-item list-group-item-action"
+        >
+          <i className="bi bi-house m-2 text-primary"></i> Home
+        </Link>
+        <Link
+          to="/dashboard/seller/profile"
+          className="list-group-item list-group-item-action"
+        >
+          <i className="fa-regular fa-user m-2 text-primary"></i> Profile
+        </Link>
+        <Link
+          to="/dashboard/seller/create-product"
+          className="list-group-item list-group-item-action"
+        >
+          <i className="fa-solid fa-boxes-packing m-2 text-primary"></i>Add
+          Product
+        </Link>
+        <Link
+          to="/dashboard/seller/products"
+          className="list-group-item list-group-item-action"
+        >
+          <i className="bi bi-box-seam m-2 text-primary"></i>
+          Your Products
+        </Link>
+        <Link
+          to="/dashboard/seller/orders"
+          className="list-group-item list-group-item-action"
+        >
+          <i className="fa-solid fa-dolly m-2 text-primary"></i>
+          Your Orders
+        </Link>
+        <Link
           to="/dashboard/seller/changepassword"
           className="list-group-item list-group-item-action"
         >
@@ -162,7 +169,7 @@ const SellerMenu = () => {
         >
           <i className="bi bi-box-arrow-left m-2 text-primary"></i>Logout
         </Link>
-        </div>
+      </div>
     </>
   );
 };
