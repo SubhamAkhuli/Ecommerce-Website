@@ -78,7 +78,7 @@ const Login = () => {
                 toast.success(response.data.message);
                 localStorage.setItem("user", JSON.stringify(response.data));
                 setTimeout(() => {
-                  navigate(location.state || "/");
+                  navigate(location.state || "/dashboard/seller");
                 }, 100);
               }
               else{
@@ -119,7 +119,7 @@ const Login = () => {
               
               localStorage.setItem("user", JSON.stringify(response.data));
               setTimeout(() => {
-                navigate(location.state || "/dashboard/adminhome");
+                navigate(location.state || "/dashboard/admin");
               }, 100);
             } else {
               toast.error(response.data.message);
