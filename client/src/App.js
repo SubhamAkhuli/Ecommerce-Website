@@ -59,7 +59,7 @@ function App() {
             {/* User routes */}
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="/dashboard" element={<UserPrivateRoute />}>
-              <Route path="user" element={<UserDashboard />} />
+              <Route path="user/profile" element={<UserDashboard />} />
               <Route path="user/orders" element={<UserOrders />} />
               <Route path="user/wishlist" element={<UserWishlist />} />
               <Route path="user/changepassword" element={<UserChangePassword />} />
