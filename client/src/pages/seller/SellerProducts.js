@@ -135,7 +135,8 @@ const SellerProducts = () => {
                 ) : (
                   <>
                     <h5 className="card-title">
-                      Total Products: {products.length}
+                      Total: {products.length}
+                      {products.length > 1 ? " Products" : " Product"}
                     </h5>
                   </>
                 )}
