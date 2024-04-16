@@ -116,8 +116,21 @@ const SellerUpdateProduct = () => {
           </div>
           <div className="col-md-9">
             <div className="card" style={{borderRadius:"5px", boxShadow:"0 0 10px #ccc"}}>
-              <div className="card-header text-center">
-                <h3>Update Product Details</h3>
+              <div className="card-header d-flex flex-wrap">
+              <button
+                  className="btn btn-primary"
+                  style={{borderRadius:"5px", boxShadow:"0 0 10px #ccc"}}
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                >
+                  <i
+                    className="bi bi-backspace me-2"
+                    style={{ cursor: "pointer",marginBottom: "2px"}}
+                  ></i>
+                  Back
+                </button>
+                <h3  style={{margin:"auto"}}>Update Product Details</h3>
               </div>
               <div className="card-body">
                 <form onSubmit={handleSubmit}>
