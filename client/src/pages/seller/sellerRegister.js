@@ -113,7 +113,7 @@ const SellerRegister = () => {
                       <option value="" disabled>
                         Choose One
                       </option>
-                      <option value=" Fashion & Apparel">
+                      <option value="Fashion & Apparel">
                         Fashion & Apparel
                       </option>
                       <option value="Electronics & Gadgets">
