@@ -113,7 +113,7 @@ const UserMenu = () => {
         </div>
 
         <Link
-          to="/dashboard/user"
+          to="/dashboard/user/profile"
           className="list-group-item list-group-item-action "
         >
           <i className="fa-regular fa-user m-2 text-primary"></i>Profile
