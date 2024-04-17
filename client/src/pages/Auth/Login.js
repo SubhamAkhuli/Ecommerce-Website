@@ -50,7 +50,7 @@ const Login = () => {
               
               localStorage.setItem("user", JSON.stringify(response.data));
               setTimeout(() => {
-                navigate(location.state || "/");
+                navigate(location.state || "/dashboard/user");
               }, 100);
             } else {
               toast.error(response.data.message);
