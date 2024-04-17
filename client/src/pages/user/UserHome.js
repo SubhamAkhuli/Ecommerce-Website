@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Layout/Header";
-import Footer from "../components/Layout/Footer";
+import Header from "../../components/Layout/Header";
+import Footer from "../../components/Layout/Footer";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 // Import an empty image for no products available
-import emptyImage from "./empty-product.jpg";
+import emptyImage from "../empty-product.jpg";
 
 function Homepage() {
     const [products, setProducts] = useState([]);
@@ -253,10 +253,10 @@ function Homepage() {
                                             }}
                                             alt={product.name}
                                         />
-                                        <div className="card-body" >
+                                        <div className="card-body"  >
                                             <h5 className="card-title">{product.name}</h5>
                                             <p className="card-text">
-                                                {product.brand}
+                                                 {product.brand}
                                             </p>
                                             <p className="card-text">
                                                ₹{product.price}
