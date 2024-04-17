@@ -30,9 +30,9 @@ const Header = (props) => {
             src={logo}
             alt="logo"
           />
-          <NavLink className="navbar-brand mx-2" to="/">
+          <p className="navbar-brand mx-2" style={{marginBottom:"0px"}}>
             Ecommerce App
-          </NavLink>
+          </p>
           <button
             className="navbar-toggler"
             type="button"
@@ -82,22 +82,6 @@ const Header = (props) => {
                     </li>
                   )}
                 </ul>
-                {user.user.type === "user" && (
-                  <form className="d-flex" role="search">
-                    <input
-                      className="form-control me-2"
-                      type="search"
-                      placeholder="Search"
-                      aria-label="Search"
-                    />
-                    <button
-                      className="btn btn-outline-success"
-                      type="submit"
-                    >
-                      Search
-                    </button>
-                  </form>
-                )}
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li className="nav-item dropdown mx-3">
                     <NavLink
@@ -187,20 +171,6 @@ const Header = (props) => {
                     </NavLink>
                   </li>
                   </ul>
-                <form className="d-flex" role="search">
-                  <input
-                    className="form-control me-2"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                  <button
-                    className="btn btn-outline-success"
-                    type="submit"
-                  >
-                    Search
-                  </button>
-                </form>
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/userregister">
