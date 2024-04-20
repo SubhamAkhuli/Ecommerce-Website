@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+
 // Import an empty image for no products available
 import emptyImage from "./empty-product.jpg";
 
@@ -221,6 +222,7 @@ function Homepage() {
                                 className="form-control mb-3"
                                 style={{ width: "100%" ,borderRadius:"5px", boxShadow: "0 0 10px #ccc"}}
                             />
+                            <i className="fas fa-search" style={{position:"absolute" , marginTop:"10px" , marginLeft:"940px"}}></i>
                             
                             {/* Show selected category and price range */}
                             {selectedCategory && (
