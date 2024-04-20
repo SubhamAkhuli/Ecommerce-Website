@@ -8,9 +8,10 @@ import Contact from "./pages/Contact";
 import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Auth/Login.js";
 import Product from "./pages/Product.js";
+import CartPage from "./pages/CartPage.js";
+
 // user links
 import UserRegister from "./pages/user/userRegister";
-import UserHome from "./pages/user/UserHome";
 import UserDashboard from "./pages/user/UserDashboard";
 import UserPrivateRoute from "./components/Routes/user/UserPrivate.js";
 import UserOrders from "./pages/user/UserOrders.js";
@@ -41,6 +42,7 @@ import SellerSpceficProduct from "./pages/admin/SellerSpceficProduct.js";
 // forgot password
 import ForgotPassword from "./pages/Auth/ForgotPassword.js";
 import { AuthProvider } from "./context/auth";
+
 function App() {
   return (
     <>
@@ -55,12 +57,13 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
             <Route path="/product-details/:pid" element={<Product />} />
+            <Route path="/cart" element={<CartPage />} />
             {/* Nested routes */}
 
             {/* User routes */}
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="/dashboard" element={<UserPrivateRoute />}>
-              <Route path="user" element={<UserHome />} />
+              <Route path="user" element={<Homepage />} />
               <Route path="user/profile" element={<UserDashboard />} />
               <Route path="user/orders" element={<UserOrders />} />
               <Route path="user/wishlist" element={<UserWishlist />} />
