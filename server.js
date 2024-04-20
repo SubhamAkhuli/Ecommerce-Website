@@ -6,6 +6,7 @@ import authUserRoute from "./routes/user/authUserRoute.js";
 import authSellerRoute from "./routes/seller/authSellerRoute.js";
 import authAdminRoute from "./routes/admin/authAdminRoute.js";
 import authProductRoute from "./routes/Product/productRoutes.js";
+import authOrderRoute from "./routes/Order/orderRoutes.js";
 import cors from "cors";
 
 // load env variables
@@ -33,6 +34,9 @@ app.use("/api/v1/adminauth", authAdminRoute);
 
 // routes for product
 app.use("/api/v1/product", authProductRoute);
+
+// route for order
+app.use("/api/v1/order", authOrderRoute);
 
 // rest api
 app.get("/", (req, res) => {
