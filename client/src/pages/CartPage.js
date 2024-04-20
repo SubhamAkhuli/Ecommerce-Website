@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import { useCart } from "../context/Cart";
 import { useAuth } from "../context/auth";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import DropIn from "braintree-web-drop-in-react";
 import axios from "axios";
 
@@ -16,8 +15,19 @@ const CartPage = () => {
   const [clientToken, setClientToken] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [instance, setInstance] = useState(null);
+  const [productQuantities, setProductQuantities] = useState({});
+  const [product, setProduct] = useState([]);
 
-  // Group items in the cart by product ID and calculate quantities
+  // Calculate product quantities
+  const calculateProductQuantities = () => {
+    const quantities = cart.reduce((acc, item) => {
+      acc[item._id] = (acc[item._id] || 0) + 1;
+      return acc;
+    }, {});
+    setProductQuantities(quantities);
+  };
+
+  // Group items in the cart and calculate quantities and prices
   const groupCartItems = () => {
     const groupedCart = cart.reduce((acc, item) => {
       const existingItem = acc.find(
@@ -51,37 +61,67 @@ const CartPage = () => {
   // Remove item from cart
   const removeCartItem = (pid) => {
     try {
-      const myCart = cart.filter((item) => item._id !== pid);
-      setCart(myCart);
-      localStorage.setItem("cart", JSON.stringify(myCart));
+      const updatedCart = cart.filter((item) => item._id !== pid);
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
       toast.success("Item removed from cart");
     } catch (error) {
       console.log(error);
     }
   };
 
-  // Get client token for braintree
+  // Get client token for Braintree
   const getClientToken = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/product/braintree/token`
+        `${process.env.REACT_APP_API}/api/v1/order/braintree/token`
       );
       setClientToken(data?.token);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // Calculate product quantities and map cart to product state whenever the cart changes
   useEffect(() => {
+    calculateProductQuantities();
+    mapCartToProductState();
     getClientToken();
-  }, [auth?.token, cart]);
+    // eslint-disable-next-line
+  }, [cart, auth?.token]);
+
+  // Map cart details to product state
+  const mapCartToProductState = () => {
+    const groupedCart = groupCartItems();
+    const mappedProducts = groupedCart.map(({ product, quantity, totalPrice }) => ({
+      product: product._id,
+      quantity: productQuantities[product._id] || quantity,
+      price: product.price,
+      seller: product.seller,
+      seller_name: product.seller_name,
+      name: product.name,
+    }));
+
+    setProduct(mappedProducts);
+  };
+
+  // handel shop button
+  const handelshop=()=>{
+      if (auth?.token) {
+        navigate("/dashboard/user");
+      }
+      else{
+        navigate("/");
+      }
+  }
 
   // Handle payment
-  const handelPayment = async () => {
+  const handlePayment = async () => {
     try {
       setPaymentSuccess(true);
       const { nonce } = await instance.requestPaymentMethod();
-      const {data} = await axios.post(
-        `http://localhost:8080/api/v1/product/payment`,
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API}/api/v1/order/payment`,
         {
           buyer: auth?.user?.id,
           buyer_name: auth?.user?.name,
@@ -89,7 +129,7 @@ const CartPage = () => {
           email: auth?.user?.email,
           total_price: calculateTotalPrice(),
           quantity: calculateTotalQuantity(),
-          cart: groupCartItems(),
+          cart: product,
           nonce,
         }
       );
@@ -97,35 +137,31 @@ const CartPage = () => {
         toast.error(data.error);
         setPaymentSuccess(false);
         return;
-      }
-      else{
+      } else {
         setPaymentSuccess(false);
         localStorage.removeItem("cart");
         setCart([]);
         navigate("/dashboard/user/orders");
         toast.success(data.message);
-
-      }   
+      }
     } catch (error) {
       console.log(error);
       toast.error("Payment failed. Please try again.");
       setPaymentSuccess(false);
     }
   };
-
+console.log(product)
   return (
     <>
       <Header />
-      <div className=" container" style={{ minHeight: "69.8vh" }}>
+      <div className="container" style={{ minHeight: "69.8vh" }}>
         <div className="row">
           <div className="col-md-12">
             <h3 className="text-center bg-light p-2 mb-1">
-              {!auth?.user
-                ? "Hello Guest"
-                : `Hello  ${auth?.token && auth?.user?.name}`}
+              {!auth?.user ? "Hello Guest" : `Hello ${auth?.token && auth?.user?.name}`}
             </h3>
             <h6 className="text-center text-primary">
-              {groupCartItems().length
+              {cart.length
                 ? `You have ${calculateTotalQuantity()} item${
                     calculateTotalQuantity() === 1 ? "" : "s"
                   } in your cart ${
@@ -137,9 +173,19 @@ const CartPage = () => {
         </div>
         <div className="row mb-1">
           <div className="col-md-5 p-0 m-0">
+          {cart.length === 0 && (
+          <div className="row justify-content-center">
+            <div className="mt-5 text-center">
+            <h6>Oh we see that Your cart is empty, To Start Shopping Click below</h6>
+              <button className="btn btn-primary" onClick={handelshop}>
+                Start Shopping
+              </button>
+            </div>
+          </div>
+        )}
             {groupCartItems().map(({ product, quantity, totalPrice }) => (
               <div
-                className="row card flex-row mb-1"
+                className="row card flex-row mb-1 mt-1"
                 style={{ boxShadow: "0 0 10px #ccc" }}
                 key={product._id}
               >
@@ -162,7 +208,7 @@ const CartPage = () => {
                     {product.description.substring(0, 30)}.....
                   </p>
                   <p style={{ marginBottom: "0px" }}>₹{product.price}</p>
-                  <p style={{ marginBottom: "0px" }}>Quantity: {quantity}</p>
+                  <p style={{ marginBottom: "0px" }}>Quantity: {productQuantities[product._id] || quantity}</p>
                   <p>Total Price: ₹{totalPrice}</p>
                   <button
                     className="btn btn-danger btn-sm mb-2"
@@ -210,10 +256,8 @@ const CartPage = () => {
                     />
                     <button
                       className="btn btn-primary"
-                      onClick={handelPayment}
-                      disabled={
-                        !auth?.user?.address || !instance || paymentSuccess
-                      }
+                      onClick={handlePayment}
+                      disabled={!auth?.user?.address || !instance || paymentSuccess}
                     >
                       {paymentSuccess ? "Processing..." : "Pay Now"}
                     </button>
