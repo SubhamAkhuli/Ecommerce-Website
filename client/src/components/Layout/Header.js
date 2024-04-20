@@ -4,11 +4,12 @@ import { Toaster } from "react-hot-toast";
 import logo from "../Layout/logo.jpg";
 import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
+import { useCart } from "../../context/Cart";
 
 const Header = (props) => {
   const { username } = props;
   const [user, setUser] = useAuth();
-
+  const [cart] = useCart();
   const handleLogout = () => {
     setUser({
       user: null,
@@ -30,8 +31,15 @@ const Header = (props) => {
             src={logo}
             alt="logo"
           />
-          <p className="navbar-brand mx-2" style={{marginBottom:"0px"}}>
-            Ecommerce App
+          <p
+            className="navbar-brand mx-2"
+            style={{
+              marginBottom: "0px",
+              textShadow: "0 1px 10px blue",
+              cursor: "pointer",
+            }}
+          >
+           TrendBazaar
           </p>
           <button
             className="navbar-toggler"
@@ -49,35 +57,40 @@ const Header = (props) => {
               <>
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   <li className="nav-item ms-3">
-                    <NavLink className="nav-link" to={`/dashboard/${user.user.type}`}>
+                    <NavLink
+                      className="nav-link"
+                      to={`/dashboard/${user.user.type}`}
+                    >
                       Home
                     </NavLink>
                   </li>
                   {user.user.type === "admin" && (
                     <>
-                    <li className="nav-item ms-3">
-                      <NavLink
-                        className="nav-link"
-                        to="/dashboard/admin/users-list"
-                      >
-                        Users
-                      </NavLink>
-                    </li>
-                    <li className="nav-item ms-3">
-                      <NavLink
-                        className="nav-link"
-                        to="/dashboard/admin/sellers-list"
-                      >
-                        Sellers
-                      </NavLink>
-                    </li>
+                      <li className="nav-item ms-3">
+                        <NavLink
+                          className="nav-link"
+                          to="/dashboard/admin/users-list"
+                        >
+                          Users
+                        </NavLink>
+                      </li>
+                      <li className="nav-item ms-3">
+                        <NavLink
+                          className="nav-link"
+                          to="/dashboard/admin/sellers-list"
+                        >
+                          Sellers
+                        </NavLink>
+                      </li>
                     </>
-            )}
+                  )}
                   {user.user.type === "seller" && (
                     <li className="nav-item ms-3">
-                      <NavLink className="nav-link"  to="/dashboard/seller/create-product"
-                    >
-                    Add Product
+                      <NavLink
+                        className="nav-link"
+                        to="/dashboard/seller/create-product"
+                      >
+                        Add Product
                       </NavLink>
                     </li>
                   )}
@@ -136,13 +149,16 @@ const Header = (props) => {
                   {user.user.type === "user" && (
                     <li className="nav-item">
                       <NavLink className="nav-link" to="/cart">
-                        Cart(0)
+                        Cart
+                        <span className="badge text-bg-danger ms-1 me-1">
+                          {cart?.length}
+                        </span>{" "}
                       </NavLink>
                     </li>
                   )}
                   {user.user.type === "admin" && (
                     <>
-                       <li className="nav-item me-3">
+                      <li className="nav-item me-3">
                         <NavLink
                           className="nav-link"
                           to="/dashboard/admin/all-product"
@@ -164,13 +180,13 @@ const Header = (props) => {
               </>
             ) : (
               <>
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/">
                       Home
                     </NavLink>
                   </li>
-                  </ul>
+                </ul>
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/userregister">
@@ -188,10 +204,13 @@ const Header = (props) => {
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                      <NavLink className="nav-link" to="/cart">
-                        Cart(0)
-                      </NavLink>
-                    </li>
+                    <NavLink className="nav-link" to="/cart">
+                      Cart
+                      <span className="badge text-bg-danger ms-1">
+                        {cart?.length}
+                      </span>
+                    </NavLink>
+                  </li>
                 </ul>
               </>
             )}
