@@ -26,4 +26,5 @@ router.put('/update-product/:pid',authMiddleware,ExpressFormidable(), updateProd
 // delete product
 router.delete('/delete-product/:pid',authMiddleware, deleteProductController);
 
+
 export default router;
