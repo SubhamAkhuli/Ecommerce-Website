@@ -1,7 +1,6 @@
 import express from "express";
 import {userRegisterController,userLoginController,testcontroller,userForgotPasswordController,userUpdateController,userDeleteController,userGetAllController,userGetByIdController} from "../../controllers/user/authUserController.js";
 import { authMiddleware } from "../../middlewares/authMiddleware.js";
-import { get } from "mongoose";
 // router object
 const router = express.Router();
 
@@ -31,6 +30,8 @@ router.get("/alluserdetails",userGetAllController);
 
 // delete user
 router.delete("/userdelete/:id",userDeleteController);
+
+
 
 // Protected route
 router.get("/user-auth",authMiddleware, (req, res) => {
