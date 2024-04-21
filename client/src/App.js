@@ -15,6 +15,7 @@ import UserRegister from "./pages/user/userRegister";
 import UserDashboard from "./pages/user/UserDashboard";
 import UserPrivateRoute from "./components/Routes/user/UserPrivate.js";
 import UserOrders from "./pages/user/UserOrders.js";
+import UserOrderdetails from "./pages/user/Orderdetails.js";
 import UserWishlist from "./pages/user/UserWishlist.js";
 import UserChangePassword from "./pages/user/UserChangePassword.js";
 
@@ -66,8 +67,10 @@ function App() {
               <Route path="user" element={<Homepage />} />
               <Route path="user/profile" element={<UserDashboard />} />
               <Route path="user/orders" element={<UserOrders />} />
+              <Route path="user/orderdetails/:oid" element={<UserOrderdetails />} />
               <Route path="user/wishlist" element={<UserWishlist />} />
               <Route path="user/changepassword" element={<UserChangePassword />} />
+
             </Route>
 
             {/* Seller routes */}
