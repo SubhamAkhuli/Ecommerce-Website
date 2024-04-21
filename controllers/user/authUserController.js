@@ -2,7 +2,7 @@ import userModel from "../../models/user/userModel.js";
 import { hashPassword, comparePassword } from "../../helpers/authHelper.js";
 import Jwt from "jsonwebtoken";
 import typeModel from "../../models/Type/typeModel.js";
-import e from "cors";
+
 
 // Register User
 export const userRegisterController = async (req, res) => {
@@ -257,11 +257,11 @@ export const userUpdateController = async (req, res) => {
           token: reqtkn,
           user: {
             id: user._id,
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            address: user.address,
-            answer: user.answer,
+            name: name,
+            email: email,
+            phone: phone,
+            address: address,
+            answer: answer,
             type: userType,
           },
         });
@@ -317,11 +317,11 @@ export const userUpdateController = async (req, res) => {
               token: reqtkn,
               user: {
                 id: user._id,
-                name: user.name,
-                email: user.email,
-                phone: user.phone,
-                address: user.address,
-                answer: user.answer,
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+                answer: answer,
                 type: userType,
               },
             });
