@@ -2,14 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
-import axios from "axios";
-import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import { useRef } from "react";
+// import { useNavigate } from "react-router-dom";
 
 const SellerMenu = () => {
+  // eslint-disable-next-line
   const [user, setUser] = useAuth();
-  const userId = user?.user?.id;
-  const navigate = useNavigate();
+  // const userId = user?.user?.id;
+  // const navigate = useNavigate();
 
   // logout
   const HandelLogout = () => {
@@ -24,37 +25,37 @@ const SellerMenu = () => {
   };
 
   // delete modal on set
-  const ref = useRef(null);
+  // const ref = useRef(null);
 
-  const handelDelete = () => {
-    // on the delete modal
-    ref.current.click();
-  };
+  // const handelDelete = () => {
+  //   // on the delete modal
+  //   ref.current.click();
+  // };
 
-  const handelYes = async (e) => {
-    e.preventDefault();
-    // console.log("delete");
-    setUser({
-      user: null,
-      token: "",
-    });
-    const response = await axios.delete(
-      `http://localhost:8080/api/v1/sellerauth/sellerdelete/${userId}`
-    );
-    if (response.data.success) {
-      toast.success(response.data.message);
-      localStorage.removeItem("user");
-      setTimeout(() => {
-        navigate("/");
-      }, 100);
-    } else {
-      toast.error(response.data.message);
-    }
-  };
+  // const handelYes = async (e) => {
+  //   e.preventDefault();
+  //   // console.log("delete");
+  //   setUser({
+  //     user: null,
+  //     token: "",
+  //   });
+  //   const response = await axios.delete(
+  //     `http://localhost:8080/api/v1/sellerauth/sellerdelete/${userId}`
+  //   );
+  //   if (response.data.success) {
+  //     toast.success(response.data.message);
+  //     localStorage.removeItem("user");
+  //     setTimeout(() => {
+  //       navigate("/");
+  //     }, 100);
+  //   } else {
+  //     toast.error(response.data.message);
+  //   }
+  // };
   return (
     <>
       {/* Delete conformation Modal */}
-      <div>
+      {/* <div>
         <button
           type="button"
           className="btn btn-primary d-none"
@@ -106,7 +107,7 @@ const SellerMenu = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div
         className="list-group card"
@@ -154,14 +155,14 @@ const SellerMenu = () => {
         >
           <i className="bi bi-key m-2 text-primary"></i>Change Password
         </Link>
-        <p
+        {/* <p
           onClick={handelDelete}
           className="list-group-item list-group-item-action text-danger"
           style={{ cursor: "pointer", marginBottom: "0px" }}
         >
           <i className="fa-solid fa-user-slash m-2 text-primary"></i>{" "}
           <b>Delete Account</b>
-        </p>
+        </p> */}
         <Link
           to="/login"
           onClick={HandelLogout}
