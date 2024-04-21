@@ -59,7 +59,7 @@ const SellerSpceficProduct = () => {
                   ></i>
                   Back
                 </button>
-                <h3 className="text-center " style={{marginLeft:"130px"}}>{sellerName}'s Specific Product</h3>
+                <h3 className="text-center mx-auto" >{sellerName}'s Specific Product</h3>
               </div>
               <div className="card-body">
                 {products.length === 0 ? (
