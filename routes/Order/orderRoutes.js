@@ -10,7 +10,7 @@ router.get("/braintree/token", paymentTokenController);
 router.post("/payment", authMiddleware, paymentController);
 
 // Get orders by order id
-router.get("/order/:id", authMiddleware, getOrderByIdController); 
+router.get("/getone-order/:id", authMiddleware, getOrderByIdController); 
 
 // Get orders by user id
 router.get("/userorders/:pid", authMiddleware, getOrdersController); // get all orders
