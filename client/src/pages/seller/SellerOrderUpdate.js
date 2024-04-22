@@ -69,6 +69,7 @@ const SellerOrderUpdate = () => {
       console.log(data);
       toast.success("Order Rejected Successfully");
       getOrders();
+      navigate(-1);
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong while rejecting order.");
