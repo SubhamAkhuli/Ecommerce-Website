@@ -29,6 +29,7 @@ import SellerCreateProduct from "./pages/seller/SellerCreateProduct.js";
 import SellerProducts from "./pages/seller/SellerProducts.js";
 import SellerUpdateProduct from "./pages/seller/SellerUpdateProduct.js";
 import SellerOrders from "./pages/seller/SellerOrders.js";
+import SellerOrderUpdate from "./pages/seller/SellerOrderUpdate.js";
 import SellerChangePassword from "./pages/seller/SellerChangePassword.js";
 
 // admin links
@@ -83,6 +84,7 @@ function App() {
               <Route path="seller/products" element={<SellerProducts />} />
               <Route path="seller/update-product/:pid" element={<SellerUpdateProduct />} />
               <Route path="seller/orders" element={<SellerOrders />} />
+              <Route path="seller/order-update/:oid" element={<SellerOrderUpdate />} />
               <Route  path="seller/changepassword" element={<SellerChangePassword />}/>
             </Route>
 
