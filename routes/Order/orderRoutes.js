@@ -1,6 +1,6 @@
 import express from "express";
 import { authMiddleware } from "../../middlewares/authMiddleware.js";
-import { acceptOrderController, getOrderByIdController, getOrdersController, getSellerOrdersController, orderStatusUpdateController, paymentController, paymentTokenController, rejectOrderController } from "../../controllers/order/orderController.js";
+import { acceptOrderController, cancelOrderController, getOrderByIdController, getOrdersController, getSellerOrdersController, orderStatusUpdateController, paymentController, paymentTokenController, rejectOrderController } from "../../controllers/order/orderController.js";
 
 const router = express.Router();
 // payment gateway token
@@ -23,6 +23,9 @@ router.put("/accept-order/:id", authMiddleware, acceptOrderController);
 
 // reject order by seller
 router.put("/reject-order/:id", authMiddleware, rejectOrderController);
+
+// cancel order by buyer
+router.put("/cancel-order/:id", authMiddleware, cancelOrderController);
 
 // order status update by seller
 router.put("/order-status-update/:id", authMiddleware, orderStatusUpdateController);
