@@ -91,7 +91,7 @@ export const paymentController = async (req, res) => {
           // Populate order items from the cart
           cart.forEach((item) => {
             // Check if item contains required fields
-            if (item.seller && item.seller_name && item.name && item.price && item.product) {
+            if (item.seller && item.seller_name && item.name && item.price && item.product && item.quantity) {
               orderItems.push({
                 seller: item.seller,
                 seller_name: item.seller_name,
@@ -100,6 +100,7 @@ export const paymentController = async (req, res) => {
                 product: item.product,
                 quantity: item.quantity,
               });
+              
             } else {
               // If the item does not contain required fields, log an error
               console.error("Cart item missing required fields:", item);
@@ -126,7 +127,6 @@ export const paymentController = async (req, res) => {
             },
           };
         }
-
         // Check if the result is successful
         if (result.success) {
           // Generate order data using a helper function
@@ -177,7 +177,9 @@ export const paymentController = async (req, res) => {
 export const getOrderByIdController = async (req, res) => {
   try {
     const order = await orderModel.findById(req.params.id);
+    // console.log(order);
     res.status(200).send(order);
+
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
@@ -188,6 +190,48 @@ export const getOrdersController = async (req, res) => {
   try {
     const orders = await orderModel.find({ buyer: req.params.pid });
     res.status(200).send(orders);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+
+
+// get orders by seller id
+export const getSellerOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel.find({ "orderItems.seller": req.params.sid });
+    res.status(200).send(orders);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+
+// accept order by seller
+export const acceptOrderController = async (req, res) => {
+  try {
+    const order = await orderModel.findByIdAndUpdate(req.params.id, { order_status: "Order Confirmed" }, { new: true });
+    res.status(200).send(order);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+
+// reject order by seller
+
+export const rejectOrderController = async (req, res) => {
+  try {
+    const order = await orderModel.findByIdAndUpdate(req.params.id, { order_status: "Not Process" }, { new: true });
+    res.status(200).send(order);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+
+// order status update by seller
+export const orderStatusUpdateController = async (req, res) => {
+  try {
+    const order = await orderModel.findByIdAndUpdate(req.params.id, { order_status: req.body.order_status }, { new: true });
+    res.status(200).send(order);
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
