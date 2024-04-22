@@ -13,7 +13,7 @@ const orderSchema = new mongoose.Schema(
     },
     orderItems: [
       {
-        seler: { type: mongoose.Schema.Types.ObjectId, ref: "sellers" },
+        seller: { type: mongoose.Schema.Types.ObjectId, ref: "sellers" },
         seller_name: { type: String, required: true },
         name: { type: String, required: true },
         price: { type: Number, required: true },
