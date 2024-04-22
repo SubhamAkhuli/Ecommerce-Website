@@ -37,6 +37,22 @@ const Orderdetails = () => {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
+
+  const handelcancelOrder = async (orderId) => {
+    try {
+      const { data } = await axios.put(
+        `http://localhost:8080/api/v1/order/cancel-order/${orderId}`
+      );
+      if (data) {
+        toast.success("Order Cancelled Successfully");
+        getOrder();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong while cancelling order.");
+    }
+  };
+  
   return (
     <>
       <Header />
@@ -51,15 +67,15 @@ const Orderdetails = () => {
               style={{ borderRadius: "5px", boxShadow: "0 0 10px #ccc" }}
             >
               <div className="card-header d-flex flex-wrap">
-              <button
+                <button
                   className="btn btn-primary "
-                  style={{borderRadius:"5px", boxShadow:"0 0 10px #ccc"}}
+                  style={{ borderRadius: "5px", boxShadow: "0 0 10px #ccc" }}
                   onClick={() => {
                     navigate(-1);
                   }}
                 >
                   <i class="bi bi-arrow-left"></i>
-                   Back
+                  Back
                 </button>
                 <h3 className="text-center mx-auto">Order Details</h3>
               </div>
@@ -67,29 +83,136 @@ const Orderdetails = () => {
                 {order ? (
                   <>
                     <h5>Order ID: {order._id}</h5>
-                    <p style={{marginBottom:"0px"}}><b>Order Status: </b>{order.order_status}</p>
-                    <p style={{marginBottom:"0px"}}><b>Order Date: </b>{formatDate(order.createdAt)}</p>
-                    <p style={{marginBottom:"0px"}}><b>Total Amount: ₹</b>{order.total_price}</p>
-                    <p style={{marginBottom:"0px"}}><b>Shipping Address: </b>{order.shippingAddress}</p>
-                    
-                    <p style={{marginBottom:"0px"}}>
-                      <b>Payment Time:{" "}</b>
+
+                    <p style={{ marginBottom: "0px" }}>
+                      <b>Order Date: </b>
+                      {formatDate(order.createdAt)}
+                    </p>
+                    {order.order_status === "Cancelled" && (
+                      <>
+                        <p
+                          className="text-danger"
+                          style={{ marginBottom: "0px" }}
+                        >
+                          <b>Order Status: </b>
+                          {order.order_status} (Order Cancelled by You)
+                        </p>
+                        <p style={{ marginBottom: "0px" }}>
+                          <b>Cancelled Date: </b>
+                          {formatDate(order.updatedAt)}
+                        </p>
+                      </>
+                    )}
+                    {order.order_status === "Delivered" && (
+                      <>
+                        <p
+                          className="text-success"
+                          style={{ marginBottom: "0px" }}
+                        >
+                          <b>Order Status: </b>
+                          {order.order_status}
+                        </p>
+                        <p style={{ marginBottom: "0px" }}>
+                          <b>Delivered Date: </b>
+                          {formatDate(order.updatedAt)}
+                        </p>
+                      </>
+                    )}
+                    {order.order_status === "Shipped" && (
+                      <>
+                        <p
+                          className="text-primary"
+                          style={{ marginBottom: "0px" }}
+                        >
+                          <b>Order Status: </b>
+                          {order.order_status}
+                        </p>
+                      </>
+                    )}
+                    {order.order_status === "Order Confirmed" && (
+                      <>
+                        <p
+                          className="text-info"
+                          style={{ marginBottom: "0px" }}
+                        >
+                          <b>Order Status: </b>
+                          {order.order_status}
+                        </p>
+                      </>
+                    )}
+                    {order.order_status === "Processing" && (
+                      <>
+                        <p
+                          className="text-warning"
+                          style={{ marginBottom: "0px" }}
+                        >
+                          <b>Order Status: </b>
+                          {order.order_status}...
+                        </p>
+                      </>
+                    )}
+                    {order.order_status === "Not Process" && (
+                      <>
+                        <p
+                          className="text-danger"
+                          style={{ marginBottom: "0px" }}
+                        >
+                          <b>Order Status: </b>
+                          {order.order_status} (Order Cancelled by the Seller)
+                        </p>
+                        <p style={{ marginBottom: "0px" }}>
+                          <b>Cancelled Date: </b>
+                          {formatDate(order.updatedAt)}
+                        </p>
+                      </>
+                    )}
+                    <p style={{ marginBottom: "0px" }}>
+                      <b>Total Amount: ₹</b>
+                      {order.total_price}
+                    </p>
+                    <p style={{ marginBottom: "0px" }}>
+                      <b>Shipping Address: </b>
+                      {order.shippingAddress}
+                    </p>
+
+                    <p style={{ marginBottom: "0px" }}>
+                      <b>Payment Time: </b>
                       {formatDate(order.paymentResult.update_time)}
                     </p>
                     <h5>Order Items:</h5>
                     <div className="row">
                       {order.orderItems.map((item, i) => (
                         <div key={i} className="col-md-6">
-                        <img
+                          <img
                             src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${item.product}`}
                             alt={item.name}
-                            style={{ width: "100px", height: "100px", objectFit: "contain", borderRadius: "5px",  marginBottom: "5px"}}
+                            style={{
+                              width: "100px",
+                              height: "100px",
+                              objectFit: "contain",
+                              borderRadius: "5px",
+                              marginBottom: "5px",
+                            }}
                           />
-                          <p style={{marginBottom:"0px"}}><b>Seller Name: </b>{item.seller_name}</p>
-                          <p style={{marginBottom:"0px"}}><b>Product Name: </b>{item.name}</p>
-                          <p style={{marginBottom:"0px"}}><b>Quantity: </b>{item.quantity}</p>
-                          <p style={{marginBottom:"0px"}}><b>Price: ₹</b>{item.price}</p>
-                          
+                          <p style={{ marginBottom: "0px" }}>
+                            <b>Seller Name: </b>
+                            {item.seller_name}
+                          </p>
+                          <p style={{ marginBottom: "0px" }}>
+                            <b>Product Name: </b>
+                            {item.name}
+                          </p>
+                          <p style={{ marginBottom: "0px" }}>
+                            <b>Quantity: </b>
+                            {item.quantity}
+                          </p>
+                          <p style={{ marginBottom: "0px" }}>
+                            <b>Price: ₹</b>
+                            {item.price}
+                          </p>
+                          {!["Delivered", "Cancelled", "Not Process"].includes(order.order_status) && (
+                            <button onClick={() => handelcancelOrder(order._id)} className="btn btn-danger mt-3">Cancel Order</button>
+                          )}
                         </div>
                       ))}
                     </div>
