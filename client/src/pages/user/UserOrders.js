@@ -66,29 +66,142 @@ const UserOrders = () => {
                       {orders?.map((order, index) => (
                         <div
                           key={order._id}
-                          onClick={() => navigate(`/dashboard/user/orderdetails/${order._id}`)}
-                          style={{ cursor: "pointer",marginBottom:"5px",boxShadow:"0 0 10px  #ccc",padding:"10px",borderRadius:"5px"}}
+                          onClick={() =>
+                            navigate(
+                              `/dashboard/user/orderdetails/${order._id}`
+                            )
+                          }
+                          style={{
+                            cursor: "pointer",
+                            marginBottom: "5px",
+                            boxShadow: "0 0 10px  #ccc",
+                            padding: "10px",
+                            borderRadius: "5px",
+                          }}
                         >
-                          <p style={{marginBottom:"1px"}}><b>Shipping Address: </b>{order.shippingAddress}</p>
-                          <p style={{marginBottom:"0px"}}><b>Order Date: </b>{formatDate(order.createdAt)}</p>
-                          <p style={{marginBottom:"0px"}}><b>Order Status: </b>{order.order_status}(update: {formatDate(order.updatedAt)})</p>
-                          <p style={{marginBottom:"0px"}}><b>Total Price: ₹</b>{order.total_price}</p>
+                          <p style={{ marginBottom: "1px" }}>
+                            <b>Shipping Address: </b>
+                            {order.shippingAddress}
+                          </p>
+                          <p style={{ marginBottom: "0px" }}>
+                            <b>Order Date: </b>
+                            {formatDate(order.createdAt)}
+                          </p>
+                          {order.order_status === "Cancelled" && (
+                            <>
+                            <p
+                                className="text-danger"
+                                style={{ marginBottom: "0px" }}
+                              >
+                                <b>Order Status: </b>
+                                {order.order_status} (Order Cancelled by
+                              You)
+                              </p>
+                            <p style={{ marginBottom: "0px" }}>
+                              <b>Cancelled Date: </b>
+                              {formatDate(order.updatedAt)} 
+                            </p>
+                            </>
+                          )}
+                          {order.order_status === "Delivered" && (
+                            <>
+                              <p
+                                className="text-success"
+                                style={{ marginBottom: "0px" }}
+                              >
+                                <b>Order Status: </b>
+                                {order.order_status}
+                              </p>
+                              <p style={{ marginBottom: "0px" }}>
+                                <b>Delivered Date: </b>
+                                {formatDate(order.updatedAt)}
+                              </p>
+                            </>
+                          )}
+                          {order.order_status === "Shipped" && (
+                            <>
+                              <p
+                                className="text-primary"
+                                style={{ marginBottom: "0px" }}
+                              >
+                                <b>Order Status: </b>
+                                {order.order_status}
+                              </p>
+                            </>
+                          )}
+                          {order.order_status === "Order Confirmed" && (
+                            <>
+                              <p
+                                className="text-info"
+                                style={{ marginBottom: "0px" }}
+                              >
+                                <b>Order Status: </b>
+                                {order.order_status}
+                              </p>
+                            </>
+                          )}
+                          {order.order_status === "Processing" && (
+                            <>
+                              <p
+                                className="text-warning"
+                                style={{ marginBottom: "0px" }}
+                              >
+                                <b>Order Status: </b>
+                                {order.order_status}...
+                              </p>
+                            </>
+                          )}
+                          {order.order_status === "Not Process" && (
+                            <>
+                              <p
+                                className="text-danger"
+                                style={{ marginBottom: "0px" }}
+                              >
+                                <b>Order Status: </b>
+                                {order.order_status} (Order Cancelled by the
+                                Seller)
+                              </p>
+                              <p style={{ marginBottom: "0px" }}>
+                              <b>Cancelled Date: </b>
+                              {formatDate(order.updatedAt)} 
+                            </p>
+                            </>
+                          )}
+                          <p style={{ marginBottom: "0px" }}>
+                            <b>Total Price: ₹</b>
+                            {order.total_price}
+                          </p>
                           <div className="row">
                             {order.orderItems.map((item, i) => (
                               <div key={i} className="col-md-6">
                                 <img
                                   src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${item.product}`}
                                   alt={item.name}
-                                  style={{ width: "100px", height: "100px", objectFit: "contain", borderRadius: "5px",  marginBottom: "5px"}}
+                                  style={{
+                                    width: "100px",
+                                    height: "100px",
+                                    objectFit: "contain",
+                                    borderRadius: "5px",
+                                    marginBottom: "5px",
+                                  }}
                                 />
-                                <p style={{marginBottom:"0px"}}><b>Product Name: </b>{item.name}</p>
-                                <p style={{marginBottom:"0px"}}><b>Price: ₹</b>{item.price}</p>
-                                <p style={{marginBottom:"0px"}}><b>Quantity: </b>{item.quantity}</p>
+                                <p style={{ marginBottom: "0px" }}>
+                                  <b>Product Name: </b>
+                                  {item.name}
+                                </p>
+                                <p style={{ marginBottom: "0px" }}>
+                                  <b>Price: ₹</b>
+                                  {item.price}
+                                </p>
+                                <p style={{ marginBottom: "0px" }}>
+                                  <b>Quantity: </b>
+                                  {item.quantity}
+                                </p>
                               </div>
                             ))}
                           </div>
                         </div>
-                      ))}
+                      ))}                      
                     </div>
                   </div>
                 </div>
