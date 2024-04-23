@@ -7,6 +7,7 @@ import authSellerRoute from "./routes/seller/authSellerRoute.js";
 import authAdminRoute from "./routes/admin/authAdminRoute.js";
 import authProductRoute from "./routes/Product/productRoutes.js";
 import authOrderRoute from "./routes/Order/orderRoutes.js";
+import authWishListRoute from "./routes/wishlist/wishRoute.js";
 import cors from "cors";
 
 // load env variables
@@ -37,6 +38,9 @@ app.use("/api/v1/product", authProductRoute);
 
 // route for order
 app.use("/api/v1/order", authOrderRoute);
+
+// route for wishlist
+app.use("/api/v1/wishlist", authWishListRoute);
 
 // rest api
 app.get("/", (req, res) => {
