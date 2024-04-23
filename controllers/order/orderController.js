@@ -176,7 +176,7 @@ export const paymentController = async (req, res) => {
 // get orders by order id
 export const getOrderByIdController = async (req, res) => {
   try {
-    const order = await orderModel.findById(req.params.id).sort({ createdAt: -1 });;
+    const order = await orderModel.findById(req.params.id).sort({ createdAt: -1 });
     // console.log(order);
     res.status(200).send(order);
 
@@ -188,7 +188,7 @@ export const getOrderByIdController = async (req, res) => {
 // get orders by user id
 export const getOrdersController = async (req, res) => {
   try {
-    const orders = await orderModel.find({ buyer: req.params.pid }).sort({ createdAt: -1 });;
+    const orders = await orderModel.find({ buyer: req.params.pid }).sort({ createdAt: -1 });
     res.status(200).send(orders);
   } catch (error) {
     res.status(500).send({ error: error.message });
@@ -199,7 +199,7 @@ export const getOrdersController = async (req, res) => {
 // get orders by seller id
 export const getSellerOrdersController = async (req, res) => {
   try {
-    const orders = await orderModel.find({ "orderItems.seller": req.params.sid }).sort({ createdAt: -1 });;
+    const orders = await orderModel.find({ "orderItems.seller": req.params.sid }).sort({ createdAt: -1 });
     res.status(200).send(orders);
   } catch (error) {
     res.status(500).send({ error: error.message });
