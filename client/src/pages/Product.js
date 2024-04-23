@@ -7,10 +7,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useCart } from "../context/Cart";
 
+
 const Product = () => {
   const [cart,setCart] = useCart();
   const params = useParams();
+  const productId = params.pid || "N/A";
   const navigate = useNavigate();
+  const [add, setAdd] = useState(false);
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -21,7 +24,7 @@ const Product = () => {
   // get product details
   const getProduct = async () => {
     try {
-      const productId = params.pid || "N/A";
+     
       const { data } = await axios.get(
         `http://localhost:8080/api/v1/product/getone-product/${productId}`
       );
@@ -36,6 +39,26 @@ const Product = () => {
     getProduct();
     // eslint-disable-next-line
   }, [params.pid]);
+
+  const handelWishlist = () => async () => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:8080/api/v1/wishlist/add-to-wishlist",
+        { product }
+      );
+      if (data.message === "Product already in wishlist") {
+        toast.error(data.message);
+        setAdd(true);
+      }
+      else {
+        toast.success(data.message);
+        setAdd(true);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong while adding to wishlist.");
+    }
+  };
 
   return (
     <>
@@ -68,6 +91,9 @@ const Product = () => {
                 navigate("/cart");
               }, 100);
             }}><i className="bi bi-cart-plus-fill m-1 "></i> Add to Cart</button>
+            <button disabled={add} style={{boxShadow:"2px 2px 10px #ccc"}} className="btn btn-light text-bg-secondary m-2" onClick={
+              handelWishlist()
+            }><i className="bi bi-heart-fill m-1 text-danger"></i> Add to Wishlist</button>
           </div>
         </div>
       </div>
