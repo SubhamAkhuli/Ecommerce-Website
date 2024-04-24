@@ -1,4 +1,5 @@
 import orderModel from "../../models/order/orderModel.js";
+import productModel from "../../models/product/productModel.js";
 import braintree from "braintree";
 import dotenv from "dotenv";
 
@@ -207,14 +208,73 @@ export const getSellerOrdersController = async (req, res) => {
 };
 
 // accept order by seller
+
 export const acceptOrderController = async (req, res) => {
   try {
-    const order = await orderModel.findByIdAndUpdate(req.params.id, { order_status: "Order Confirmed" }, { new: true });
-    res.status(200).send(order);
+    const orderId = req.params.id;
+
+    // Check if order ID is provided
+    if (!orderId) {
+      return res.status(400).send({ error: 'Order ID is required' });
+    }
+
+    // Find the order by ID
+    const order = await orderModel.findById(orderId);
+
+    // Check if order exists
+    if (!order) {
+      return res.status(404).send({ error: 'Order not found' });
+    }
+
+    // Iterate over each item in the order
+    for (const item of order.orderItems) {
+      const { product, quantity } = item;
+
+      // Find the corresponding product in the database
+      const productdata = await productModel.findById(product);
+
+      // Check if product exists
+      if (!productdata) {
+        console.error(`Product with ID ${product} not found`);
+        continue; // Skip to the next item
+      }
+
+      // Subtract the ordered quantity from the original quantity
+      const updatedQuantity = productdata.quantity - quantity;
+
+      if(updatedQuantity < 0) {
+        return res.status(200).send({
+          success: false,
+          message:"Product Quantity is low, please update the product quantity"
+        })
+      }
+      else{
+        // Update the product's original quantity in the database
+      await productModel.findByIdAndUpdate(product, { quantity: updatedQuantity });
+      } 
+    }
+
+    // Update the order status to "Order Confirmed"
+    const updatedOrder = await orderModel.findByIdAndUpdate(
+      orderId,
+      { order_status: 'Order Confirmed' },
+      { new: true }
+    );
+
+    // Send the updated order as response
+    res.status(200).send({
+      updatedOrder,
+      success: true,
+      message:"Order Confirmed Successfully"
+    });
   } catch (error) {
+    // Handle errors
+    console.error(error);
     res.status(500).send({ error: error.message });
   }
 };
+
+
 
 // reject order by seller
 
