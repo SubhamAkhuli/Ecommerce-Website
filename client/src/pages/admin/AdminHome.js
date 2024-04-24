@@ -71,20 +71,21 @@ function AdminHome() {
                 <h3> Welcome to the Admin Dashboard</h3>
               </div>
               <div className="card-body">
-                <p className="card-text text-center">
-                  You can manage all the users and sellers from here.
-                </p>
-                <br></br>
+                
                 <h4 className="card-title text-center">Verified the Sellers</h4>
                 {seller.length === 0 ? (
+                  <>
                   <p className="card-text text-center">
                     No Sellers left for Verification .
                   </p>
+                  <hr/>
+                  </>
                 ) : (
                   <>
                     <h5 className="card-title text-center">
                       Total Sellers: {seller.length}
                     </h5>
+                    <hr/>
                     <div className="d-flex flex-wrap">
                       {seller.map((seller) => (
                         <div
