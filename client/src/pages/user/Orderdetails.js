@@ -52,7 +52,7 @@ const Orderdetails = () => {
       toast.error("Something went wrong while cancelling order.");
     }
   };
-  
+
   return (
     <>
       <Header />
@@ -210,12 +210,19 @@ const Orderdetails = () => {
                             <b>Price: ₹</b>
                             {item.price}
                           </p>
-                          {!["Delivered", "Cancelled", "Not Process"].includes(order.order_status) && (
-                            <button onClick={() => handelcancelOrder(order._id)} className="btn btn-danger mt-3">Cancel Order</button>
-                          )}
                         </div>
                       ))}
                     </div>
+                    {!["Delivered", "Cancelled", "Not Process"].includes(
+                      order.order_status
+                    ) && (
+                      <button
+                        onClick={() => handelcancelOrder(order._id)}
+                        className="btn btn-danger mt-3"
+                      >
+                        Cancel Order
+                      </button>
+                    )}
                   </>
                 ) : (
                   <p>Loading...</p>
