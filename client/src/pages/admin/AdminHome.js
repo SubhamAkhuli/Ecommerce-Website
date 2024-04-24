@@ -83,7 +83,10 @@ function AdminHome() {
                 ) : (
                   <>
                     <h5 className="card-title text-center">
-                      Total Sellers: {seller.length}
+                      Total {seller.length === 1
+                        ? "Seller"
+                        : "Sellers"}
+                     : {seller.length}
                     </h5>
                     <hr/>
                     <div className="d-flex flex-wrap">
