@@ -18,7 +18,6 @@ const SellerOrderUpdate = () => {
       const { data } = await axios.get(
         `http://localhost:8080/api/v1/order/getone-order/${params.oid}`
       );
-      console.log(data);
       const filteredOrderItems = data.orderItems.filter(
         (item) => item.seller === user.user.id
       );
@@ -47,14 +46,18 @@ const SellerOrderUpdate = () => {
   };
 
   const handelaccept = async (orderId) => {
-    console.log(orderId);
+    // console.log(orderId);
     try {
       const { data } = await axios.put(
         `http://localhost:8080/api/v1/order/accept-order/${orderId}`
       );
-      console.log(data);
-      toast.success("Order Accepted Successfully");
-      getOrders();
+      if(data.success===false){
+        toast.error(data.message);
+      }
+      else{
+        toast.success("Order Accepted Successfully");
+        getOrders();
+      }
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong while accepting order.");
@@ -78,12 +81,14 @@ const SellerOrderUpdate = () => {
 
   const handelupdate = (orderId) => async (e) => {
     try {
+      // eslint-disable-next-line
       const { data } = await axios.put(
         `http://localhost:8080/api/v1/order/order-status-update/${orderId}`,
         { order_status: e.target.value }
       );
-      toast.success("Order Status Updated Successfully");
-      getOrders();
+        toast.success("Order Status Updated Successfully");
+        getOrders();
+     
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong while updating order status.");
