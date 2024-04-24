@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Layout/Header";
 import Footer from "../../components/Layout/Footer";
 import AdminMenu from "./AdminMenu";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +16,9 @@ const AdminSellerlist = () => {
       const { data } = await axios.get(
         `http://localhost:8080/api/v1/sellerauth/allsellers`
       );
-      setSellers(data.sellers);
+      // Filter out sellers whose verified field is false
+      const verifiedSellers = data.sellers.filter(seller => seller.verified);
+      setSellers(verifiedSellers);
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong while fetching sellers.");
