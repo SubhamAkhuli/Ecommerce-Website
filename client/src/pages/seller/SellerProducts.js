@@ -127,7 +127,7 @@ const SellerProducts = () => {
                 {products.length === 0 ? (
                   <p className="card-text text-center">
                     You have not added any products yet.{" "}
-                    <Link to="/dashboard/seller/create-product">
+                    <Link to="/dashboard/seller/create-product" className="btn btn-primary">
                       Click here
                     </Link>{" "}
                     to add products.
@@ -164,7 +164,7 @@ const SellerProducts = () => {
                           <p className="card-text"><b>Seller Name: </b>{product.seller_name}</p>
                           <p className="card-text"><b>Brand: </b>{product.brand}</p> 
                           <p className="card-text"><b>Price: </b>₹{product.price}</p>
-                          <p className="card-text"><b>Quantity: </b>{product.quantity}</p>
+                          {product.quantity===0 ? (<p className="card-text text-danger"><b>Quantity: Out of Stock</b></p>) : (<p className="card-text"><b>Quantity: </b>{product.quantity}</p>)}
                           <p className="card-text"><b>Category: </b>{product.category}</p>
                           <p className="card-text"><b>Description: </b>{product.description}</p>
                       </div>
