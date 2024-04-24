@@ -69,7 +69,8 @@ const UserWishlist = () => {
                 <h3>Your Wishlist</h3>
               </div>
               <div className="card-body">
-                <div className="row ">
+                <div className="d-flex flex-wrap ">
+
                   {wishlist.length > 0 ? (
                     wishlist.map((wish) => (
                       <div className="col-md-4" key={wish._id}>
