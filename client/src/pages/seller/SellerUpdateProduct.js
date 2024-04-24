@@ -260,7 +260,7 @@ const SellerUpdateProduct = () => {
                   <button
                     type="button"
                     className="btn btn-danger mx-3"
-                    onClick={() => navigate("/dashboard/seller/products")}
+                    onClick={() => navigate(-1)}
                   >
                     Cancel
                   </button>
