@@ -12,6 +12,34 @@ const SellerHome = () => {
   const [user] = useAuth();
   const userId = user?.user?.id || "N/A";
   const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const getOrders = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8080/api/v1/order/seller-orders/${user.user.id}`
+      );
+      // Filter orders where any order item's seller ID matches the user's ID
+      const filteredOrders = data
+        .map((order) => ({
+          ...order,
+          orderItems: order.orderItems.filter(
+            (item) => item.seller === user.user.id
+          ),
+        }))
+        .filter((order) => order.orderItems.length > 0 && order.order_status === 'Processing'); // Remove orders with no matching order items
+      setOrders(filteredOrders);
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong while fetching orders.");
+    }
+  };
+
+  useEffect(() => {
+    getOrders();
+    // eslint-disable-next-line
+  }, []);
+
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -29,6 +57,7 @@ const SellerHome = () => {
 
     fetchProducts();
   }, [userId]);
+
   return (
     <>
       <Header />
@@ -43,6 +72,55 @@ const SellerHome = () => {
                 {" "}
                 <h3>Welcome {user.user.name}</h3>
               </div>
+              <div className='card-body'>
+               {orders.length === 0 ? (
+                  <p className="card-text text-center">
+                    No new orders.
+                  </p>
+                ) : (
+                  <>
+                    <h5 className="card-title mb-2">
+                      You have {orders.length} new {orders.length > 1 ? "orders" : "order"}.
+                    </h5>
+                    <div className="table-responsive ">
+                      <table
+                        className="table table-bordered table-hover"
+                        style={{ boxShadow: "0 0 10px #ccc" }}
+                      >
+                        <thead>
+                          <tr>
+                            <th scope="col">S.No</th>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {orders.map((order, index) =>
+                            order.orderItems.map((item, i) => (
+                              <tr key={item._id}>
+                                <td>{index + 1}</td>
+                                <td>{order._id}</td>
+                                <td>{item.name}</td>
+                                <td>{item.quantity}</td>
+                                <td>₹{item.price}</td>
+                                <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                                <td>
+                                  <a href={`/dashboard/seller/order-update/${order._id}`} className="btn btn-primary">View Order</a>
+                                </td>
+                              </tr>
+                            ))
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                )}
+              </div>
+              <hr />
               <div className="card-body">
                 {products.length === 0 ? (
                   <p className="card-text text-center">
