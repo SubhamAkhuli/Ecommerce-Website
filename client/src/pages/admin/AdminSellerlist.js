@@ -66,7 +66,7 @@ const AdminSellerlist = () => {
               </div>
               <div className="card-body">
                 <h5 className="card-title mb-3">
-                  Total Sellers: {sellers.length}
+                  Total {sellers.length===1 ? "Seller" :"Sellers"}: {sellers.length}
                 </h5>
                 {Object.keys(groupedSellers).map((category) => (
                   <div key={category} style={{ marginBottom: "20px" }}>
@@ -86,7 +86,7 @@ const AdminSellerlist = () => {
                           className="card m-2"
                           key={seller._id}
                           style={{
-                            width: "18rem",
+                            width: "20rem",
                             cursor: "pointer",
                             border: "1px solid #ccc",
                             borderRadius: "5px",
