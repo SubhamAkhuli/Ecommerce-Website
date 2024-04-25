@@ -123,9 +123,9 @@ const SellerHome = () => {
               <hr />
               <div className="card-body">
                 {products.length === 0 ? (
-                  <p className="card-text text-center">
+                  <h5 className="card-text text-center">
                     No product is out of stock.
-                  </p>
+                  </h5>
                 ) : (
                   <>
                     <h5 className="card-title">
