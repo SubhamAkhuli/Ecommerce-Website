@@ -5,7 +5,6 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-
 // Import an empty image for no products available
 import emptyImage from "./empty-product.jpg";
 
@@ -171,7 +170,7 @@ function Homepage() {
                                                 name="category"
                                                 value={category}
                                                 checked={selectedCategory === category}
-                                                onClick={handleCategoryChange}
+                                                onChange={handleCategoryChange}
                                             />
                                             <label htmlFor={`category${index}`}>{category}</label>
                                             <br />
@@ -185,7 +184,7 @@ function Homepage() {
                                             name="category"
                                             value=""
                                             checked={!selectedCategory}
-                                            onClick={handleCategoryChange}
+                                            onChange={handleCategoryChange}
                                         />
                                         <label htmlFor="all">All</label>
                                     </div>
