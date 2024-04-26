@@ -99,7 +99,9 @@ const UserWishlist = () => {
                               View Product
                             </a>
                             <button className="btn btn-danger ms-2"
-                            onClick={()=>{handelRemove(wish._id)}}>
+                            onClick={()=>{
+                              handelRemove(wish._id);
+                            }}>
                               Remove
                             </button>
                           </div>
