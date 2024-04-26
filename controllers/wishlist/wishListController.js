@@ -35,7 +35,7 @@ export const addToWishlistController = async (req, res) => {
         product: product,
         });
     await newWishList.save();
-    res.status(201).json(newWishList);
+    res.status(201).json({ message: "Product add in wishlist succesfully",newWishList });
     }
     catch (error) {
         console.log(error);
@@ -62,7 +62,7 @@ export const getUserWishlistController = async (req, res) => {
 export const removeFromWishlistController = async (req, res) => {
     const { id } = req.params;
     try {
-        const wishList = await WishList.findOneAndDelete(id).exec();
+        const wishList = await WishList.findByIdAndDelete(id);
         if (!wishList) {
         return res.status(404).json({ message: "Product not found in wishlist" });
         }
