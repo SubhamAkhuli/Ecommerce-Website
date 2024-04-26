@@ -150,7 +150,6 @@ const CartPage = () => {
       setPaymentSuccess(false);
     }
   };
-console.log(product)
   return (
     <>
       <Header />
