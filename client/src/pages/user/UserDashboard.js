@@ -41,6 +41,7 @@ const UserDashboard = () => {
     // eslint-disable-next-line
   }, [userId]); // Include userId in the dependency array
 
+
   const [name, setname] = useState(credentials.name);
 
   const [edit, setEdit] = useState(0);
@@ -88,8 +89,12 @@ const UserDashboard = () => {
             }
           );
           if (response.data.success) {
-            localStorage.setItem("user", JSON.stringify(response.data));
-            toast.success(response.data.message);
+            let ls = localStorage.getItem("user");
+            ls = JSON.parse(ls);
+            ls.user = response.data.user;
+            localStorage.setItem("user", JSON.stringify(ls));
+            toast.success("Profile Updated ");
+            getUserDetails();
             setname(name);
             setEdit(0);
           } else {
