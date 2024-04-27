@@ -40,7 +40,7 @@ const UserChangePassword = () => {
         if (response.data.success) {
           toast.success(response.data.message);
           setTimeout(() => {
-            navigate("/dashboard/user");
+            navigate("/dashboard/user/profile");
           }, 100);
         } else {
           toast.error(response.data.message);
