@@ -15,7 +15,7 @@ const UserOrders = () => {
   const getOrders = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/order/userorders/${userId}`
+        `${process.env.REACT_APP_API_URL}/order/userorders/${userId}`
       );
       setOrders(data);
     } catch (error) {
@@ -175,7 +175,7 @@ const UserOrders = () => {
                             {order.orderItems.map((item, i) => (
                               <div key={i} className="col-md-6">
                                 <img
-                                  src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${item.product}`}
+                                  src={`${process.env.REACT_APP_API_URL}/product/product-photo/${item.product}`}
                                   alt={item.name}
                                   style={{
                                     width: "100px",
