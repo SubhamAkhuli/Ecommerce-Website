@@ -99,6 +99,7 @@ const SellerDashboard = () => {
           if (response.data.success) {
             localStorage.setItem("user", JSON.stringify(response.data));
             toast.success(response.data.message);
+            getUserDetails();
             setName(name);
             setEdit(0);
           } else {
