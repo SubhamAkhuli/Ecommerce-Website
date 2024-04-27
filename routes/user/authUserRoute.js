@@ -3,12 +3,10 @@ import {userRegisterController,userLoginController,testcontroller,userForgotPass
 import { authMiddleware } from "../../middlewares/authMiddleware.js";
 // router object
 const router = express.Router();
-
 // routing
 
 // Register user
 router.post("/userregister", userRegisterController);
-
 
 // login user
 router.post("/userlogin", userLoginController);
@@ -30,8 +28,6 @@ router.get("/alluserdetails",userGetAllController);
 
 // delete user
 router.delete("/userdelete/:id",userDeleteController);
-
-
 
 // Protected route
 router.get("/user-auth",authMiddleware, (req, res) => {
