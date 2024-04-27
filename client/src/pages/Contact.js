@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../components/Layout/Header'
 import Footer from '../components/Layout/Footer'
+import contactus from './contactus.jpeg'
 import { BiMailSend, BiPhoneCall, BiSupport } from "react-icons/bi";
 
 function Contact() {
@@ -11,7 +12,7 @@ function Contact() {
           <div className="row contactus ">
         <div className="col-md-6 ">
           <img
-            src="/images/contactus.jpeg"
+            src={contactus}
             alt="contactus"
             style={{ width: "100%" }}
           />
