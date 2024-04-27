@@ -16,7 +16,7 @@ const Orderdetails = () => {
     try {
       const orderId = params.oid || "N/A";
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/order/getone-order/${orderId}`
+        `${process.env.REACT_APP_API_URL}/order/getone-order/${orderId}`
       );
       setOrder(data);
     } catch (error) {
@@ -41,7 +41,7 @@ const Orderdetails = () => {
   const handelcancelOrder = async (orderId) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:8080/api/v1/order/cancel-order/${orderId}`
+        `${process.env.REACT_APP_API_URL}/order/cancel-order/${orderId}`
       );
       if (data) {
         toast.success("Order Cancelled Successfully");
@@ -184,7 +184,7 @@ const Orderdetails = () => {
                       {order.orderItems.map((item, i) => (
                         <div key={i} className="col-md-6">
                           <img
-                            src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${item.product}`}
+                            src={`${process.env.REACT_APP_API_URL}/product/product-photo/${item.product}`}
                             alt={item.name}
                             style={{
                               width: "100px",

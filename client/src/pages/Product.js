@@ -32,7 +32,7 @@ const Product = () => {
     const getProduct = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:8080/api/v1/product/getone-product/${params.pid || "N/A"}`
+          `${process.env.REACT_APP_API_URL}/product/getone-product/${params.pid || "N/A"}`
         );
         setProduct(data.product);
       } catch (error) {
@@ -47,7 +47,7 @@ const Product = () => {
   const handelWishlist = async () => {
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/api/v1/wishlist/add-to-wishlist",
+        `${process.env.REACT_APP_API_URL}/wishlist/add-to-wishlist`,
         { product }
       );
       if (data.message === "Product already in wishlist") {
@@ -70,7 +70,7 @@ const Product = () => {
         <div className="row m-3">
           <div className="col-md-6">
             <img
-              src={`http://localhost:8080/api/v1/product/product-photo/${product._id}`}
+              src={`${process.env.REACT_APP_API_URL}/product/product-photo/${product._id}`}
               className="card-img-top"
               style={{
                 width: "300px",

@@ -30,7 +30,7 @@ const UserChangePassword = () => {
         toast.error("Please fill all the fields");
       } else {
         const response = await axios.post(
-          `http://localhost:8080/api/v1/userauth/userforgotpassword`,
+          `${process.env.REACT_APP_API_URL}/userauth/userforgotpassword`,
           {
             email: userEmail,
             answer,

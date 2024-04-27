@@ -20,7 +20,7 @@ function Homepage() {
     const getAllProducts = async () => {
         try {
             const { data } = await axios.get(
-                `http://localhost:8080/api/v1/product/get-all-product`
+                `${process.env.REACT_APP_API_URL}/product/get-all-product`
             );
             setProducts(data.products);
             setFilteredProducts(data.products);
@@ -245,7 +245,7 @@ function Homepage() {
                                         onClick={() => navigate(`/product-details/${product._id}`)}
                                     >
                                         <img
-                                            src={`http://localhost:8080/api/v1/product/product-photo/${product._id}`}
+                                            src={`${process.env.REACT_APP_API_URL}/product/product-photo/${product._id}`}
                                             className="card-img-top"
                                             style={{
                                                 height: "150px",

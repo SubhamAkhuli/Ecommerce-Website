@@ -14,7 +14,7 @@ const UserWishlist = () => {
   const showWishlist = async () => {
     // get all wishlist by user id
     const { data } = await axios.get(
-      `http://localhost:8080/api/v1/wishlist/${user.user.id}`
+      `${process.env.REACT_APP_API_URL}/wishlist/${user.user.id}`
     );
     if (data) {
       setWishlist(data);
@@ -40,7 +40,7 @@ const UserWishlist = () => {
   const handelRemove = async (id) => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:8080/api/v1/wishlist/remove/${id}`
+        `${process.env.REACT_APP_API_URL}/wishlist/remove/${id}`
       );
       if (data) {
         toast.success(data.message);
@@ -82,7 +82,7 @@ const UserWishlist = () => {
                           }}
                         >
                           <img
-                            src={`http://localhost:8080/api/v1/product/product-photo/${wish.product._id}`}
+                            src={`${process.env.REACT_APP_API_URL}/product/product-photo/${wish.product._id}`}
                             className="card-img-top mt-1"
                             style={{ height: "150px" ,width:"100%",objectFit:"contain"}}
                             alt="..."

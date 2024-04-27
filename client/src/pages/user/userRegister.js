@@ -26,7 +26,7 @@ const UserRegister = () => {
         toast.error("Password do not match");
       } else {
         const response = await axios.post(
-          `http://localhost:8080/api/v1/userauth/userregister`,
+          `${process.env.REACT_APP_API_URL}/userauth/userregister`,
           {
             name,
             email,

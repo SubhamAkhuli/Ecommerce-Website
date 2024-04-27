@@ -54,6 +54,7 @@ const UserMenu = () => {
   return (
     <>
       {/* Delete conformation Modal */}
+      {/* this  user profile delete option  */}
       {/* <div>
         <button
           type="button"

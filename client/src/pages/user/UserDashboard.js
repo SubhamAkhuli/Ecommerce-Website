@@ -26,7 +26,7 @@ const UserDashboard = () => {
   const getUserDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/userauth/userdetail/${userId}`
+        `${process.env.REACT_APP_API_URL}/userauth/userdetail/${userId}`
       );
       setUserDetails(response.data.user);
       setCredentials(response.data.user);
@@ -79,7 +79,7 @@ const UserDashboard = () => {
           toast.error("Answer is Required");
         } else {
           const response = await axios.patch(
-            `http://localhost:8080/api/v1/userauth/userupdatedetails/${user.user.id}`,
+            `${process.env.REACT_APP_API_URL}/userauth/userupdatedetails/${user.user.id}`,
             {
               name,
               email,
