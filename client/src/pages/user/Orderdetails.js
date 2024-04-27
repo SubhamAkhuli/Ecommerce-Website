@@ -74,7 +74,7 @@ const Orderdetails = () => {
                     navigate(-1);
                   }}
                 >
-                  <i class="bi bi-arrow-left"></i>
+                  <i className="bi bi-arrow-left"></i>
                   Back
                 </button>
                 <h3 className="text-center mx-auto">Order Details</h3>
