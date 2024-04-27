@@ -18,7 +18,7 @@ const UserRegister = () => {
   });
 
   const handleSubmit = async (e) => {
-    console.log(credentials);
+    // console.log(credentials);
     e.preventDefault();
     try {
       const { name, email, password, cpassword, address, phone,answer } = credentials;
