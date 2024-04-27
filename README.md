@@ -20,7 +20,7 @@ The ecommerce website is an online platform where users can browse and purchase 
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/ecommerce-website.git`
+1. Clone the repository: `git clone https://github.com/SubhamAkhuli/Ecommerce-Website.git`
 2. Install dependencies: `npm install`
 3. Set up environment variables: Create a `.env` file and add necessary configuration variables.
 4. Start the server: `npm start`
