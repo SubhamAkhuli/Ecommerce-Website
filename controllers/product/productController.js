@@ -1,8 +1,5 @@
 import productModel from "../../models/product/productModel.js";
 import fs from "fs";
-import orderModel from "../../models/order/orderModel.js";
-
-
 
 // create product
 export const createProductController = async (req, res) => {
