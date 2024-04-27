@@ -67,7 +67,7 @@ const SellerOrderUpdate = () => {
   const handelreject = async (orderId) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:8080/api/v1/order/reject-order/${orderId}`
+        `${process.env.REACT_APP_API_URL}/order/reject-order/${orderId}`
       );
       console.log(data);
       toast.success("Order Rejected Successfully");
@@ -83,7 +83,7 @@ const SellerOrderUpdate = () => {
     try {
       // eslint-disable-next-line
       const { data } = await axios.put(
-        `http://localhost:8080/api/v1/order/order-status-update/${orderId}`,
+        `${process.env.REACT_APP_API_URL}/order/order-status-update/${orderId}`,
         { order_status: e.target.value }
       );
         toast.success("Order Status Updated Successfully");
@@ -127,7 +127,7 @@ const SellerOrderUpdate = () => {
                       {order.orderItems.map((item, i) => (
                         <div key={i} className="col-md-6">
                           <img
-                            src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${item.product}`}
+                            src={`${process.env.REACT_APP_API_URL}/product/product-photo/${item.product}`}
                             alt={item.name}
                             style={{
                               width: "100px",
