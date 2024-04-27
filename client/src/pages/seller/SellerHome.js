@@ -58,6 +58,14 @@ const SellerHome = () => {
     fetchProducts();
   }, [userId]);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear().toString().slice(-2);
+    return `${day}/${month}/${year}`;
+};
+
   return (
     <>
       <Header />
@@ -107,7 +115,7 @@ const SellerHome = () => {
                                 <td>{item.name}</td>
                                 <td>{item.quantity}</td>
                                 <td>₹{item.price}</td>
-                                <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                                <td>{formatDate(order.updatedAt)}</td>
                                 <td>
                                   <a href={`/dashboard/seller/order-update/${order._id}`} className="btn btn-primary">View Order</a>
                                 </td>
