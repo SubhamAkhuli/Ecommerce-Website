@@ -80,7 +80,7 @@ const SellerHome = () => {
                 ) : (
                   <>
                     <h5 className="card-title mb-2">
-                      You have {orders.length} new {orders.length > 1 ? "orders" : "order"}.
+                      You have {orders.length} new {orders.length > 1 ? "orders" : "order"}:
                     </h5>
                     <div className="table-responsive ">
                       <table
@@ -130,7 +130,7 @@ const SellerHome = () => {
                   <>
                     <h5 className="card-title">
                     You have {products.length}
-                      {products.length > 1 ? " Products" : " Product"} which {products.length > 1 ? "are" : "is"} Out of Stock.
+                      {products.length > 1 ? " Products" : " Product"} which {products.length > 1 ? "are" : "is"} Out of Stock:
                     </h5>
                   </>
                 )}
