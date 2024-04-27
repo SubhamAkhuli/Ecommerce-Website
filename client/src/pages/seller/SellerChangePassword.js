@@ -40,7 +40,7 @@ const SellerChangePassword = () => {
         if (response.data.success) {
           toast.success(response.data.message);
           setTimeout(() => {
-            navigate("/dashboard/seller");
+            navigate("/dashboard/seller/profile");
           }, 100);
         } else {
           toast.error(response.data.message);
