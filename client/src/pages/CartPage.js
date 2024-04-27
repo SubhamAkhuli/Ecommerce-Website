@@ -237,6 +237,7 @@ const CartPage = () => {
                 </div>
                 {groupCartItems().length !== 0 && clientToken && (
                   <>
+                  <div className="mb-2" >
                     <DropIn
                       className="mb-3 p-3"
                       options={{
@@ -260,6 +261,7 @@ const CartPage = () => {
                     >
                       {paymentSuccess ? "Processing..." : "Pay Now"}
                     </button>
+                  </div>
                   </>
                 )}
               </>
