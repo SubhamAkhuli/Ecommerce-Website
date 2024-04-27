@@ -146,7 +146,7 @@ function Homepage() {
                             </div>
                             <div className="card-body" style={{ cursor: "pointer" }}>
                                 <span className="m-2">
-                                    <b>Shop by Category: </b>
+                                    <b>All Category: </b>
                                 </span>
                                 <ul>
                                     {[
