@@ -31,7 +31,7 @@ const ForgotPassword = () => {
       } else {
         if (type === "user") {
           const response = await axios.post(
-            `http://localhost:8080/api/v1/userauth/userforgotpassword`,
+            `${process.env.REACT_APP_API_URL}/userauth/userforgotpassword`,
             {
               email,
               answer,
@@ -49,7 +49,7 @@ const ForgotPassword = () => {
         }
         if (type === "seller") {
           const response = await axios.post(
-            `http://localhost:8080/api/v1/sellerauth/sellerforgotpassword`,
+            `${process.env.REACT_APP_API_URL}/sellerauth/sellerforgotpassword`,
             {
               email,
               answer,

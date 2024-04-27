@@ -34,7 +34,7 @@ const Login = () => {
             toast.error("Please fill all the fields");
           } else {
             const response = await axios.post(
-              "http://localhost:8080/api/v1/userauth/userlogin",
+              `${process.env.REACT_APP_API_URL}/userauth/userlogin`,
               {
                 email,
                 password,
@@ -61,7 +61,7 @@ const Login = () => {
             toast.error("Please fill all the fields");
           } else {
             const response = await axios.post(
-              "http://localhost:8080/api/v1/sellerauth/sellerlogin",
+              `${process.env.REACT_APP_API_URL}/sellerauth/sellerlogin`,
               {
                 email,
                 password,
@@ -103,7 +103,7 @@ const Login = () => {
             toast.error("Please fill all the fields");
           } else {
             const response = await axios.post(
-              "http://localhost:8080/api/v1/adminauth/adminlogin",
+              `${process.env.REACT_APP_API_URL}/adminauth/adminlogin`,
               {
                 email,
                 password,
