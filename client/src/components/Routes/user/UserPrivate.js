@@ -11,7 +11,7 @@ export default function UserPrivateRoute() {
     if (type === "user" && user?.token)
     {
     const authcheck = async () => {
-      const res = await axios.get("http://localhost:8080/api/v1/userauth/user-auth");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/userauth/user-auth`);
       if (res.data.ok) {
         setOk(true);
       } else {

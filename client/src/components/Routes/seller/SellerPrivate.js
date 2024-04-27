@@ -11,7 +11,7 @@ export default function UserPrivateRoute() {
     if (type === "seller"&& user?.token)
     {
     const authcheck = async () => {
-      const res = await axios.get("http://localhost:8080/api/v1/sellerauth/seller-auth");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/sellerauth/seller-auth`);
       if (res.data.ok) {
         setOk(true);
       } else {

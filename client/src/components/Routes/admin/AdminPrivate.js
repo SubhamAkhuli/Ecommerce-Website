@@ -11,7 +11,7 @@ export default function AdminPrivateRoute() {
     if (type === "admin" && user?.token)
     {
     const authcheck = async () => {
-      const res = await axios.get("http://localhost:8080/api/v1/adminauth/admin-auth");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/adminauth/admin-auth`);
       if (res.data.ok) {
         setOk(true);
       } else {
