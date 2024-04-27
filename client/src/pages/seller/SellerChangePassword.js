@@ -30,7 +30,7 @@ const SellerChangePassword = () => {
         toast.error("Please fill all the fields");
       } else {
         const response = await axios.post(
-          `http://localhost:8080/api/v1/sellerauth/sellerforgotpassword`,
+          `${process.env.REACT_APP_API_URL}/sellerauth/sellerforgotpassword`,
           {
             email: userEmail,
             answer,

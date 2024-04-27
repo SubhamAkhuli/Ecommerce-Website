@@ -13,7 +13,7 @@ const Sellerverification = () => {
   const navigate = useNavigate();
   const checkVerification = async () => {
       const seller = await axios.get(
-        `http://localhost:8080/api/v1/sellerauth/sellercheck/${params.pid}`
+        `${process.env.REACT_APP_API_URL}/sellerauth/sellercheck/${params.pid}`
       );
       if (seller.data.message === "Seller Not Found") {
         toast.error(

@@ -16,7 +16,7 @@ const SellerUpdateProduct = () => {
     try {
       const productId = params.pid || "N/A";
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/product/getone-product/${productId}`
+        `${process.env.REACT_APP_API_URL}/product/getone-product/${productId}`
       );
       setProduct(data.product);
     } catch (error) {
@@ -88,7 +88,7 @@ const SellerUpdateProduct = () => {
         productData.append("shipping", shipping);
         productData.append("image", image);
         const response = await axios.put(
-          `http://localhost:8080/api/v1/product/update-product/${params.pid}`,
+          `${process.env.REACT_APP_API_URL}/product/update-product/${params.pid}`,
           productData
         );
         if (response.data.success) {
@@ -243,7 +243,7 @@ const SellerUpdateProduct = () => {
                   ) : (
                     <div className="mb-3">
                       <img
-                        src={`http://localhost:8080/api/v1/product/product-photo/${params.pid}`}
+                        src={`${process.env.REACT_APP_API_URL}/product/product-photo/${params.pid}`}
                         alt="Product Preview"
                         style={{
                           height: "100px",

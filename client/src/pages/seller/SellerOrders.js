@@ -14,7 +14,7 @@ const SellerOrders = () => {
   const getOrders = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/order/seller-orders/${user.user.id}`
+        `${process.env.REACT_APP_API_URL}/order/seller-orders/${user.user.id}`
       );
       // Filter orders where any order item's seller ID matches the user's ID
       const filteredOrders = data

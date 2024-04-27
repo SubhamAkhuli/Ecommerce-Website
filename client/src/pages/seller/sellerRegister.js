@@ -20,7 +20,6 @@ const SellerRegister = () => {
   });
 
   const handleSubmit = async (e) => {
-    // console.log(credentials);
     e.preventDefault();
     try {
       const {
@@ -39,7 +38,7 @@ const SellerRegister = () => {
       } else {
        
         const response = await axios.post(
-          `http://localhost:8080/api/v1/sellerauth/sellerregister`,
+          `${process.env.REACT_APP_API_URL}/sellerauth/sellerregister`,
           {
             shop_name,
             category,

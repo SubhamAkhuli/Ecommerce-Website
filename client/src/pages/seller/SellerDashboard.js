@@ -27,7 +27,7 @@ const SellerDashboard = () => {
   const getUserDetails = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/sellerauth/seller/${userId}`
+        `${process.env.REACT_APP_API_URL}/sellerauth/seller/${userId}`
       );
       setUserDetails(data.seller);
       setCredentials(data.seller);
@@ -85,7 +85,7 @@ const SellerDashboard = () => {
           toast.error("Answer is Required");
         } else {
           const response = await axios.put(
-            `http://localhost:8080/api/v1/sellerauth/sellerupdatedetails/${userId}`,
+            `${process.env.REACT_APP_API_URL}/sellerauth/sellerupdatedetails/${userId}`,
             {
               name,
               email,

@@ -16,7 +16,7 @@ const SellerHome = () => {
   const getOrders = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/order/seller-orders/${user.user.id}`
+        `${process.env.REACT_APP_API_URL}/order/seller-orders/${user.user.id}`
       );
       // Filter orders where any order item's seller ID matches the user's ID
       const filteredOrders = data
@@ -44,7 +44,7 @@ const SellerHome = () => {
     const fetchProducts = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:8080/api/v1/product/get-product/${userId}`
+          `${process.env.REACT_APP_API_URL}/product/get-product/${userId}`
         );
         // Filter products based on quantity
         const filteredProducts = data.products.filter(product => product.quantity === 0);
@@ -142,7 +142,7 @@ const SellerHome = () => {
                       style={{ width: "18rem",borderRadius:"5px", boxShadow:"0 0 10px #ccc" }}
                     >
                       <img
-                        src={`http://localhost:8080/api/v1/product/product-photo/${product._id}`}
+                        src={`${process.env.REACT_APP_API_URL}/product/product-photo/${product._id}`}
                         className="card-img-top"
                         style={{
                           height: "100px",

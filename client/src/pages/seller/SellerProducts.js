@@ -19,7 +19,7 @@ const SellerProducts = () => {
   const getAllProducts = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/product/get-product/${userId}`
+        `${process.env.REACT_APP_API_URL}/product/get-product/${userId}`
       );
       setProducts(data.products);
     } catch (error) {
@@ -42,7 +42,7 @@ const SellerProducts = () => {
   const handelYes = async (e) => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:8080/api/v1/product/delete-product/${productId}`
+        `${process.env.REACT_APP_API_URL}/product/delete-product/${productId}`
       );
       if (data.success) {
         refClose.current.click();
@@ -148,7 +148,7 @@ const SellerProducts = () => {
                       style={{ width: "18rem",borderRadius:"5px", boxShadow:"0 0 10px #ccc" }}
                     >
                       <img
-                        src={`http://localhost:8080/api/v1/product/product-photo/${product._id}`}
+                        src={`${process.env.REACT_APP_API_URL}/product/product-photo/${product._id}`}
                         className="card-img-top"
                         style={{
                           height: "200px",

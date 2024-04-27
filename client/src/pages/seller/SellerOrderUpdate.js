@@ -16,7 +16,7 @@ const SellerOrderUpdate = () => {
   const getOrders = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/order/getone-order/${params.oid}`
+        `${process.env.REACT_APP_API_URL}/order/getone-order/${params.oid}`
       );
       const filteredOrderItems = data.orderItems.filter(
         (item) => item.seller === user.user.id
@@ -49,7 +49,7 @@ const SellerOrderUpdate = () => {
     // console.log(orderId);
     try {
       const { data } = await axios.put(
-        `http://localhost:8080/api/v1/order/accept-order/${orderId}`
+        `${process.env.REACT_APP_API_URL}/order/accept-order/${orderId}`
       );
       if(data.success===false){
         toast.error(data.message);
