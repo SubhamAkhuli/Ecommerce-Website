@@ -28,7 +28,6 @@ router.get("/test",authMiddleware, testcontroller);
 // forgot password
 router.post("/sellerforgotpassword", sellerForgotPasswordController);
 
-
 // update seller
 router.put("/sellerupdatedetails/:id",sellerUpdateController);
 
