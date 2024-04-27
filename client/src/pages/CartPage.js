@@ -74,7 +74,7 @@ const CartPage = () => {
   const getClientToken = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/order/braintree/token`
+        `${process.env.REACT_APP_API_URL}/order/braintree/token`
       );
       setClientToken(data?.token);
     } catch (error) {
@@ -121,7 +121,7 @@ const CartPage = () => {
       setPaymentSuccess(true);
       const { nonce } = await instance.requestPaymentMethod();
       const { data } = await axios.post(
-        `${process.env.REACT_APP_API}/api/v1/order/payment`,
+        `${process.env.REACT_APP_API_URL}/order/payment`,
         {
           buyer: auth?.user?.id,
           buyer_name: auth?.user?.name,
@@ -190,7 +190,7 @@ const CartPage = () => {
               >
                 <div className="col-md-3 m-2">
                   <img
-                    src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`}
+                    src={`${process.env.REACT_APP_API_URL}/product/product-photo/${product._id}`}
                     className="card-img-top"
                     alt={product.name}
                     style={{
