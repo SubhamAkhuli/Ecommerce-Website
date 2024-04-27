@@ -1,19 +1,6 @@
 import WishList from "../../models/Wishlist/wishListModal.js";
 import productModel from "../../models/product/productModel.js";
 
-// // get all wishlist by user
-// export const getWishlistController = async (req, res) => {
-//   try {
-//     const wishList = await WishList.find({ user: req.user._id })
-//       .populate("product")
-//       .exec();
-//     res.json(wishList);
-//   } catch (error) {
-//     res.status(404).json({ message: error.message });
-//   }
-// };
-
-
 // add product to wishlist
 export const addToWishlistController = async (req, res) => {
   try {
