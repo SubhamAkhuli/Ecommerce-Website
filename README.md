@@ -1,7 +1,3 @@
-# Ecommerce Website
-
-This is a README file for an ecommerce website project.
-
 ## Description
 
 The ecommerce website is an online platform where users can browse and purchase products. It provides a user-friendly interface for customers to view product listings, add items to their cart, and complete the checkout process.
@@ -21,7 +17,6 @@ The ecommerce website is an online platform where users can browse and purchase 
 - Front-end: React.js, HTML, CSS, JavaScript
 - Back-end: Node.js, Express.js
 - Database: MongoDB
-- Payment Gateway: Stripe
 
 ## Installation
 
