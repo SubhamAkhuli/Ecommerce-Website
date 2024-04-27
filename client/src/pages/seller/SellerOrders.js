@@ -37,6 +37,15 @@ const SellerOrders = () => {
     // eslint-disable-next-line
   }, []);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear().toString().slice(-2);
+    return `${day}/${month}/${year}`;
+};
+
+
   return (
     <>
       <Header />
@@ -95,7 +104,8 @@ const SellerOrders = () => {
                               </ul>
                             </td>
                             <td style={{ alignContent: "center" }}>
-                              {new Date(order.createdAt).toLocaleDateString()}
+                              {/* {new Date(order.createdAt).toLocaleDateString()} */}
+                              {formatDate(order.updatedAt)} 
                             </td>
                             <td style={{ alignContent: "center" }}>
                               {/* Render different actions based on order status */}
