@@ -11,7 +11,7 @@ function AdminHome() {
   const sellerData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v1/sellerauth/unverifiedsellers"
+        `${process.env.REACT_APP_API_URL}/sellerauth/unverifiedsellers`
       );
       // console.log(response.data.sellers);
       setSeller(response.data.sellers);
@@ -26,7 +26,7 @@ function AdminHome() {
   const approveSeller = async (id) => {
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/v1/sellerauth/verifyseller/${id}`
+        `${process.env.REACT_APP_API_URL}/sellerauth/verifyseller/${id}`
       );
       sellerData();
       if (response.data.success) {
@@ -42,7 +42,7 @@ function AdminHome() {
   const rejectSeller = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:8080/api/v1/sellerauth/sellerdelete/${id}`
+        `${process.env.REACT_APP_API_URL}/sellerauth/sellerdelete/${id}`
       );
       sellerData();
       if (response.data.success) {

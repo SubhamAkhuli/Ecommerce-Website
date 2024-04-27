@@ -18,11 +18,11 @@ const SellerSpceficProduct = () => {
     try {
       const userId = params.pid || "N/A";
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/product/get-product/${userId}`
+        `${process.env.REACT_APP_API_URL}/product/get-product/${userId}`
       );
       setProducts(data.products);
       const seller = await axios.get(
-        `http://localhost:8080/api/v1/sellerauth/seller/${userId}`
+        `${process.env.REACT_APP_API_URL}/sellerauth/seller/${userId}`
       );
       setSellerName(seller.data.seller.name);
     } catch (error) {
@@ -79,7 +79,7 @@ const SellerSpceficProduct = () => {
                       style={{ width: "18rem" ,borderRadius:"5px", boxShadow:"0 0 10px #ccc", cursor:"pointer"}}
                     >
                       <img
-                        src={`http://localhost:8080/api/v1/product/product-photo/${product._id}`}
+                        src={`${process.env.REACT_APP_API_URL}/product/product-photo/${product._id}`}
                         className="card-img-top"
                         style={{
                           height: "200px",

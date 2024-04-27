@@ -14,7 +14,7 @@ const AdminSellerlist = () => {
   const getAllSellers = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/sellerauth/allsellers`
+        `${process.env.REACT_APP_API_URL}/sellerauth/allsellers`
       );
       // Filter out sellers whose verified field is false
       const verifiedSellers = data.sellers.filter(seller => seller.verified);
