@@ -115,7 +115,7 @@ const SellerHome = () => {
                                 <td>{item.name}</td>
                                 <td>{item.quantity}</td>
                                 <td>₹{item.price}</td>
-                                <td>{formatDate(order.updatedAt)}</td>
+                                <td>{formatDate(order.createdAt)}</td>
                                 <td>
                                   <a href={`/dashboard/seller/order-update/${order._id}`} className="btn btn-primary">View Order</a>
                                 </td>

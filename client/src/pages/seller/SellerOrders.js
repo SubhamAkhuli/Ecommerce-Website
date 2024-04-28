@@ -104,8 +104,7 @@ const SellerOrders = () => {
                               </ul>
                             </td>
                             <td style={{ alignContent: "center" }}>
-                              {/* {new Date(order.createdAt).toLocaleDateString()} */}
-                              {formatDate(order.updatedAt)} 
+                              {formatDate(order.createdAt)} 
                             </td>
                             <td style={{ alignContent: "center" }}>
                               {/* Render different actions based on order status */}
