@@ -18,6 +18,7 @@ const Product = () => {
   const [cart, setCart] = useCart();
   const params = useParams();
   const navigate = useNavigate();
+  const[Stock, setStock] = useState(false);
 
   useEffect(() => {
     const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
@@ -35,6 +36,9 @@ const Product = () => {
           `${process.env.REACT_APP_API_URL}/product/getone-product/${params.pid || "N/A"}`
         );
         setProduct(data.product);
+        if(data.product.quantity === 0){
+          setStock(true);
+        }
       } catch (error) {
         console.error(error);
         toast.error("Something went wrong while fetching product.");
@@ -86,7 +90,8 @@ const Product = () => {
             <p><b>Brand: </b>{product.brand}</p>
             <p><b>Price: </b>₹{product.price}</p>
             <p><b>Description: </b> {product.description}</p>
-            <button style={{ boxShadow: "2px 2px 10px #ccc" }} className="btn btn-light text-bg-secondary" onClick={() => {
+            {Stock && <p className="text-danger mb-0"><b>Currently Out of Stock</b></p>}
+            <button style={{ boxShadow: "2px 2px 10px #ccc" }} className="btn btn-light text-bg-secondary" disabled={Stock} onClick={() => {
               setCart([...cart, product]);
               localStorage.setItem("cart", JSON.stringify([...cart, product]));
               toast.success("Product added to cart");
