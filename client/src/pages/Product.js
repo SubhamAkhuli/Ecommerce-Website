@@ -74,7 +74,7 @@ const Product = () => {
         <div className="row m-3">
           <div className="col-md-6">
             <img
-              src={`${process.env.REACT_APP_API_URL}/product/product-photo/${product._id}`}
+              src={`${process.env.REACT_APP_API_URL}/product/product-photo/${params.pid}`}
               className="card-img-top"
               style={{
                 width: "300px",
